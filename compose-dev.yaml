@@ -1,7 +1,0 @@
-services:
-  backend:
-    entrypoint:
-    - sleep
-    - infinity
-    build: backend
-
