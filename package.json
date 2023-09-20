@@ -5,7 +5,7 @@
     "dev": "next dev",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
-    "start": "next start"
+    "start": "next start",
     "prepare": "husky install"
   },
   "dependencies": {
@@ -23,6 +23,8 @@
     "lint-staged": "^14.0.1"
   },
   "lint-staged": {
-    "*": "npm run lint:fix"
+    "*.{js,jsx,ts,tsx}": [
+      "next lint --cache --cache-location .next/cache/eslint/ --fix"
+    ]
   }
 }
