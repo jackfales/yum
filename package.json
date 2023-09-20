@@ -6,6 +6,7 @@
     "lint": "next lint",
     "lint:fix": "next lint --fix",
     "start": "next start"
+    "prepare": "husky install"
   },
   "dependencies": {
     "next": "latest",
