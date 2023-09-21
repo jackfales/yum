@@ -3,7 +3,10 @@
   "scripts": {
     "build": "next build",
     "dev": "next dev",
-    "start": "next start"
+    "lint": "next lint",
+    "lint:fix": "next lint --fix",
+    "start": "next start",
+    "prepare": "husky install"
   },
   "dependencies": {
     "next": "latest",
@@ -12,5 +15,16 @@
   },
   "engines": {
     "node": ">=18"
+  },
+  "devDependencies": {
+    "eslint": "8.49.0",
+    "eslint-config-next": "13.4.19",
+    "husky": "^8.0.3",
+    "lint-staged": "^14.0.1"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --cache --cache-location .next/cache/eslint/ --fix"
+    ]
   }
 }
