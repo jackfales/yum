@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import React, { useState } from 'react';
 
 export default function Account() {
   return (
@@ -8,13 +9,7 @@ export default function Account() {
       </Head>
       <main>
         <div>
-          <form method='POST' action=''>
-            <Input name='Username' type='text'></Input>
-            <Input name='Email' type='text'></Input>
-            <Input name='Password' type='text'></Input>
-            <Input name='Confirm Password' type='text'></Input>
-            <button type='submit'>Create Account</button>
-          </form>
+          <Form></Form>
         </div>
       </main>
     </div>
@@ -28,5 +23,82 @@ export default function Account() {
         <input type={type} id={nameSpacesRemoved} name={nameSpacesRemoved}></input>
       </div>
     )
+  }
+
+  function Form() {
+    const [inputs, setInputs] = useState({
+      uname: '',
+      email: '',
+    });
+
+    const [errors, setErrors] = useState({
+      uname: '',
+      email: '',
+    });
+
+    const handleSubmit = (e) => {
+      e.preventDefault();
+
+      for (const input in inputs) {
+        let errorMessage;
+        switch (input) {
+          case 'uname':
+            errorMessage = inputs[input].length < 5 ? 
+              'Username must be at least 5 characters long!' : '';
+            break;
+        }
+        setErrors((prevError) => ({...prevError, [input]: errorMessage}));
+      }
+    }
+
+    const handleChange = (e) => {
+      const value = e.target.value
+      setInputs({...inputs, [e.target.name]: value});
+    }
+
+    console.log(errors);
+
+    return (
+      <div>
+        <form onSubmit={handleSubmit}>
+          <div>
+            <label htmlFor='uname'>Username:</label>
+            <input type='text' 
+              id='uname'
+              name='uname'
+              onChange={handleChange}
+            />
+            {errors.uname.length > 0 &&
+              <p style={{color: 'red'}}>{errors.uname}</p>}
+          </div>
+          <div>
+            <label htmlFor='email'>Email:</label>
+            <input type='text' 
+              id='email'
+              name='email'
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <label htmlFor='pword'>Password:</label>
+            <input type='password' 
+              id='pword'
+              name='pword'
+              onChange={handleChange}
+            />
+          </div>
+          <div>
+            <label htmlFor='confirmpword'>Confirm Password:</label>
+            <input type='password' 
+              id='confirmpword'
+              name='confirmpword'
+              onChange={handleChange}
+            />
+          </div>
+          <button type='submit'>Submit</button>
+        </form>
+      </div>
+    )
+
   }
 }
