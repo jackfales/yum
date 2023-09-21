@@ -3,7 +3,7 @@ import styles from '../../styles/Home.module.css';
 
 export default function Login() {
 
-  async function onSubmit(event) {
+  function onSubmit(event) {
     event.preventDefault()
 
     // Get form data and create JSON object
@@ -11,13 +11,16 @@ export default function Login() {
     const formDataObj = {}
     formData.forEach((value, key) => (formDataObj[key] = value))
 
-    const response = await fetch('/api/login', {
-      method: 'POST',
-      body: JSON.stringify(formDataObj),
-    })
- 
-    // Handle response if necessary
-    const data = await response.json()
+    let username = formDataObj["username"]
+    let password = formDataObj["password"]
+
+    // Check if user input username and password
+    if (username.length == 0 || password.length == 0) {
+      
+    }
+
+    console.log(username)
+    console.log(password)
   }
 
   return (
@@ -28,9 +31,21 @@ export default function Login() {
       </Head>
 
       <form onSubmit={onSubmit}>
-        <input type="text" name="username" />
-        <input type="text" name="password" />
-        <button type="submit">Submit</button>
+        <div>
+          <h1>Login</h1>
+        </div>
+        <div>
+          <h3>Username</h3>
+          <input type="text" name="username" />
+        </div>
+        <div>
+          <h3>Password</h3>
+          <input type="text" name="password" />
+        </div>
+        <div>
+         <br></br>
+         <button type="submit">Submit</button>
+        </div>
       </form>
     </div>
   );
