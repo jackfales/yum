@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import styles from '../../styles/Home.module.css';
+import styles from '../styles/Home.module.css';
 
 export default function Login() {
 
@@ -16,7 +16,9 @@ export default function Login() {
 
     // Check if user input username and password
     if (username.length == 0 || password.length == 0) {
-      
+      let example = document.getElementById('error-message');
+      example.innerText = "Please enter both a Username and Password."
+      return
     }
 
     console.log(username)
@@ -31,14 +33,17 @@ export default function Login() {
       </Head>
 
       <form onSubmit={onSubmit}>
-        <div>
+        <div id="login-header">
           <h1>Login</h1>
         </div>
-        <div>
+        <div id="error">
+          <p id="error-message"></p>
+        </div>
+        <div id="username">
           <h3>Username</h3>
           <input type="text" name="username" />
         </div>
-        <div>
+        <div id="password">
           <h3>Password</h3>
           <input type="text" name="password" />
         </div>
