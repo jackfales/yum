@@ -3,14 +3,6 @@ import React, { useState } from 'react';
 import styles from '../styles/Home.module.css';
 
 export default function Account() {
-  const [inputs, setInputs] = useState({
-    fname: '',
-    lname: '',
-    uname: '',
-    pword: '',
-    confirmpword: '',
-  });
-
   const [errors, setErrors] = useState({
     fname: '',
     lname: '',
@@ -21,6 +13,10 @@ export default function Account() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    const inputs = {};
+    const formData = new FormData(e.target);
+    formData.forEach((value, key) => (inputs[key] = value));
     
     // Validation criteria for each field
     for (const input in inputs) {
@@ -46,7 +42,7 @@ export default function Account() {
           errorMessage = inputs['pword'] !== inputs[input] ?
             'Passwords do not match!' : '';
           errorMessage = inputs[input].length == 0 ?
-            'Please confirm your password!' : '';
+            'Please confirm your password!' : errorMessage;
       }
       setErrors((prevError) => ({...prevError, [input]: errorMessage}));
     }
@@ -67,27 +63,27 @@ export default function Account() {
         <form onSubmit={handleSubmit}>
           <div>
             <label htmlFor='fname'>First name:</label>
-            <input type='text' name='fname' onChange={handleChange}/>
+            <input type='text' name='fname'/>
             <div className='error'>{errors.fname}</div>
           </div>
           <div>
             <label htmlFor='lname'>Last name:</label>
-            <input type='text' name='lname' onChange={handleChange}/>
+            <input type='text' name='lname'/>
             <div className='error'>{errors.lname}</div>
           </div>
           <div>
             <label htmlFor='uname'>Username:</label>
-            <input type='text' name='uname' onChange={handleChange}/>
+            <input type='text' name='uname'/>
             <div className='error'>{errors.uname}</div>
           </div>
           <div>
             <label htmlFor='pword'>Password:</label>
-            <input type='password' name='pword' onChange={handleChange}/>
+            <input type='password' name='pword'/>
             <div className='error'>{errors.pword}</div>
           </div>
           <div>
             <label htmlFor='confirmpword'>Confirm Password:</label>
-            <input type='password' name='confirmpword' onChange={handleChange}/>
+            <input type='password' name='confirmpword'/>
             <div className='error'>{errors.confirmpword}</div>
           </div>
           <button type='submit'>Create Account</button>
