@@ -16,8 +16,8 @@ export default function Login() {
 
     // Check if user input username and password
     if (username.length == 0 || password.length == 0) {
-      let example = document.getElementById('error-message');
-      example.innerText = "Please enter both a Username and Password."
+      let error = document.getElementById('error-message');
+      error.innerText = "Please enter both a Username and Password."
       return
     }
 
