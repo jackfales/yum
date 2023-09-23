@@ -3,12 +3,12 @@ import React, { useState } from 'react';
 import styles from '../styles/Home.module.css';
 
 export default function Account() {
-  const [errors, setErrors] = useState({
-    fname: '',
-    lname: '',
-    uname: '',
-    pword: '',
-    confirmpword: '',
+  const [inputErrorMessages, setErrorMessages] = useState({
+    firstName: '',
+    lastName: '',
+    username: '',
+    password: '',
+    confirmPassword: '',
   });
 
   const handleSubmit = (e) => {
@@ -22,36 +22,35 @@ export default function Account() {
     for (const input in inputs) {
       let errorMessage;
       switch (input) {
-        case 'fname':
+        case 'firstName':
           errorMessage = inputs[input].length == 0 ?
             'Please provide a first name!' : '';
-            break;
-        case 'lname':
+          break;
+        case 'lastName':
           errorMessage = inputs[input].length == 0 ?
             'Please provide a last name!' : '';
-            break;
-        case 'uname':
+          break;
+        case 'username':
           errorMessage = inputs[input].length < 5 ? 
             'Username must be at least 5 characters long!' : '';
-            break;
-        case 'pword':
+          break;
+        case 'password':
           errorMessage = inputs[input].length < 5 ?
             'Password must be at least 6 characters long!' : '';
           break;
-        case 'confirmpword':
-          errorMessage = inputs['pword'] !== inputs[input] ?
+        case 'confirmPassword':
+          errorMessage = inputs['password'] !== inputs[input] ?
             'Passwords do not match!' : '';
           errorMessage = inputs[input].length == 0 ?
             'Please confirm your password!' : errorMessage;
+          break;
+        default:
+          errorMessage = '';
+          break;
       }
-      setErrors((prevError) => ({...prevError, [input]: errorMessage}));
+      setErrorMessages((prevError) => ({...prevError, [input]: errorMessage}));
     }
     console.log(inputs);
-  }
-
-  const handleChange = (e) => {
-    const value = e.target.value
-    setInputs({...inputs, [e.target.name]: value});
   }
   
   return (
@@ -62,37 +61,34 @@ export default function Account() {
       <main className={styles.container}>
         <form onSubmit={handleSubmit}>
           <div>
-            <label htmlFor='fname'>First name:</label>
-            <input type='text' name='fname'/>
-            <div className='error'>{errors.fname}</div>
+            <label htmlFor='firstName'>First name:</label>
+            <input type='text' name='firstName'/>
+            <div className='error'>{inputErrorMessages.firstName}</div>
           </div>
           <div>
-            <label htmlFor='lname'>Last name:</label>
-            <input type='text' name='lname'/>
-            <div className='error'>{errors.lname}</div>
+            <label htmlFor='lastName'>Last name:</label>
+            <input type='text' name='lastName'/>
+            <div className='error'>{inputErrorMessages.lastName}</div>
           </div>
           <div>
-            <label htmlFor='uname'>Username:</label>
-            <input type='text' name='uname'/>
-            <div className='error'>{errors.uname}</div>
+            <label htmlFor='username'>Username:</label>
+            <input type='text' name='username'/>
+            <div className='error'>{inputErrorMessages.username}</div>
           </div>
           <div>
-            <label htmlFor='pword'>Password:</label>
-            <input type='password' name='pword'/>
-            <div className='error'>{errors.pword}</div>
+            <label htmlFor='password'>Password:</label>
+            <input type='password' name='password'/>
+            <div className='error'>{inputErrorMessages.password}</div>
           </div>
           <div>
-            <label htmlFor='confirmpword'>Confirm Password:</label>
-            <input type='password' name='confirmpword'/>
-            <div className='error'>{errors.confirmpword}</div>
+            <label htmlFor='confirmPassword'>Confirm Password:</label>
+            <input type='password' name='confirmPassword'/>
+            <div className='error'>{inputErrorMessages.confirmPassword}</div>
           </div>
           <button type='submit'>Create Account</button>
         </form>
       </main>
       <style jsx>{`
-        main {
-        }
-
         label {
           display: block;
           font-size: 18px;
@@ -137,7 +133,6 @@ export default function Account() {
           box-sizing: border-box;
         }
       `}</style>
-      
     </div>
   )
 }
