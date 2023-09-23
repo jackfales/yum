@@ -13,44 +13,41 @@ export default function Account() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    const inputs = {};
     const formData = new FormData(e.target);
-    formData.forEach((value, key) => (inputs[key] = value));
     
     // Validation criteria for each field
-    for (const input in inputs) {
+    formData.forEach((input, field) => {
       let errorMessage;
-      switch (input) {
+      switch (field) {
         case 'firstName':
-          errorMessage = inputs[input].length == 0 ?
+          errorMessage = input.length === 0 ?
             'Please provide a first name!' : '';
           break;
         case 'lastName':
-          errorMessage = inputs[input].length == 0 ?
+          errorMessage = input.length === 0 ?
             'Please provide a last name!' : '';
           break;
         case 'username':
-          errorMessage = inputs[input].length < 5 ? 
+          errorMessage = input.length < 5 ? 
             'Username must be at least 5 characters long!' : '';
           break;
         case 'password':
-          errorMessage = inputs[input].length < 5 ?
+          errorMessage = input.length < 5 ?
             'Password must be at least 6 characters long!' : '';
           break;
         case 'confirmPassword':
-          errorMessage = inputs['password'] !== inputs[input] ?
+          errorMessage = formData.get('password') !== input ?
             'Passwords do not match!' : '';
-          errorMessage = inputs[input].length == 0 ?
+          errorMessage = input.length === 0 ?
             'Please confirm your password!' : errorMessage;
           break;
         default:
           errorMessage = '';
           break;
       }
-      setErrorMessages((prevError) => ({...prevError, [input]: errorMessage}));
-    }
-    console.log(inputs);
+      setErrorMessages((prevError) => ({...prevError, [field]: errorMessage}));
+      console.log(`${field}: ${input}`);
+    });
   }
   
   return (
@@ -110,7 +107,6 @@ export default function Account() {
           color: #FA535E;
         }
       `}</style>
-
       <style jsx global>{`
         html,
         body {
