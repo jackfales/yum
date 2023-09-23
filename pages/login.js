@@ -1,7 +1,9 @@
 import Head from 'next/head';
+import { useState } from 'react';
 import styles from '../styles/Home.module.css';
 
 export default function Login() {
+  const [error, setError] = useState('');
 
   function onSubmit(event) {
     event.preventDefault()
@@ -16,9 +18,11 @@ export default function Login() {
 
     // Check if user input username and password
     if (username.length == 0 || password.length == 0) {
-      let error = document.getElementById('error-message');
-      error.innerText = "Please enter both a Username and Password."
+      setError("Please enter both a Username and Password.")
       return
+    }
+    else {
+      setError("")
     }
 
     console.log(username)
@@ -37,7 +41,7 @@ export default function Login() {
           <h1>Login</h1>
         </div>
         <div id="error">
-          <p id="error-message"></p>
+          <p id="error-message">{error}</p>
         </div>
         <div id="username">
           <h3>Username</h3>
