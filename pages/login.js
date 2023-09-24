@@ -8,7 +8,7 @@ export default function Login() {
   function onSubmit(event) {
     event.preventDefault()
 
-    // Get form data and create JSON object
+    // Get form data
     const formData = new FormData(event.target)
 
     let username = formData.get("username")
