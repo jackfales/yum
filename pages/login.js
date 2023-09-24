@@ -15,7 +15,7 @@ export default function Login() {
     let password = formData.get("password")
 
     // Check if user input username and password
-    if (username.length == 0 || password.length == 0) {
+    if (username.length === 0 || password.length === 0) {
       setErrorMessage("Please enter both a Username and Password.")
       return
     } else {
