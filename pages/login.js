@@ -3,30 +3,27 @@ import { useState } from 'react';
 import styles from '../styles/Home.module.css';
 
 export default function Login() {
-  const [error, setError] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   function onSubmit(event) {
     event.preventDefault()
 
     // Get form data and create JSON object
     const formData = new FormData(event.target)
-    const formDataObj = {}
-    formData.forEach((value, key) => (formDataObj[key] = value))
 
-    let username = formDataObj["username"]
-    let password = formDataObj["password"]
+    let username = formData.get("username")
+    let password = formData.get("password")
 
     // Check if user input username and password
     if (username.length == 0 || password.length == 0) {
-      setError("Please enter both a Username and Password.")
+      setErrorMessage("Please enter both a Username and Password.")
       return
-    }
-    else {
-      setError("")
+    } else {
+      setErrorMessage("")
     }
 
-    console.log(username)
-    console.log(password)
+    console.log("Username: %s", username)
+    console.log("Password: %s", password)
   }
 
   return (
@@ -41,7 +38,7 @@ export default function Login() {
           <h1>Login</h1>
         </div>
         <div id="error">
-          <p id="error-message">{error}</p>
+          <p id="error-message">{errorMessage}</p>
         </div>
         <div id="username">
           <h3>Username</h3>
