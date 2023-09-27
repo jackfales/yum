@@ -11,7 +11,7 @@ export default function Account() {
     confirmPassword: '',
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     
@@ -47,6 +47,14 @@ export default function Account() {
       }
       setErrorMessages((prevError) => ({...prevError, [field]: errorMessage}));
       console.log(`${field}: ${input}`);
+    });
+
+    await fetch('./api/create-account', {
+      method: 'POST',
+      headers: {
+        Accept: "application/json",
+      },
+      body: formData,
     });
   }
   

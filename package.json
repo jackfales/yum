@@ -9,6 +9,8 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@aws-sdk/client-cognito-identity-provider": "^3.418.0",
+    "formidable": "^3.5.1",
     "next": "latest",
     "react": "18.2.0",
     "react-dom": "18.2.0"
