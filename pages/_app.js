@@ -3,8 +3,8 @@ import awsExports from "../src/aws-exports";
 
 Amplify.configure({ ...awsExports, ssr: true});
 
-function MyApp({ Component, pageProps }) {
+function App({ Component, pageProps }) {
   return <Component {...pageProps} />;
 }
 
-export default MyApp;
+export default App;

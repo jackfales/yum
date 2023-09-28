@@ -57,7 +57,9 @@ export default function Account() {
         Accept: "application/json",
       },
       body: JSON.stringify(userInputs),
-    });
+    })   
+      .then(response => response.json())
+      .then(response => console.log(response));
   }
   
   return (

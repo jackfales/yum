@@ -9,7 +9,6 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "@aws-sdk/client-cognito-identity-provider": "^3.418.0",
     "aws-amplify": "^5.3.11",
     "next": "latest",
     "react": "18.2.0",
