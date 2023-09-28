@@ -1,32 +1,17 @@
 import { CognitoIdentityProviderClient, SignUpCommand } 
   from '@aws-sdk/client-cognito-identity-provider';
-// To parse through formData, may be better to send a JSON object
-import formidable from 'formidable';
 
 // These variables should be set in the environment varibles
 // But I am just going to explicity declare them for now
 // const { COGNITO_REGION, COGNITO_APP_CLIENT_ID } = process.env;
 const COGNITO_REGION = 'us-west-2';
-const COGNITO_APP_CLIENT_ID = '56mmq1d2g0so80bd6jioq0umrb';
+const COGNITO_APP_CLIENT_ID = '7q994i31ra7iiq93qv0e074r91';
 
-// Need to disable built-in body parser for formidable
-export const config = {
-  api: {
-    bodyParser: false
-  }
-}
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).send();
 
-  // Parse the formData from the requestBody
-  const form = formidable({multiples: true});
-  const data = await new Promise((resolve, reject) => {
-    form.parse(req, (err, fields, files) => {
-      if (err) reject({ err });
-      resolve({ fields });
-    });
-  });
+  const { username, password, lastName, firstName } = JSON.parse(req.body);
 
   const client = new CognitoIdentityProviderClient({
     region: COGNITO_REGION
@@ -34,20 +19,20 @@ export default async function handler(req, res) {
 
   const inputs = {
     ClientId: COGNITO_APP_CLIENT_ID,
-    Password: data.fields.password[0],
-    Username: data.fields.username[0],
+    Password: password,
+    Username: username,
     UserAttributes: [
       {
         Name: 'given_name',
-        Value: data.fields.firstName[0]
+        Value: firstName
       }, 
       {
         Name: 'family_name',
-        Value: data.fields.lastName[0]
+        Value: lastName
       },
       {
         Name: 'preferred_username',
-        Value: data.fields.username[0]
+        Value: username
       }
     ]
   }

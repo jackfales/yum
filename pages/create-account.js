@@ -13,10 +13,12 @@ export default function Account() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const userInputs = {}
     const formData = new FormData(e.target);
-    
+
     // Validation criteria for each field
     formData.forEach((input, field) => {
+      userInputs[field] = input;
       let errorMessage;
       switch (field) {
         case 'firstName':
@@ -54,7 +56,7 @@ export default function Account() {
       headers: {
         Accept: "application/json",
       },
-      body: formData,
+      body: JSON.stringify(userInputs),
     });
   }
   
