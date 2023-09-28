@@ -10,6 +10,11 @@
       "StackName": "amplify-yum-dev-214045",
       "StackId": "arn:aws:cloudformation:us-west-2:113873284918:stack/amplify-yum-dev-214045/30b33d50-5db9-11ee-a299-0ab1e32efdf7",
       "AmplifyAppId": "d2m17wij0z7pp8"
+    },
+    "categories": {
+      "auth": {
+        "yum17ce7d7b": {}
+      }
     }
   }
 }
