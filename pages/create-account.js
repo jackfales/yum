@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import React, { useState } from 'react';
+import { useRouter } from 'next/router';
 import styles from '../styles/Home.module.css';
 
 export default function Account() {
@@ -10,6 +11,8 @@ export default function Account() {
     password: '',
     confirmPassword: '',
   });
+
+  const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -58,8 +61,14 @@ export default function Account() {
       },
       body: JSON.stringify(userInputs),
     })   
-      .then(response => response.json())
-      .then(response => console.log(response));
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.success) {
+          router.push('/login');
+        } else {
+          setErrorMessages({ serverResponse: res.message });
+        }
+      });
   }
   
   return (
@@ -69,6 +78,7 @@ export default function Account() {
       </Head>
       <main className={styles.container}>
         <form onSubmit={handleSubmit}>
+          <div className='error'>{inputErrorMessages.serverResponse}</div>
           <div>
             <label htmlFor='firstName'>First name:</label>
             <input type='text' name='firstName'/>

@@ -15,8 +15,8 @@ export default async function handler(req, res) {
         preferred_username: username
       }
     });
-    return res.status(200).json({ message: 'Success.'});
+    res.status(200).json({ success: true });
   } catch (err) {
-    return res.status(400).json({ message: err.toString() });
+    return res.status(400).json({ success: false, message: err.toString() });
   }
 }
