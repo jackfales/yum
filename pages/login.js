@@ -2,8 +2,18 @@ import Head from 'next/head';
 import { useState } from 'react';
 import styles from '../styles/Home.module.css';
 
-export default function Login() {
+import { Amplify } from 'aws-amplify';
+
+import { withAuthenticator } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+
+import awsExports from './aws-exports';
+Amplify.configure(awsExports);
+
+async function Login() {
   const [errorMessage, setErrorMessage] = useState('');
+
+  const router = useRouter();
 
   function onSubmit(event) {
     event.preventDefault()
@@ -24,6 +34,25 @@ export default function Login() {
 
     console.log("Username: %s", username)
     console.log("Password: %s", password)
+  }
+
+  // FIX FOR LOGIN PAGE
+  if (hasNoErrors) {
+    await fetch('./api/login', {
+      method: 'POST',
+      headers: {
+        Accept: "application/json",
+      },
+      body: JSON.stringify(userInputs),
+    })   
+      .then((res) => res.json())
+      .then((res) => {
+        if (res.success) {
+          router.push('/index');
+        } else {
+          setErrorMessages({ serverResponse: res.message });
+        }
+      });
   }
 
   return (
@@ -56,3 +85,5 @@ export default function Login() {
     </div>
   );
 }
+
+export default withAuthenticator(Login);
