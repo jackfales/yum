@@ -1,0 +1,57 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-yum-dev-214045-authRole",
+      "UnauthRoleArn": "arn:aws:iam::113873284918:role/amplify-yum-dev-214045-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::113873284918:role/amplify-yum-dev-214045-authRole",
+      "Region": "us-west-2",
+      "DeploymentBucketName": "amplify-yum-dev-214045-deployment",
+      "UnauthRoleName": "amplify-yum-dev-214045-unauthRole",
+      "StackName": "amplify-yum-dev-214045",
+      "StackId": "arn:aws:cloudformation:us-west-2:113873284918:stack/amplify-yum-dev-214045/30b33d50-5db9-11ee-a299-0ab1e32efdf7",
+      "AmplifyAppId": "d2m17wij0z7pp8"
+    }
+  },
+  "auth": {
+    "yum17ce7d7b": {
+      "customAuth": false,
+      "dependsOn": [],
+      "frontendAuthConfig": {
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyMinLength": 8,
+          "passwordPolicyCharacters": []
+        },
+        "signupAttributes": [
+          "FAMILY_NAME",
+          "GIVEN_NAME",
+          "PREFERRED_USERNAME"
+        ],
+        "socialProviders": [],
+        "usernameAttributes": [],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "Cognito",
+      "output": {
+        "UserPoolId": "us-west-2_G4CkGhP00",
+        "AppClientIDWeb": "7q994i31ra7iiq93qv0e074r91",
+        "AppClientID": "46i6db0uar2ai0i72ie84dq0hm",
+        "IdentityPoolId": "us-west-2:6f4e3698-7135-4356-ad53-a8e802e01b20",
+        "UserPoolArn": "arn:aws:cognito-idp:us-west-2:113873284918:userpool/us-west-2_G4CkGhP00",
+        "IdentityPoolName": "yum17ce7d7b_identitypool_17ce7d7b__dev",
+        "UserPoolName": "yum17ce7d7b_userpool_17ce7d7b"
+      },
+      "lastPushTimeStamp": "2023-10-02T23:11:17.183Z",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-yum-dev-214045-deployment/amplify-cfn-templates/auth/yum17ce7d7b-cloudformation-template.json",
+        "logicalId": "authyum17ce7d7b"
+      }
+    }
+  }
+}
