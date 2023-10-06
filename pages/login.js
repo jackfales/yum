@@ -1,21 +1,20 @@
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import styles from '../styles/Home.module.css';
-
 import { Amplify } from 'aws-amplify';
-
 import { withAuthenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
-
-import awsExports from './aws-exports';
+import awsExports from '../src/aws-exports';
 Amplify.configure(awsExports);
 
-async function Login() {
+
+export default function Login() {
   const [errorMessage, setErrorMessage] = useState('');
 
   const router = useRouter();
 
-  function onSubmit(event) {
+  async function onSubmit(event) {
     event.preventDefault()
 
     // Get form data
@@ -34,25 +33,30 @@ async function Login() {
 
     console.log("Username: %s", username)
     console.log("Password: %s", password)
-  }
 
+    // Send username and password to API for validation
+    let user_credentials = {
+      "username" : username,
+      "password" : password
+    }
 
     await fetch('./api/login', {
       method: 'POST',
       headers: {
         Accept: "application/json",
       },
-      body: JSON.stringify(userInputs),
+    body: JSON.stringify(user_credentials),
     })   
       .then((res) => res.json())
       .then((res) => {
+        console.log(res)
         if (res.success) {
           router.push('/index');
         } else {
-          setErrorMessages({ serverResponse: res.message });
+          setErrorMessage(res.message);
         }
     });
-  
+  }
 
   return (
     <div className={styles.container}>
@@ -84,5 +88,3 @@ async function Login() {
     </div>
   );
 }
-
-export default withAuthenticator(Login);
