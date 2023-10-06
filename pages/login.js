@@ -36,8 +36,7 @@ async function Login() {
     console.log("Password: %s", password)
   }
 
-  // FIX FOR LOGIN PAGE
-  if (hasNoErrors) {
+
     await fetch('./api/login', {
       method: 'POST',
       headers: {
@@ -52,8 +51,8 @@ async function Login() {
         } else {
           setErrorMessages({ serverResponse: res.message });
         }
-      });
-  }
+    });
+  
 
   return (
     <div className={styles.container}>
