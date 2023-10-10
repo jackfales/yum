@@ -3,13 +3,13 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import styles from '../styles/Home.module.css';
 
-export default function Account() {
+export default function CreateAccount() {
   const [inputErrorMessages, setErrorMessages] = useState({
+    confirmPassword: '',
     firstName: '',
     lastName: '',
-    username: '',
     password: '',
-    confirmPassword: '',
+    username: '',
   });
 
   const router = useRouter();

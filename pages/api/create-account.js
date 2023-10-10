@@ -3,7 +3,7 @@ import { Auth } from 'aws-amplify'
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).send();
 
-  const { username, password, lastName, firstName } = JSON.parse(req.body);
+  const { firstName, lastName, password, username } = JSON.parse(req.body);
 
   try {
     await Auth.signUp({
