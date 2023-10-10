@@ -1,5 +1,5 @@
 {
   "projectPath": "/Users/sam/Code/yum",
-  "envName": "dev",
-  "defaultEditor": "vscode"
+  "defaultEditor": "vscode",
+  "envName": "dev"
 }
