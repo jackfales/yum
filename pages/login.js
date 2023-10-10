@@ -45,7 +45,7 @@ export default function Login() {
       .then((res) => {
         console.log(res)
         if (res.success) {
-          router.push('/index');
+          router.push('/');
         } else {
           setErrorMessage(res.message);
         }
