@@ -1,4 +1,3 @@
-// TODO FIX FOR LOGIN PAGE
 import { Auth } from 'aws-amplify'
 
 export default async function login(req, res) {
