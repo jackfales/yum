@@ -1,20 +1,26 @@
 import Head from 'next/head';
 import React, { useState } from 'react';
+import { useRouter } from 'next/router';
 import styles from '../styles/Home.module.css';
 
-export default function Account() {
+export default function CreateAccount() {
   const [inputErrorMessages, setErrorMessages] = useState({
+    confirmPassword: '',
     firstName: '',
     lastName: '',
-    username: '',
     password: '',
-    confirmPassword: '',
+    username: '',
   });
 
-  const handleSubmit = (e) => {
+  const router = useRouter();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const userInputs = {};
+    const errors = {};
     const formData = new FormData(e.target);
-    
+
     // Validation criteria for each field
     formData.forEach((input, field) => {
       let errorMessage;
@@ -45,9 +51,33 @@ export default function Account() {
           errorMessage = '';
           break;
       }
-      setErrorMessages((prevError) => ({...prevError, [field]: errorMessage}));
+      userInputs[field] = input;
+      errors[field] = errorMessage;
       console.log(`${field}: ${input}`);
     });
+    // Update the error messages, telling React to re-render the component
+    setErrorMessages(errors);
+
+    // Check if the form has any errors
+    const hasNoErrors = Object.values(errors)
+                                .every((input) => input === '');
+    if (hasNoErrors) {
+      await fetch('./api/create-account', {
+        method: 'POST',
+        headers: {
+          Accept: "application/json",
+        },
+        body: JSON.stringify(userInputs),
+      })   
+        .then((res) => res.json())
+        .then((res) => {
+          if (res.success) {
+            router.push('/login');
+          } else {
+            setErrorMessages({ serverResponse: res.message });
+          }
+        });
+    }
   }
   
   return (
@@ -57,6 +87,7 @@ export default function Account() {
       </Head>
       <main className={styles.container}>
         <form onSubmit={handleSubmit}>
+          <div className='error'>{inputErrorMessages.serverResponse}</div>
           <div>
             <label htmlFor='firstName'>First name:</label>
             <input type='text' name='firstName'/>

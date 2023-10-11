@@ -9,6 +9,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "aws-amplify": "^5.3.11",
     "next": "latest",
     "react": "18.2.0",
     "react-dom": "18.2.0"
