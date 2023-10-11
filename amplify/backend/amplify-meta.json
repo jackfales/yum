@@ -47,7 +47,7 @@
         "IdentityPoolName": "yum17ce7d7b_identitypool_17ce7d7b__dev",
         "UserPoolName": "yum17ce7d7b_userpool_17ce7d7b"
       },
-      "lastPushTimeStamp": "2023-10-10T01:57:11.698Z",
+      "lastPushTimeStamp": "2023-10-11T01:53:41.629Z",
       "providerMetadata": {
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-yum-dev-214045-deployment/amplify-cfn-templates/auth/yum17ce7d7b-cloudformation-template.json",
         "logicalId": "authyum17ce7d7b"
