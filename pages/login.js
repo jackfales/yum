@@ -1,11 +1,14 @@
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import styles from '../styles/Home.module.css';
 
 export default function Login() {
   const [errorMessage, setErrorMessage] = useState('');
 
-  function onSubmit(event) {
+  const router = useRouter();
+
+  async function onSubmit(event) {
     event.preventDefault()
 
     // Get form data
@@ -24,6 +27,29 @@ export default function Login() {
 
     console.log("Username: %s", username)
     console.log("Password: %s", password)
+
+    // Send username and password to API for validation
+    let userCredentials = {
+      username,
+      password
+    }
+
+    await fetch('./api/login', {
+      method: 'POST',
+      headers: {
+        Accept: "application/json",
+      },
+    body: JSON.stringify(userCredentials),
+    })   
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res)
+        if (res.success) {
+          router.push('/');
+        } else {
+          setErrorMessage(res.message);
+        }
+    });
   }
 
   return (
@@ -46,7 +72,7 @@ export default function Login() {
         </div>
         <div id="password">
           <h3>Password</h3>
-          <input type="text" name="password" />
+          <input type="password" name="password" />
         </div>
         <div>
          <br></br>
