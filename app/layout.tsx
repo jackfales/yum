@@ -1,3 +1,5 @@
+import '../styles/globals.css';
+
 export const metadata = {
   title: 'YUM',
   description: 'A social media web application for chefs and home-cooks alike.',
