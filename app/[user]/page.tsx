@@ -1,3 +1,4 @@
+import Image from 'next/image';
 // These imports just for grabbing the static data - these should be removed
 import path from 'path';
 import fs from 'fs';
@@ -29,6 +30,12 @@ export default async function Profile({ params }: { params: {user: string}}) {
   const { followers, following, postCount } = getProfileData(user);
   return (
     <>
+      <Image
+        src={`/images/pp/${user}.jpg`}
+        alt="Picture of the user"
+        width={200}
+        height={200}
+      />
       <h1>Hi this is {user}</h1>
       <ul>
         <li>Followers: {followers}</li>
