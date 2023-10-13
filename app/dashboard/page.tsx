@@ -5,8 +5,7 @@ export const metadata = {
 }
 
 export default function Dashboard() {
-  // Replace with logic to grab username of current session
-  // Maybe we should have it route to users/[username]?
+  // TODO Have profile picture route to the profile of the current session user
   const username = 'dtran';
   
   return (<>
