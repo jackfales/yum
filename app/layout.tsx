@@ -1,4 +1,8 @@
+import { Amplify } from "aws-amplify";
+import awsExports from "../src/aws-exports";
 import '../styles/globals.css';
+
+Amplify.configure({ ...awsExports, ssr: true });
 
 export const metadata = {
   title: 'YUM',
