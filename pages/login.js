@@ -1,3 +1,4 @@
+import { Auth } from 'aws-amplify'
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
@@ -28,28 +29,12 @@ export default function Login() {
     console.log("Username: %s", username)
     console.log("Password: %s", password)
 
-    // Send username and password to API for validation
-    let userCredentials = {
-      username,
-      password
+    try {
+      await Auth.signIn(username, password);
+      router.push(`/dashboard`);
+    } catch (error) {
+      setErrorMessage(error);
     }
-
-    await fetch('./api/login', {
-      method: 'POST',
-      headers: {
-        Accept: "application/json",
-      },
-    body: JSON.stringify(userCredentials),
-    })   
-      .then((res) => res.json())
-      .then((res) => {
-        console.log(res)
-        if (res.success) {
-          router.push('/');
-        } else {
-          setErrorMessage(res.message);
-        }
-    });
   }
 
   return (
