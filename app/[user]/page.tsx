@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import styles from "../../styles/Profile.module.css"
 // TODO These imports may not be needed when we implement a database
 import path from 'path';
 import fs from 'fs';
@@ -39,19 +40,30 @@ export default async function Profile({ params }: { params: {user: string}}) {
   const { user } = params;
   const { followers, following, postCount } = getProfileData(user);
   return (
-    <>
-      <Image
-        src={`/images/pp/${user}.jpg`}
-        alt="Picture of the user"
-        width={200}
-        height={200}
-      />
-      <h1>Hi this is {user}</h1>
-      <ul>
-        <li>Followers: {followers}</li>
-        <li>Following: {following}</li>
-        <li>Post Count: {postCount}</li>
-      </ul>
-    </>
+    <main id={styles['main']}>
+      <div id={styles['profilebanner']} className={`${styles.container} ${styles.column}`}>
+        <div id={styles['profileheader']} 
+             className={`${styles.container} 
+                         ${styles.row} 
+                         ${styles.spacebetween}`}>
+          <Image
+            id={styles['profilepicture']}
+            src={`/images/pp/${user}.jpg`}
+            alt="Picture of the user"
+            width={100}
+            height={100}
+          />
+          <h1>{user}</h1>
+        </div>
+        <div id={styles['profileinfo']} 
+             className={`${styles.container} 
+             ${styles.row} 
+             ${styles.spacebetween}`}>
+          <p>Followers: {followers}</p>
+          <p>Following: {following}</p>
+          <p>Post Count: {postCount}</p>
+        </div>
+      </div>
+    </main>
   )
 }
