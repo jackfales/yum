@@ -1,9 +1,13 @@
 import Head from 'next/head';
+import isEmail from 'validator/lib/isEmail';
+import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import styles from '../styles/Home.module.css';
 
 function ForgotPassword () {
-  const [message, setMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const router = useRouter();
 
   const onSubmit = async (event) => {
     event.preventDefault();
@@ -14,11 +18,11 @@ function ForgotPassword () {
     let email = formData.get("email")
 
     // TODO implement email format checking
-    if (email.length === 0) {
-        setMessage("Please enter a valid email.")
+    if (email.length === 0 || !isEmail(email)) {
+        setErrorMessage("Please enter a valid email.")
         return
     } else {
-        setMessage("")
+        setErrorMessage("")
     }
 
     console.log(email)
@@ -38,11 +42,11 @@ function ForgotPassword () {
           <h1>Forgot Password</h1>
         </div>
         <div id="message">
-          <p id="message">{message}</p>
+          <p id="message">{errorMessage}</p>
         </div>
         <div id="email">
           <h3>Email</h3>
-          <input type="email" name="email" />
+          <input type="text" name="email" />
         </div>
         <div>
          <br></br>
