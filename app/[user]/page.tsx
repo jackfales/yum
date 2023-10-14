@@ -64,7 +64,6 @@ export default async function Profile({ params }: { params: {user: string}}) {
   // Passes client-side credentials to server via cookies
   const { Auth } = withSSRContext({ req });
 
-  // Renders dashboard if logged in, else redirect to /login
   let currUser
   try {
     const data = await Auth.currentAuthenticatedUser();
