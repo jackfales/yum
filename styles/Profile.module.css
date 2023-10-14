@@ -30,11 +30,21 @@
   background-color: pink;
 }
 
+#profilebutton {
+  width: 150px;
+  margin: 10px;
+  height: 40px;
+  background-color: lightblue;
+  border-radius: 120px;
+  border: 0px;
+}
+
 #profileheader {
   width: 225px;
 }
 
 #profileinfo {
+  font-size: 18px;
   width: 400px;
 }
 

@@ -9,12 +9,14 @@ export const metadata = {
 }
 
 export default async function Dashboard() {
+  // Packages cookies into request header
   const req = {
     headers: {
       cookie: headers().get("cookie"),
     },
   };
 
+  // Passes client-side credentials to server via cookies
   const { Auth } = withSSRContext({ req });
 
   // Renders dashboard if logged in, else redirect to /login

@@ -1,3 +1,5 @@
+import { withSSRContext } from "aws-amplify";
+import { headers } from "next/headers";
 import Image from 'next/image';
 import styles from "../../styles/Profile.module.css"
 // TODO These imports may not be needed when we implement a database
@@ -36,9 +38,44 @@ export function getProfileData(id: string): any {
   return JSON.parse(fs.readFileSync(profilePath, 'utf8'));
 }
 
+/**
+ * Conditionally renders the button if the profile belongs to the current user
+ * session
+ * 
+ * @param isUser - true if current session user matches page, false otherwise
+ */
+export function Button({ isUser }: { isUser: boolean }) {
+  if (isUser) {
+    return (<button id={styles['profilebutton']}>Edit profile</button>);
+  } else {
+    return (<button id={styles['profilebutton']}>Follow</button>);
+  }
+}
+
+
 export default async function Profile({ params }: { params: {user: string}}) {
+  // Packages cookies into request header
+  const req = {
+    headers: {
+      cookie: headers().get("cookie"),
+    },
+  };
+
+  // Passes client-side credentials to server via cookies
+  const { Auth } = withSSRContext({ req });
+
+  // Renders dashboard if logged in, else redirect to /login
+  let currUser
+  try {
+    const data = await Auth.currentAuthenticatedUser();
+    currUser = data.username;
+  } catch(err) {
+    console.log(err);
+  }
+
   const { user } = params;
   const { followers, following, postCount } = getProfileData(user);
+
   return (
     <main id={styles['main']}>
       <div id={styles['profilebanner']} className={`${styles.container} ${styles.column}`}>
@@ -64,6 +101,7 @@ export default async function Profile({ params }: { params: {user: string}}) {
           <p>Post Count: {postCount}</p>
         </div>
       </div>
+      <Button isUser={currUser === user}></Button>
     </main>
   )
 }
