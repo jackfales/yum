@@ -5,8 +5,8 @@ import React, { useState } from 'react';
 import { Auth } from 'aws-amplify';
 import styles from '../styles/Home.module.css';
 
-function ForgotPassword () {
-  const [errorMessage, setErrorMessage] = useState('');
+function ResetPassword () {
+  const [errorMessage, setErrorMessage] = useState('Please enter your email, verification code sent to your email, and your new password');
 
   const router = useRouter();
 
@@ -17,8 +17,10 @@ function ForgotPassword () {
     const formData = new FormData(event.target)
 
     const email = formData.get("email").toString()
+    const verificationCode = formData.get("verificationCode").toString()
+    const newPassword = formData.get("newPassword").toString()
 
-    // TODO implement email format checking
+    // Email format checking
     if (email.length === 0 || !isEmail(email)) {
         setErrorMessage("Please enter a valid email.")
         return
@@ -26,27 +28,26 @@ function ForgotPassword () {
         setErrorMessage("")
     }
 
-    // Send a request to initiate the password reset process
-    // Send confirmation code to user's email
-
+    // Reset password
     try {
-      await Auth.forgotPassword(email);
-      router.push('/reset-password');
+      await Auth.forgotPasswordSubmit(email, verificationCode, newPassword);
+      router.push('/login');
     } catch(err) {
-      setErrorMessage("Please enter a valid email.");
+      setErrorMessage("Please make sure all entries are correct.");
     }
+    
   };
 
   return (
     <div className={styles.container}>
       <Head>
-        <title>YUM | Forgot Password</title>
+        <title>YUM | Reset Password</title>
         <link rel="icon" href="/favicon-32x32.png"/>
       </Head>
 
       <form onSubmit={onSubmit}>
-        <div id="forgot-password">
-          <h1>Forgot Password</h1>
+        <div id="resetPassword">
+          <h1>Reset Password</h1>
         </div>
         <div id="message">
           <p id="message">{errorMessage}</p>
@@ -54,6 +55,14 @@ function ForgotPassword () {
         <div id="email">
           <h3>Email</h3>
           <input type="text" name="email" />
+        </div>
+        <div id="verificationCode">
+          <h3>Verification Code</h3>
+          <input type="text" name="verificationCode" />
+        </div>
+        <div id="newPassword">
+          <h3>New Password</h3>
+          <input type="text" name="newPassword" />
         </div>
         <div>
          <br></br>
@@ -64,7 +73,7 @@ function ForgotPassword () {
   );
 };
 
-export default ForgotPassword;
+export default ResetPassword;
   
 
 
