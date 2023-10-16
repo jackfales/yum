@@ -33,7 +33,7 @@ export default function Login() {
       await Auth.signIn(username, password);
       router.push(`/dashboard`);
     } catch (error) {
-      setErrorMessage(error);
+      setErrorMessage(error.toString());
     }
   }
 
