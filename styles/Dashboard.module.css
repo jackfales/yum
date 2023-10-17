@@ -1,0 +1,22 @@
+.header {
+  font-size: 20px;
+  color: seagreen;
+  height: 60px;
+  width: 100%;
+  background-color:  #FF99F8;
+}
+
+.container {
+  padding: 0 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 60px;
+  align-items: center;
+}
+
+.profilepicture {
+  background-color: seagreen;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
