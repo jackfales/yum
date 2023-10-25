@@ -68,6 +68,20 @@
   flex-direction: column;
 }
 
+.form {
+  padding: 15px;
+}
+
+.field > * {
+  display: block;
+  margin: 0px;
+  width: 100%;
+}
+
 .spacebetween {
   justify-content: space-between;
+}
+
+.textbox {
+  resize: none;
 }

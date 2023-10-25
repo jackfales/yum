@@ -44,30 +44,7 @@ export default async function Dashboard() {
         />
       </a>
     </div>
-    <Modal title="Create Post">
-        <form id={styles.form}>
-          <div className={styles.field}>
-            <label htmlFor='dish'>Choose an image for your dish:</label>
-            <input type='file' name='dish'/>
-          </div>
-          <div className={styles.field}>
-            <label htmlFor='name'>Name:</label>
-            <input type='text' name='name'/>
-          </div>
-          <div className={styles.field}>
-            <label htmlFor='caption'>Caption:</label>
-            <textarea name='caption' rows={3} className={styles.textbox}/>
-          </div>
-          <div className={styles.field}>
-            <label htmlFor='recipe'>Recipe:</label>
-            <textarea name='recipe' rows={12} className={styles.textbox}/>
-          </div>
-          <div className={styles.field}>
-            <label htmlFor='tags'>Tags:</label>
-            <input type='text' name='tags'/>
-          </div>
-        </form>
-    </Modal>
+    <Modal title="Create Post"></Modal>
   </>
   )
 }
