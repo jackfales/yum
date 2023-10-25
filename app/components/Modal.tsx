@@ -1,5 +1,6 @@
 'use client'
 import { useEffect, useRef, useState } from 'react';
+import styles from "../../styles/Modal.module.css";
 
 type Props = {
   children: React.ReactNode,
@@ -38,21 +39,22 @@ export default function Modal({ title, children }: Props) {
   
   return (
     <>
-      <dialog ref={modalRef}>
+      <dialog ref={modalRef} id={styles.modal}>
         <div>
-          <div>
-            <h1>{title}</h1>
-            <button onClick={clickClose}>x</button>
+          <div className={`${styles.container} ${styles.spacebetween}`}
+               id={styles.header}>
+            <h3 id={styles.title}>{title}</h3>
+            <button id={styles.closebutton} onClick={clickClose}>x</button>
           </div>
-          <div>
             {children}
-            <div>
-              <button onClick={clickOk}>OK</button>
+            <div id={styles.footer} className={`${styles.container} ${styles.center}`}>
+              <button id={styles.submitbutton} onClick={clickOk}>Submit</button>
             </div>
-          </div>
         </div>
       </dialog>
-      <button onClick={clickOpen}>Create Post</button>
+      <div className={`${styles.container} ${styles.center}`}>
+        <button id={styles.modalbutton}onClick={clickOpen}>Create Post</button>
+      </div>
     </>
   )
 }

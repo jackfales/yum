@@ -31,7 +31,7 @@ export default async function Dashboard() {
   }
   
   return (<>
-    <div className={`${styles.header} ${styles.container} ${styles.spacebetween}`}>
+    <div id={styles.header} className={`${styles.container} ${styles.spacebetween}`}>
       <div>YUM</div>
       <div>Dashboard</div>
       <a className={styles.profilepicture} href={`/${username}`}>
@@ -44,8 +44,29 @@ export default async function Dashboard() {
         />
       </a>
     </div>
-    <Modal title="Example Modal">
-        <p> This is one ugly ass modal. </p>
+    <Modal title="Create Post">
+        <form id={styles.form}>
+          <div className={styles.field}>
+            <label htmlFor='dish'>Choose an image for your dish:</label>
+            <input type='file' name='dish'/>
+          </div>
+          <div className={styles.field}>
+            <label htmlFor='name'>Name:</label>
+            <input type='text' name='name'/>
+          </div>
+          <div className={styles.field}>
+            <label htmlFor='caption'>Caption:</label>
+            <textarea name='caption' rows={3} className={styles.textbox}/>
+          </div>
+          <div className={styles.field}>
+            <label htmlFor='recipe'>Recipe:</label>
+            <textarea name='recipe' rows={12} className={styles.textbox}/>
+          </div>
+          <div className={styles.field}>
+            <label htmlFor='tags'>Tags:</label>
+            <input type='text' name='tags'/>
+          </div>
+        </form>
     </Modal>
   </>
   )
