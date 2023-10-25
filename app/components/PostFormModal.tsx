@@ -28,6 +28,11 @@ export default function PostFormModal() {
     setShowModal(false);
   }
 
+  /**
+   * Submits new post data then closes the modal
+   * 
+   * @param e - the form submit event
+  */
   function clickOk(e: FormEvent<HTMLFormElement>): void {
     e.preventDefault();
     const formData: Object = Object.fromEntries((new FormData(e.currentTarget)));
