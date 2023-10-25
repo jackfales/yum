@@ -3,7 +3,7 @@ import { headers } from "next/headers";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 import styles from "../../styles/Dashboard.module.css";
-import Modal from "../components/Modal";
+import PostFormModal from "../components/PostFormModal";
 
 export const metadata = {
   title: 'Dashboard'
@@ -44,7 +44,7 @@ export default async function Dashboard() {
         />
       </a>
     </div>
-    <Modal title="Create Post"></Modal>
+    <PostFormModal></PostFormModal>
   </>
   )
 }

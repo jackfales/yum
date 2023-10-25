@@ -2,11 +2,7 @@
 import { useEffect, useRef, useState, FormEvent } from 'react';
 import styles from "../../styles/Modal.module.css";
 
-type Props = {
-  title: String,
-}
-
-export default function Modal({ title }: Props) {
+export default function PostFormModal() {
   const [showModal, setShowModal] = useState<Boolean>(false)
   const modalRef = useRef<null | HTMLDialogElement>(null);
 
@@ -34,8 +30,14 @@ export default function Modal({ title }: Props) {
 
   function clickOk(e: FormEvent<HTMLFormElement>): void {
     e.preventDefault();
-    const formData: FormData = new FormData(e.currentTarget);
-    formData.forEach((input, field) => console.log(`${field}: ${input}`));
+    const formData: Object = Object.fromEntries((new FormData(e.currentTarget)));
+    console.log(JSON.stringify(formData));
+    
+    const sql: String = `INSERT INTO posts (name, image_url, caption, recipe, tags)
+    VALUES (${formData['name']}, /hardcodedimageurl, ${formData['caption']},
+    ${formData['recipe']}, ${formData['tags']}})`;
+
+    console.log(sql);
     clickClose();
   }
   
@@ -45,7 +47,7 @@ export default function Modal({ title }: Props) {
         <div>
           <div className={`${styles.container} ${styles.spacebetween}`}
                id={styles.header}>
-            <h3 id={styles.title}>{title}</h3>
+            <h3 id={styles.title}>Create Post</h3>
             <button id={styles.closebutton} onClick={clickClose}>x</button>
           </div>
           <form id='form' className={styles.form} onSubmit={clickOk}>
