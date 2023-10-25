@@ -1,8 +1,9 @@
 import { withSSRContext } from "aws-amplify";
 import { headers } from "next/headers";
-import Image from 'next/image';
+import Image from "next/image";
 import { redirect } from "next/navigation";
-import styles from "../../styles/Dashboard.module.css"
+import styles from "../../styles/Dashboard.module.css";
+import Modal from "../components/Modal";
 
 export const metadata = {
   title: 'Dashboard'
@@ -30,7 +31,7 @@ export default async function Dashboard() {
   }
   
   return (<>
-    <div className={`${styles.header} ${styles.container}`}>
+    <div className={`${styles.header} ${styles.container} ${styles.spacebetween}`}>
       <div>YUM</div>
       <div>Dashboard</div>
       <a className={styles.profilepicture} href={`/${username}`}>
@@ -43,6 +44,9 @@ export default async function Dashboard() {
         />
       </a>
     </div>
+    <Modal title="Example Modal">
+        <p> This is one ugly ass modal. </p>
+    </Modal>
   </>
   )
 }

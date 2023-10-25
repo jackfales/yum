@@ -3,7 +3,7 @@
   color: seagreen;
   height: 60px;
   width: 100%;
-  background-color:  #FF99F8;
+  background-color:  pink;
 }
 
 .container {
@@ -12,6 +12,14 @@
   justify-content: space-between;
   padding: 0px 60px;
   align-items: center;
+}
+
+.container.spacebetween {
+  justify-content: space-between;
+}
+
+.container.center {
+  justify-content: center;
 }
 
 .profilepicture {
