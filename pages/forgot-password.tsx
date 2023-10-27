@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { Auth } from 'aws-amplify';
 import styles from '../styles/Home.module.css';
 
-function ForgotPassword () {
+function ForgotPassword() {
   const [errorMessage, setErrorMessage] = useState('');
 
   const router = useRouter();
@@ -12,7 +12,6 @@ function ForgotPassword () {
   const onSubmit = async (event) => {
     event.preventDefault();
 
-    // Get form data
     const formData = new FormData(event.target)
 
     const username = formData.get("username").toString()
@@ -24,9 +23,7 @@ function ForgotPassword () {
         setErrorMessage("")
     }
 
-    // Send a request to initiate the password reset process
     // Send confirmation code to user's email
-
     try {
       await Auth.forgotPassword(username);
       router.push('/reset-password');

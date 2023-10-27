@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { Auth } from 'aws-amplify';
 import styles from '../styles/Home.module.css';
 
-function ResetPassword () {
+function ResetPassword() {
   const [errorMessage, setErrorMessage] = useState('Please enter your email, verification code sent to your email, and your new password');
 
   const router = useRouter();
