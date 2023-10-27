@@ -1,5 +1,4 @@
 import Head from 'next/head';
-import isEmail from 'validator/lib/isEmail';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { Auth } from 'aws-amplify';
@@ -16,26 +15,17 @@ function ResetPassword () {
     // Get form data
     const formData = new FormData(event.target)
 
-    const email = formData.get("email").toString()
+    const username = formData.get("username").toString()
     const verificationCode = formData.get("verificationCode").toString()
     const newPassword = formData.get("newPassword").toString()
 
-    // Email format checking
-    if (email.length === 0 || !isEmail(email)) {
-        setErrorMessage("Please enter a valid email.")
-        return
-    } else {
-        setErrorMessage("")
-    }
-
     // Reset password
     try {
-      await Auth.forgotPasswordSubmit(email, verificationCode, newPassword);
+      await Auth.forgotPasswordSubmit(username, verificationCode, newPassword);
       router.push('/login');
     } catch(err) {
       setErrorMessage("Please make sure all entries are correct.");
     }
-    
   };
 
   return (
@@ -52,9 +42,9 @@ function ResetPassword () {
         <div id="message">
           <p id="message">{errorMessage}</p>
         </div>
-        <div id="email">
-          <h3>Email</h3>
-          <input type="text" name="email" />
+        <div id="username">
+          <h3>Username</h3>
+          <input type="text" name="username" />
         </div>
         <div id="verificationCode">
           <h3>Verification Code</h3>

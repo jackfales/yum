@@ -1,7 +1,9 @@
 import Head from 'next/head';
 import React, { useState } from 'react';
+import isEmail from 'validator/lib/isEmail';
 import { useRouter } from 'next/router';
 import styles from '../styles/Home.module.css';
+import { Auth } from 'aws-amplify'
 
 export default function CreateAccount() {
   const [inputErrorMessages, setErrorMessages] = useState({
@@ -10,6 +12,7 @@ export default function CreateAccount() {
     lastName: '',
     password: '',
     username: '',
+    email: ''
   });
 
   const router = useRouter();
@@ -17,10 +20,11 @@ export default function CreateAccount() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const userInputs = {};
-    const errors = {};
     const formData = new FormData(e.target);
 
+    const userInputs = {};
+    const errors = {};
+    
     // Validation criteria for each field
     formData.forEach((input, field) => {
       let errorMessage;
@@ -33,13 +37,19 @@ export default function CreateAccount() {
           errorMessage = input.length === 0 ?
             'Please provide a last name!' : '';
           break;
+        case 'email':
+          errorMessage = !isEmail(input) ?
+            'Please provide a valid email!' : '';
+          break;
         case 'username':
           errorMessage = input.length < 5 ? 
             'Username must be at least 5 characters long!' : '';
           break;
+          
+        // TODO : Verify password contains 1 special character
         case 'password':
           errorMessage = input.length < 5 ?
-            'Password must be at least 6 characters long!' : '';
+            'Password must be at least 6 characters long and contain one special character!' : '';
           break;
         case 'confirmPassword':
           errorMessage = formData.get('password') !== input ?
@@ -61,29 +71,36 @@ export default function CreateAccount() {
     // Check if the form has any errors
     const hasNoErrors = Object.values(errors)
                                 .every((input) => input === '');
+
+    let username = formData.get("username")
+    let password = formData.get("password")
+    let email = formData.get("email")
+    let firstName = formData.get("firstName")
+    let lastName = formData.get("lastName")
+
     if (hasNoErrors) {
-      await fetch('./api/create-account', {
-        method: 'POST',
-        headers: {
-          Accept: "application/json",
-        },
-        body: JSON.stringify(userInputs),
-      })   
-        .then((res) => res.json())
-        .then((res) => {
-          if (res.success) {
-            router.push('/login');
-          } else {
-            setErrorMessages({ serverResponse: res.message });
+      try {
+        await Auth.signUp({
+          username,
+          password,
+          attributes: {
+            email: email,
+            given_name: firstName,         
+            family_name: lastName,
+            preferred_username: username
           }
         });
+        router.push('/verify-email');
+      } catch (err) {
+        console.log(err.toString())
+      }
     }
   }
   
   return (
     <div>
       <Head>
-          <title>Create Account</title>
+          <title>YUM | Create Account</title>
       </Head>
       <main className={styles.container}>
         <form onSubmit={handleSubmit}>
@@ -97,6 +114,11 @@ export default function CreateAccount() {
             <label htmlFor='lastName'>Last name:</label>
             <input type='text' name='lastName'/>
             <div className='error'>{inputErrorMessages.lastName}</div>
+          </div>
+          <div>
+            <label htmlFor='email'>Email:</label>
+            <input type='text' name='email'/>
+            <div className='error'>{inputErrorMessages.email}</div>
           </div>
           <div>
             <label htmlFor='username'>Username:</label>

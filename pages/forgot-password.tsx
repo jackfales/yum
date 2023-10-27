@@ -1,5 +1,4 @@
 import Head from 'next/head';
-import isEmail from 'validator/lib/isEmail';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { Auth } from 'aws-amplify';
@@ -16,11 +15,10 @@ function ForgotPassword () {
     // Get form data
     const formData = new FormData(event.target)
 
-    const email = formData.get("email").toString()
+    const username = formData.get("username").toString()
 
-    // TODO implement email format checking
-    if (email.length === 0 || !isEmail(email)) {
-        setErrorMessage("Please enter a valid email.")
+    if (username.length === 0) {
+        setErrorMessage("Please enter a valid username.")
         return
     } else {
         setErrorMessage("")
@@ -30,10 +28,10 @@ function ForgotPassword () {
     // Send confirmation code to user's email
 
     try {
-      await Auth.forgotPassword(email);
+      await Auth.forgotPassword(username);
       router.push('/reset-password');
     } catch(err) {
-      setErrorMessage("Please enter a valid email.");
+      setErrorMessage("Please enter a valid username.");
     }
   };
 
@@ -51,9 +49,9 @@ function ForgotPassword () {
         <div id="message">
           <p id="message">{errorMessage}</p>
         </div>
-        <div id="email">
-          <h3>Email</h3>
-          <input type="text" name="email" />
+        <div id="username">
+          <h3>Username</h3>
+          <input type="text" name="username" />
         </div>
         <div>
          <br></br>
