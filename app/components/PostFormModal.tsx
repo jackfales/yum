@@ -17,14 +17,14 @@ export default function PostFormModal() {
   /**
    *  Opens the modal
    */
-  function clickOpen(): void {
+  const clickOpen = (): void => {
     setShowModal(true);
   }
 
   /**
    * Closes the modal
    */
-  function clickClose(): void {
+  const clickClose = (): void => {
     setShowModal(false);
   }
 
@@ -33,14 +33,14 @@ export default function PostFormModal() {
    * 
    * @param e - the form submit event
   */
-  function clickOk(e: FormEvent<HTMLFormElement>): void {
+  const onSubmitHandler = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     const formData: Object = Object.fromEntries((new FormData(e.currentTarget)));
     console.log(JSON.stringify(formData));
     
     const sql: String = `INSERT INTO posts (name, image_url, caption, recipe, tags)
-    VALUES (${formData['name']}, /hardcodedimageurl, ${formData['caption']},
-    ${formData['recipe']}, ${formData['tags']}})`;
+    VALUES (@${formData['name']}, @/hardcodedimageurl, @${formData['caption']},
+    @${formData['recipe']}, @${formData['tags']}})`;
 
     console.log(sql);
     clickClose();
@@ -55,7 +55,7 @@ export default function PostFormModal() {
             <h3 id={styles.title}>Create Post</h3>
             <button id={styles.closebutton} onClick={clickClose}>x</button>
           </div>
-          <form id='form' className={styles.form} onSubmit={clickOk}>
+          <form id='form' className={styles.form} onSubmit={onSubmitHandler}>
             <div className={styles.field}>
               <label htmlFor='dish'>Choose an image for your dish:</label>
               <input type='file' name='dish'/>
