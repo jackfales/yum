@@ -23,7 +23,7 @@ function ForgotPassword() {
         setErrorMessage("")
     }
 
-    // Send confirmation code to user's email
+    // Confirmation code sent to user's email
     try {
       await Auth.forgotPassword(username);
       router.push('/reset-password');
@@ -60,6 +60,3 @@ function ForgotPassword() {
 };
 
 export default ForgotPassword;
-  
-
-
