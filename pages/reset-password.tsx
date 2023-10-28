@@ -12,19 +12,24 @@ function ResetPassword() {
   const onSubmit = async (event) => {
     event.preventDefault();
 
-    // Get form data
     const formData = new FormData(event.target)
-
+    
     const username = formData.get("username").toString()
     const verificationCode = formData.get("verificationCode").toString()
     const newPassword = formData.get("newPassword").toString()
 
-    // Reset password
-    try {
-      await Auth.forgotPasswordSubmit(username, verificationCode, newPassword);
-      router.push('/login');
-    } catch(err) {
-      setErrorMessage("Please make sure all entries are correct.");
+    const passwordRegex = /^(?=.*[0-9!@#$%^&*])[A-Za-z0-9!@#$%^&*]{6,}$/;
+
+    // Make sure password conforms to regex
+    if (!passwordRegex.test(newPassword)) {
+      setErrorMessage("Password must be at least 6 characters long and contain one special character!")
+    } else{
+      try {
+        await Auth.forgotPasswordSubmit(username, verificationCode, newPassword);
+        router.push('/login');
+      } catch(err) {
+        setErrorMessage("Please make sure all entries are correct.");
+      }
     }
   };
 
@@ -52,7 +57,7 @@ function ResetPassword() {
         </div>
         <div id="newPassword">
           <h3>New Password</h3>
-          <input type="text" name="newPassword" />
+          <input type="password" name="newPassword" />
         </div>
         <div>
          <br></br>

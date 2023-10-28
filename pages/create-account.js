@@ -8,11 +8,11 @@ import { Auth } from 'aws-amplify'
 export default function CreateAccount() {
   const [inputErrorMessages, setErrorMessages] = useState({
     confirmPassword: '',
+    email: '',
     firstName: '',
     lastName: '',
     password: '',
     username: '',
-    email: ''
   });
 
   const router = useRouter();
@@ -45,10 +45,9 @@ export default function CreateAccount() {
           errorMessage = input.length < 5 ? 
             'Username must be at least 5 characters long!' : '';
           break;
-          
-        // TODO : Verify password contains 1 special character
         case 'password':
-          errorMessage = input.length < 5 ?
+          const passwordRegex = /^(?=.*[0-9!@#$%^&*])[A-Za-z0-9!@#$%^&*]{6,}$/;
+          errorMessage = !passwordRegex.test(input)?
             'Password must be at least 6 characters long and contain one special character!' : '';
           break;
         case 'confirmPassword':
