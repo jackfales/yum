@@ -1,8 +1,9 @@
 import { withSSRContext } from "aws-amplify";
 import { headers } from "next/headers";
-import Image from 'next/image';
+import Image from "next/image";
 import { redirect } from "next/navigation";
-import styles from "../../styles/Dashboard.module.css"
+import styles from "../../styles/Dashboard.module.css";
+import PostFormModal from "../components/PostFormModal";
 
 export const metadata = {
   title: 'Dashboard'
@@ -30,7 +31,7 @@ export default async function Dashboard() {
   }
   
   return (<>
-    <div className={`${styles.header} ${styles.container}`}>
+    <div id={styles.header} className={`${styles.container} ${styles.spacebetween}`}>
       <div>YUM</div>
       <div>Dashboard</div>
       <a className={styles.profilepicture} href={`/${username}`}>
@@ -43,6 +44,7 @@ export default async function Dashboard() {
         />
       </a>
     </div>
+    <PostFormModal></PostFormModal>
   </>
   )
 }

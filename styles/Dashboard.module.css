@@ -1,17 +1,27 @@
-.header {
+#header {
   font-size: 20px;
   color: seagreen;
   height: 60px;
   width: 100%;
-  background-color:  #FF99F8;
+  background-color:  pink;
+  padding: 0px 60px;
 }
 
 .container {
-  padding: 0 0.5rem;
   display: flex;
-  justify-content: space-between;
-  padding: 0px 60px;
   align-items: center;
+}
+
+.container.spacebetween {
+  justify-content: space-between;
+}
+
+.container.center {
+  justify-content: center;
+}
+
+.container.column {
+  flex-direction: column;
 }
 
 .profilepicture {
