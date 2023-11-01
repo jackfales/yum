@@ -17,7 +17,7 @@ export default function CreateAccount() {
   });
 
   const passwordConstraints = {
-    minLength: 6,        // Minimum length of 6 characters
+    minLength: 8,        // Minimum length of 8 characters
     minLowercase: 0,      // Minimum 0 lowercase letters
     minUppercase: 0,      // Minimum 0 uppercase letters
     minNumbers: 1,       // Minimum 1 numeric digits
@@ -56,7 +56,7 @@ export default function CreateAccount() {
           break;
         case 'password':
           errorMessage = !isStrongPassword(input, passwordConstraints)?
-            'Password must be at least 6 characters long and contain one special character!' : '';
+            'Password must be at least 8 characters long, contain one number, and one special character!' : '';
           break;
         case 'confirmPassword':
           errorMessage = formData.get('password') !== input ?

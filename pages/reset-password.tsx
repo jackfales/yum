@@ -9,7 +9,7 @@ function ResetPassword() {
   const [errorMessage, setErrorMessage] = useState('Please enter your email, verification code sent to your email, and your new password');
 
   const passwordConstraints = {
-    minLength: 6,        // Minimum length of 6 characters
+    minLength: 8,        // Minimum length of 8 characters
     minLowercase: 0,      // Minimum 0 lowercase letters
     minUppercase: 0,      // Minimum 0 uppercase letters
     minNumbers: 1,       // Minimum 1 numeric digits
@@ -30,7 +30,7 @@ function ResetPassword() {
 
     // Make sure password conforms to regex
     if (!isStrongPassword(newPassword, passwordConstraints)) {
-      setErrorMessage("Password must be at least 6 characters long and contain one special character!")
+      setErrorMessage("Password must be at least 8 characters long, contain one number, and one special character!")
     } else {
       try {
         await Auth.forgotPasswordSubmit(username, verificationCode, newPassword);
