@@ -13,8 +13,8 @@ export default function ConfirmSignUp() {
 
         const formData = new FormData(e.target);
 
-        let username = formData.get("username").toString()
-        let confirmationCode = formData.get("confirmationCode").toString()
+        const username = formData.get("username").toString()
+        const confirmationCode = formData.get("confirmationCode").toString()
 
         try {
             await Auth.confirmSignUp(username, confirmationCode);

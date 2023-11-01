@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import React, { useState } from 'react';
 import isEmail from 'validator/lib/isEmail';
+import isStrongPassword from 'validator/lib/isStrongPassword';
 import { useRouter } from 'next/router';
 import styles from '../styles/Home.module.css';
 import { Auth } from 'aws-amplify'
@@ -15,6 +16,14 @@ export default function CreateAccount() {
     username: '',
   });
 
+  const passwordConstraints = {
+    minLength: 6,        // Minimum length of 6 characters
+    minLowercase: 0,      // Minimum 0 lowercase letters
+    minUppercase: 0,      // Minimum 0 uppercase letters
+    minNumbers: 1,       // Minimum 1 numeric digits
+    minSymbols: 1,       // Minimum 1 special character
+  };
+
   const router = useRouter();
 
   const handleSubmit = async (e) => {
@@ -23,7 +32,7 @@ export default function CreateAccount() {
     const formData = new FormData(e.target);
 
     const userInputs = {};
-    const errors = {};
+    const errors : { [key: string]: string } = {};
     
     // Validation criteria for each field
     formData.forEach((input, field) => {
@@ -46,8 +55,7 @@ export default function CreateAccount() {
             'Username must be at least 5 characters long!' : '';
           break;
         case 'password':
-          const passwordRegex = /^(?=.*[0-9!@#$%^&*])[A-Za-z0-9!@#$%^&*]{6,}$/;
-          errorMessage = !passwordRegex.test(input)?
+          errorMessage = !isStrongPassword(input, passwordConstraints)?
             'Password must be at least 6 characters long and contain one special character!' : '';
           break;
         case 'confirmPassword':
@@ -65,17 +73,23 @@ export default function CreateAccount() {
       console.log(`${field}: ${input}`);
     });
     // Update the error messages, telling React to re-render the component
-    setErrorMessages(errors);
+    setErrorMessages({"confirmPassword" : errors["confirmPassword"],
+                      "email" : errors["email"],
+                      "firstName" : errors["firstName"],
+                      "lastName" : errors["lastName"],
+                      "password" : errors["password"],
+                      "username" : errors["username"]
+                      });
 
     // Check if the form has any errors
     const hasNoErrors = Object.values(errors)
                                 .every((input) => input === '');
 
-    let username = formData.get("username")
-    let password = formData.get("password")
-    let email = formData.get("email")
-    let firstName = formData.get("firstName")
-    let lastName = formData.get("lastName")
+    const username = formData.get("username").toString()
+    const password = formData.get("password").toString()
+    const email = formData.get("email")
+    const firstName = formData.get("firstName")
+    const lastName = formData.get("lastName")
 
     if (hasNoErrors) {
       try {
@@ -84,8 +98,8 @@ export default function CreateAccount() {
           password,
           attributes: {
             email: email,
-            given_name: firstName,         
             family_name: lastName,
+            given_name: firstName,
             preferred_username: username
           }
         });
@@ -103,7 +117,6 @@ export default function CreateAccount() {
       </Head>
       <main className={styles.container}>
         <form onSubmit={handleSubmit}>
-          <div className='error'>{inputErrorMessages.serverResponse}</div>
           <div>
             <label htmlFor='firstName'>First name:</label>
             <input type='text' name='firstName'/>

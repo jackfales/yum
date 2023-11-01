@@ -1,11 +1,20 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
+import isStrongPassword from 'validator/lib/isStrongPassword';
 import { Auth } from 'aws-amplify';
 import styles from '../styles/Home.module.css';
 
 function ResetPassword() {
   const [errorMessage, setErrorMessage] = useState('Please enter your email, verification code sent to your email, and your new password');
+
+  const passwordConstraints = {
+    minLength: 6,        // Minimum length of 6 characters
+    minLowercase: 0,      // Minimum 0 lowercase letters
+    minUppercase: 0,      // Minimum 0 uppercase letters
+    minNumbers: 1,       // Minimum 1 numeric digits
+    minSymbols: 1,       // Minimum 1 special character
+  };
 
   const router = useRouter();
 
@@ -18,12 +27,11 @@ function ResetPassword() {
     const verificationCode = formData.get("verificationCode").toString()
     const newPassword = formData.get("newPassword").toString()
 
-    const passwordRegex = /^(?=.*[0-9!@#$%^&*])[A-Za-z0-9!@#$%^&*]{6,}$/;
 
     // Make sure password conforms to regex
-    if (!passwordRegex.test(newPassword)) {
+    if (!isStrongPassword(newPassword, passwordConstraints)) {
       setErrorMessage("Password must be at least 6 characters long and contain one special character!")
-    } else{
+    } else {
       try {
         await Auth.forgotPasswordSubmit(username, verificationCode, newPassword);
         router.push('/login');
