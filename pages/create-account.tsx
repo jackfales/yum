@@ -17,11 +17,11 @@ export default function CreateAccount() {
   });
 
   const passwordConstraints = {
-    minLength: 8,        // Minimum length of 8 characters
-    minLowercase: 0,      // Minimum 0 lowercase letters
-    minUppercase: 0,      // Minimum 0 uppercase letters
-    minNumbers: 1,       // Minimum 1 numeric digits
-    minSymbols: 1,       // Minimum 1 special character
+    minLength: 8,
+    minLowercase: 0,
+    minUppercase: 0,
+    minNumbers: 1,
+    minSymbols: 1,
   };
 
   const router = useRouter();
@@ -31,7 +31,6 @@ export default function CreateAccount() {
 
     const formData = new FormData(e.target);
 
-    const userInputs = {};
     const errors : { [key: string]: string } = {};
     
     // Validation criteria for each field
@@ -68,7 +67,6 @@ export default function CreateAccount() {
           errorMessage = '';
           break;
       }
-      userInputs[field] = input;
       errors[field] = errorMessage;
       console.log(`${field}: ${input}`);
     });
@@ -87,9 +85,9 @@ export default function CreateAccount() {
 
     const username = formData.get("username").toString()
     const password = formData.get("password").toString()
-    const email = formData.get("email")
-    const firstName = formData.get("firstName")
-    const lastName = formData.get("lastName")
+    const email = formData.get("email").toString()
+    const firstName = formData.get("firstName").toString()
+    const lastName = formData.get("lastName").toString()
 
     if (hasNoErrors) {
       try {

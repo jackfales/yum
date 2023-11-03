@@ -9,11 +9,11 @@ function ResetPassword() {
   const [errorMessage, setErrorMessage] = useState('Please enter your email, verification code sent to your email, and your new password');
 
   const passwordConstraints = {
-    minLength: 8,        // Minimum length of 8 characters
-    minLowercase: 0,      // Minimum 0 lowercase letters
-    minUppercase: 0,      // Minimum 0 uppercase letters
-    minNumbers: 1,       // Minimum 1 numeric digits
-    minSymbols: 1,       // Minimum 1 special character
+    minLength: 8,
+    minLowercase: 0,
+    minUppercase: 0,
+    minNumbers: 1,
+    minSymbols: 1,
   };
 
   const router = useRouter();
@@ -28,7 +28,7 @@ function ResetPassword() {
     const newPassword = formData.get("newPassword").toString()
 
 
-    // Make sure password conforms to regex
+    // Make sure password conforms to policy
     if (!isStrongPassword(newPassword, passwordConstraints)) {
       setErrorMessage("Password must be at least 8 characters long, contain one number, and one special character!")
     } else {
