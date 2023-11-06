@@ -1,4 +1,20 @@
 {
+  "api": {
+    "postApi": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "createPostHandler"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
+    }
+  },
   "auth": {
     "yum17ce7d7b": {
       "customAuth": false,
@@ -25,6 +41,31 @@
       },
       "providerPlugin": "awscloudformation",
       "service": "Cognito"
+    }
+  },
+  "function": {
+    "createPostHandler": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_createPostHandler_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "createPostHandler"
+        }
+      ]
+    },
+    "AMPLIFY_function_createPostHandler_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "createPostHandler"
+        }
+      ]
     }
   }
 }

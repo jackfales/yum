@@ -14,6 +14,15 @@
     "categories": {
       "auth": {
         "yum17ce7d7b": {}
+      },
+      "function": {
+        "createPostHandler": {
+          "deploymentBucketName": "amplify-yum-dev-214045-deployment",
+          "s3Key": "amplify-builds/createPostHandler-6e6f48514b4b6d415959-build.zip"
+        }
+      },
+      "api": {
+        "postApi": {}
       }
     }
   }
