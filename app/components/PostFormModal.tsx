@@ -1,4 +1,5 @@
 'use client'
+import { API } from 'aws-amplify';
 import { useEffect, useRef, useState, FormEvent } from 'react';
 import styles from "../../styles/Modal.module.css";
 
@@ -33,16 +34,18 @@ export default function PostFormModal() {
    * 
    * @param e - the form submit event
   */
-  const onSubmitHandler = (e: FormEvent<HTMLFormElement>): void => {
+  const onSubmitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData: Object = Object.fromEntries((new FormData(e.currentTarget)));
     console.log(JSON.stringify(formData));
-    
-    const sql: String = `INSERT INTO posts (name, image_url, caption, recipe, tags)
-    VALUES (@${formData['name']}, @/hardcodedimageurl, @${formData['caption']},
-    @${formData['recipe']}, @${formData['tags']}})`;
 
-    console.log(sql);
+    const res = await fetch('https://wb07xao9oa.execute-api.us-west-2.amazonaws.com/dev/post', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(formData)
+    });
+    console.log(await res.json());
+    
     clickClose();
   }
   
@@ -57,8 +60,8 @@ export default function PostFormModal() {
           </div>
           <form id='form' className={styles.form} onSubmit={onSubmitHandler}>
             <div className={styles.field}>
-              <label htmlFor='dish'>Choose an image for your dish:</label>
-              <input type='file' name='dish'/>
+              <label htmlFor='url'>Choose an image for your dish:</label>
+              <input type='file' name='url'/>
             </div>
             <div className={styles.field}>
               <label htmlFor='name'>Name:</label>
@@ -73,7 +76,11 @@ export default function PostFormModal() {
               <textarea name='recipe' rows={12} className={styles.textbox}/>
             </div>
             <div className={styles.field}>
-              <label htmlFor='tags'>Tags:</label>
+              <label htmlFor='ingredients'>Ingredients: Enter as JSON format for now</label>
+              <input type='text' name='ingredients'/>
+            </div>
+            <div className={styles.field}>
+              <label htmlFor='tags'>Tags: Enter as JSON format for now</label>
               <input type='text' name='tags'/>
             </div>
           </form>

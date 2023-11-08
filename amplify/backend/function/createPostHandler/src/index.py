@@ -11,25 +11,21 @@ def lambda_handler(event, context):
   cursor = connection.cursor()
 
   sql = '''INSERT INTO posts 
-        (`imageurl`, `name`, `description`, `ingredients`, `recipe`, `tags`) 
+        (`imageurl`, `name`, `caption`, `ingredients`, `recipe`, `tags`) 
         VALUES (%s, %s, %s, %s, %s, %s);'''
-  
-  ingredients = {
-    'chicken': '2 lbs',
-    'soy sauce': '1/2 tablespoon',
-    'brown sugar': '1/4 cup'
-  }
-  tags = {
-    'tag1': 'chicken',
-    'tag2': 'asian'
-  }
-  
   cursor.execute(sql, ('https://picsum.photos/200/300', 
-                      'julia', 
-                      'second description', 
-                      json.dumps(ingredients),
-                      'this is a really shitty recipe',
-                      json.dumps(tags)
+                      event['name'], 
+                      event['caption'], 
+                      json.dumps(event['ingredients']),
+                      event['recipe'],
+                      json.dumps(event['tags'])
                       ))
-  
-  connection.commit(),
+  connection.commit()
+  return {
+    'statusCode': 200,
+    'headers': {
+          'Access-Control-Allow-Headers': '*',
+          'Access-Control-Allow-Origin': '*',
+    },
+    'body': json.dumps('Success?')
+  }
