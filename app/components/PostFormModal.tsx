@@ -1,10 +1,21 @@
 'use client'
-import { API } from 'aws-amplify';
+import { isEmpty, isJSON } from 'validator';
 import { useEffect, useRef, useState, FormEvent } from 'react';
 import styles from "../../styles/Modal.module.css";
 
+type ErrorMessages = {
+  serverResponse?: string,
+  url?: string,
+  name?: string,
+  caption?: string,
+  recipe?: string,
+  ingredients?: string,
+  tags?: string
+}
+
 export default function PostFormModal() {
-  const [showModal, setShowModal] = useState<Boolean>(false)
+  const [showModal, setShowModal] = useState<Boolean>(false);
+  const [errorMessages, setErrorMessages] = useState<ErrorMessages>();
   const modalRef = useRef<null | HTMLDialogElement>(null);
 
   useEffect(() => {
@@ -36,18 +47,41 @@ export default function PostFormModal() {
   */
   const onSubmitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData: Object = Object.fromEntries((new FormData(e.currentTarget)));
-    console.log(JSON.stringify(formData));
+    const formData: FormData = new FormData(e.currentTarget);
 
-    const res = await fetch('http://localhost:3000/api/post', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(formData)
-    });
+    // TODO: Replace test URL once we have image storage set up
+    formData.set('url', 'https://example.com/');
 
-    console.log(res);
-    
-    clickClose();
+    const errors: ErrorMessages = {};
+    formData.forEach((input, field) => {
+      switch (field) {
+        case 'url':
+        case 'name':
+        case 'caption':
+        case 'recipe':
+          errors[field] = isEmpty(input) ? `Missing input for ${field}` : '';
+          break;
+        case 'ingredients':
+        case 'tags':
+          errors[field] = !isJSON(input) ? 
+          `Please format the ${field} as a JSON object` : '';
+          break;
+        default:
+          errors[field] = 'Default';
+      }
+      setErrorMessages(errors);
+    })
+
+    if (!errors) {
+      const res = await fetch('http://localhost:3000/api/post', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: formData
+      });
+      console.log(res);
+      
+      clickClose();
+    }
   }
   
   return (
@@ -60,27 +94,34 @@ export default function PostFormModal() {
             <button id={styles.closebutton} onClick={clickClose}>x</button>
           </div>
           <form id='form' className={styles.form} onSubmit={onSubmitHandler}>
+            <div className={styles.error}>{errorMessages?.serverResponse}</div>
             <div className={styles.field}>
+              <div className={styles.error}>{errorMessages?.url}</div>
               <label htmlFor='url'>Choose an image for your dish:</label>
               <input type='file' name='url'/>
             </div>
             <div className={styles.field}>
+              <div className={styles.error}>{errorMessages?.name}</div>
               <label htmlFor='name'>Name:</label>
               <input type='text' name='name'/>
             </div>
             <div className={styles.field}>
+              <div className={styles.error}>{errorMessages?.caption}</div>
               <label htmlFor='caption'>Caption:</label>
               <textarea name='caption' rows={3} className={styles.textbox}/>
             </div>
             <div className={styles.field}>
+              <div className={styles.error}>{errorMessages?.recipe}</div>
               <label htmlFor='recipe'>Recipe:</label>
               <textarea name='recipe' rows={12} className={styles.textbox}/>
             </div>
             <div className={styles.field}>
+              <div className={styles.error}>{errorMessages?.ingredients}</div>  
               <label htmlFor='ingredients'>Ingredients: Enter as JSON format for now</label>
               <input type='text' name='ingredients'/>
             </div>
             <div className={styles.field}>
+              <div className={styles.error}>{errorMessages?.tags}</div>
               <label htmlFor='tags'>Tags: Enter as JSON format for now</label>
               <input type='text' name='tags'/>
             </div>
