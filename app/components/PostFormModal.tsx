@@ -39,12 +39,13 @@ export default function PostFormModal() {
     const formData: Object = Object.fromEntries((new FormData(e.currentTarget)));
     console.log(JSON.stringify(formData));
 
-    const res = await fetch('https://wb07xao9oa.execute-api.us-west-2.amazonaws.com/dev/post', {
+    const res = await fetch('http://localhost:3000/api/post', {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(formData)
     });
-    console.log(await res.json());
+
+    console.log(res);
     
     clickClose();
   }
