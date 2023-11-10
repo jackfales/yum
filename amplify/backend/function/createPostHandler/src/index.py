@@ -13,19 +13,36 @@ def lambda_handler(event, context):
   sql = '''INSERT INTO posts 
         (`imageurl`, `name`, `caption`, `ingredients`, `recipe`, `tags`) 
         VALUES (%s, %s, %s, %s, %s, %s);'''
-  cursor.execute(sql, ('https://picsum.photos/200/300', 
+  try:
+    cursor.execute(sql, (event['url'], 
                       event['name'], 
                       event['caption'], 
                       json.dumps(event['ingredients']),
                       event['recipe'],
                       json.dumps(event['tags'])
                       ))
-  connection.commit()
+    connection.commit()
+  except Exception as e:
+    print(type(e).__name__, e.args)
+    return {
+      'statusCode': 400,
+      'headers': {
+        'Access-Control-Allow-Headers': '*',
+        'Access-Control-Allow-Origin': '*',
+      },
+      'body': json.dumps({
+        "errorType": type(e).__name__,
+        "errorMessage": e.args
+      })
+    }
+    
   return {
-    'statusCode': 200,
+    'statusCode': 201,
     'headers': {
           'Access-Control-Allow-Headers': '*',
           'Access-Control-Allow-Origin': '*',
     },
-    'body': json.dumps('Success?')
+    'body': json.dumps({
+      "url": "this would be the url to the created post"
+    })
   }
