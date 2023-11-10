@@ -15,10 +15,9 @@ export async function POST(request: Request) {
   try {
     await Auth.currentAuthenticatedUser();
   } catch(err) {
-    console.log(err);
     return NextResponse.json(
       {error: 'You do not have permission to access this resource'}, 
-      {status: 403}
+      {status: 401}
     );
   }
 
