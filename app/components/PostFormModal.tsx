@@ -72,10 +72,11 @@ export default function PostFormModal() {
       setErrorMessages(errors);
     })
 
-    if (!errors) {
+    const hasNoErrors = Object.values(errors)
+                                .every((input) => input === '');
+    if (hasNoErrors) {
       const res = await fetch('http://localhost:3000/api/post', {
         method: 'POST',
-        headers: {'Content-Type': 'application/json'},
         body: formData
       });
       console.log(res);
