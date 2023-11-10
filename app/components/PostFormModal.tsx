@@ -79,9 +79,12 @@ export default function PostFormModal() {
         method: 'POST',
         body: formData
       });
-      console.log(res);
-      
-      clickClose();
+      const body = await res.json();
+      if (res.status == 201) {
+        clickClose();
+      } else {
+        setErrorMessages({...errors, serverResponse: body.error});
+      }
     }
   }
   
