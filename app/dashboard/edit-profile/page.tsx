@@ -19,7 +19,7 @@ export default async function EditProfile() {
   // Passes client-side credentials to server via cookies
   const { Auth } = withSSRContext({ req });
 
-  // Renders dashboard if logged in, else redirect to /login
+  // Renders edit profile page if authenticated, else redirect to login
   let username;
   try {
     const data = await Auth.currentAuthenticatedUser();
