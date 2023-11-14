@@ -68,6 +68,11 @@
   flex-direction: column;
 }
 
+.error {
+  text-wrap: wrap;
+  color: #FA535E;
+}
+
 .form {
   padding: 15px;
 }
