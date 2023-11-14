@@ -4,7 +4,7 @@ import { FormEvent } from 'react';
 export default function EditProfileForm() {
 
   /**
-   * Submits new post data then closes the modal
+   * Submits new post data
    * 
    * @param e - the form submit event
   */

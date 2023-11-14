@@ -9,7 +9,6 @@ export const metadata = {
 }
 
 export default async function EditProfile() {
-  // Packages cookies into request header
   const req = {
     headers: {
       cookie: headers().get("cookie"),
