@@ -4,6 +4,7 @@ import Image from "next/image";
 import { redirect } from "next/navigation";
 import styles from "../../styles/Dashboard.module.css";
 import PostFormModal from "../components/PostFormModal";
+import { useReducer } from "react";
 
 export const metadata = {
   title: 'Dashboard'
@@ -34,7 +35,7 @@ export default async function Dashboard() {
     <div id={styles.header} className={`${styles.container} ${styles.spacebetween}`}>
       <div>YUM</div>
       <div>Dashboard</div>
-      <a className={styles.profilepicture} href="/dashboard/edit-profile">
+      <a className={styles.profilepicture} href={`/${username}`}>
         <Image
           className={styles.profilepicture}
           src={`/images/pp/${username}.jpg`}

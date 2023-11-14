@@ -1,4 +1,4 @@
- import { withSSRContext } from "aws-amplify";
+import { withSSRContext } from "aws-amplify";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import styles from "../../../styles/Dashboard.module.css";
