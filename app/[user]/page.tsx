@@ -2,6 +2,7 @@ import { withSSRContext } from "aws-amplify";
 import { headers } from "next/headers";
 import Image from 'next/image';
 import styles from "../../styles/Profile.module.css"
+import { EditProfileAndFollowButton } from "../components/ClientUtilityFunctions";
 // TODO These imports may not be needed when we implement a database
 import path from 'path';
 import fs from 'fs';
@@ -36,20 +37,6 @@ export async function generateStaticParams() {
 export function getProfileData(id: string): any {
   const profilePath: string = path.join(profileDirectory,`${id}.json`);
   return JSON.parse(fs.readFileSync(profilePath, 'utf8'));
-}
-
-/**
- * Conditionally renders the button if the profile belongs to the current user
- * session
- * 
- * @param isUser - true if current session user matches page, false otherwise
- */
-export function Button({ isUser }: { isUser: boolean }) {
-  if (isUser) {
-    return (<button id={styles['profilebutton']}>Edit profile</button>);
-  } else {
-    return (<button id={styles['profilebutton']}>Follow</button>);
-  }
 }
 
 
@@ -100,7 +87,7 @@ export default async function Profile({ params }: { params: {user: string}}) {
           <p>Post Count: {postCount}</p>
         </div>
       </div>
-      <Button isUser={currUser === user}></Button>
+      <EditProfileAndFollowButton user={currUser} isUser={currUser === user}></EditProfileAndFollowButton>
     </main>
   )
 }
