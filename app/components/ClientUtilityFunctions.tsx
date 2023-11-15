@@ -12,7 +12,6 @@ export function EditProfileAndFollowButton({ user, isUser }: { user: string, isU
 
     const handleClick = (e) => {
         e.preventDefault();
-        console.log(user);
         push(`${user}/edit-profile`);
     }
 
