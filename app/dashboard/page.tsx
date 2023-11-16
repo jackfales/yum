@@ -1,8 +1,7 @@
 import { withSSRContext } from "aws-amplify";
 import { headers } from "next/headers";
-import Image from "next/image";
 import { redirect } from "next/navigation";
-import styles from "../../styles/Dashboard.module.css";
+import Navbar from "../components/Navbar";
 import PostFormModal from "../components/PostFormModal";
 
 export const metadata = {
@@ -21,7 +20,7 @@ export default async function Dashboard() {
   const { Auth } = withSSRContext({ req });
 
   // Renders dashboard if logged in, else redirect to /login
-  let username;
+  let username: String;
   try {
     const data = await Auth.currentAuthenticatedUser();
     ({ username } = data);
@@ -31,19 +30,7 @@ export default async function Dashboard() {
   }
   
   return (<>
-    <div id={styles.header} className={`${styles.container} ${styles.spacebetween}`}>
-      <div>YUM</div>
-      <div>Dashboard</div>
-      <a className={styles.profilepicture} href={`/${username}`}>
-        <Image
-          className={styles.profilepicture}
-          src={`/images/pp/${username}.jpg`}
-          alt="Picture of the user"
-          width={40}
-          height={40}
-        />
-      </a>
-    </div>
+    <Navbar username={username}></Navbar>
     <PostFormModal></PostFormModal>
   </>
   )
