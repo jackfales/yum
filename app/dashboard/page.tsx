@@ -3,10 +3,20 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import Navbar from "../components/Navbar";
 import PostFormModal from "../components/PostFormModal";
+import Post from "../components/Post";
+import styles from "../../styles/Dashboard.module.css";
 
 export const metadata = {
   title: 'Dashboard'
 }
+
+const posts = [
+  {title: 'Sample Post 1', description: "Description"},
+  {title: 'Sample Post 2', description: "Description"},
+  {title: 'Sample Post 3', description: "Description"},
+  {title: 'Sample Post 4', description: "Description"},
+  {title: 'Sample Post 5', description: "Description"}
+]
 
 export default async function Dashboard() {
   // Packages cookies into request header
@@ -31,6 +41,15 @@ export default async function Dashboard() {
   
   return (<>
     <Navbar username={username}></Navbar>
+    <main id={styles.main} className={`${styles.container} ${styles.center}`}>
+      <div id={styles.column}>
+        {
+          posts.map((posts, index) => (
+            <Post key={index}></Post>
+          ))
+        }
+      </div>
+    </main>
     <PostFormModal></PostFormModal>
   </>
   )
