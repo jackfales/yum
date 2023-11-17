@@ -2,8 +2,9 @@ import { withSSRContext } from "aws-amplify";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import Navbar from "../components/Navbar";
-import PostFormModal from "../components/PostFormModal";
+import CreatePostModal from "../components/CreatePostModal";
 import Post from "../components/Post";
+import Spinner from "../components/Spinner";
 import styles from "../../styles/Dashboard.module.css";
 // TODO: Imports below are used to read test data, delete when DB is implemented
 import path from 'path';
@@ -71,9 +72,10 @@ export default async function Dashboard() {
             <Post name={post['name']} key={index}></Post>
           ))
         }
+        <Spinner/>
+        <CreatePostModal/>
       </div>
     </main>
-    <PostFormModal></PostFormModal>
   </>
   )
 }

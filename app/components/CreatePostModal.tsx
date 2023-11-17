@@ -135,9 +135,7 @@ export default function PostFormModal() {
             </div>
         </div>
       </dialog>
-      <div className={`${styles.container} ${styles.center}`}>
-        <button id={styles.modalbutton} onClick={clickOpen}>Create Post</button>
-      </div>
+      <button id={styles.modalbutton} onClick={clickOpen}>Create Post</button>
     </>
   )
 }
