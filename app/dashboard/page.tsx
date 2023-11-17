@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 import Navbar from "../components/Navbar";
 import CreatePostModal from "../components/CreatePostModal";
 import Post from "../components/Post";
-import Spinner from "../components/Spinner";
+import LoadMore from "../components/LoadMore";
 import styles from "../../styles/Dashboard.module.css";
 // TODO: Imports below are used to read test data, delete when DB is implemented
 import path from 'path';
@@ -17,8 +17,8 @@ export const metadata = {
 const testDataPath: string = path.join(process.cwd(), 'data/posts.json');
 const testData: Object[] = JSON.parse(fs.readFileSync(testDataPath, 'utf8'));
 
-/* TODO: This should call a route that requests post from the user's followed
-* chefs by querying the database. The query would return the data in
+/* TODO: This function should be an API Route that requests post from the user's 
+* followed chefs by querying the database. The query would return the data in
 * chronological order
 *
 * The query shoud look something like this:
@@ -72,7 +72,7 @@ export default async function Dashboard() {
             <Post name={post['name']} key={index}></Post>
           ))
         }
-        <Spinner/>
+        <LoadMore postsData={testData}/>
         <CreatePostModal/>
       </div>
     </main>
