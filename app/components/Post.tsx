@@ -28,17 +28,12 @@ export default function Post({name}: {name: String}) {
             width={40}
             height={40}
           />
+          <span id={styles.username}>dtran</span>
         </a>
         <div id={styles.buttons}>
-          <div id={styles.like}>
-            L
-          </div>
-          <div id={styles.comment}>
-            C
-          </div>
-          <div id={styles.share}>
-            S
-          </div>
+          <div id={styles.like}>L</div>
+          <div id={styles.comment}>C</div>
+          <div id={styles.share}>S</div>
         </div>
       </div>
     </div>

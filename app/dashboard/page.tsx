@@ -67,13 +67,13 @@ export default async function Dashboard() {
     <Navbar username={username}></Navbar>
     <main id={styles.main} className={`${styles.container} ${styles.center}`}>
       <div id={styles.column}>
+        <CreatePostModal/>
         {
           fetchPosts(0).map((post, index) => (
             <Post name={post['name']} key={index}></Post>
           ))
         }
         <LoadMore postsData={testData}/>
-        <CreatePostModal/>
       </div>
     </main>
   </>
