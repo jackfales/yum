@@ -7,11 +7,11 @@ const varela_round = Varela_Round({
   weight: ['400']
 })
 
-export default function Post() {
+export default function Post({name}: {name: String}) {
   return (<>
     <div id={styles.post} className={varela_round.className}>
       <div id={styles.header}>
-        <div id={styles.title}>Carrot Cake</div>
+        <div id={styles.title}>{name}</div>
       </div>
       <div id={styles.content}>
         <img
