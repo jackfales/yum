@@ -12,7 +12,6 @@ export default function Post() {
     <div id={styles.post} className={varela_round.className}>
       <div id={styles.header}>
         <div id={styles.title}>Carrot Cake</div>
-        <div id={styles.date}>11-16-2023</div>
       </div>
       <div id={styles.content}>
         <img
@@ -30,7 +29,17 @@ export default function Post() {
             height={40}
           />
         </a>
-
+        <div id={styles.buttons}>
+          <div id={styles.like}>
+            L
+          </div>
+          <div id={styles.comment}>
+            C
+          </div>
+          <div id={styles.share}>
+            S
+          </div>
+        </div>
       </div>
     </div>
   </>

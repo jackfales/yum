@@ -4,7 +4,7 @@
   height: 55px;
   width: 100%;
   background-color:  pink;
-  padding: 0px 60px;
+  padding: 0px 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -14,7 +14,6 @@
 }
 
 .profilepicture {
-  background-color: seagreen;
   width: 40px;
   height: 40px;
   border-radius: 50%;

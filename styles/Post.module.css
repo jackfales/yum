@@ -16,20 +16,13 @@
   display: flex;
   justify-content: space-between;
   padding: 0px 20px;
-}
-
-#header {
-  align-items: flex-end;
+  align-items: center
 }
 
 #title {
   flex: 1 1 content;
-  font-size: 28px;
-}
-
-#date {
-  flex: 0 0 content;
-  font-size: 18px;
+  font-size: 24px;
+  color: black;
 }
 
 #content {
@@ -45,16 +38,32 @@
   object-fit: cover;
 }
 
-#footer {
-  align-items: center;
-}
-
 #user {
   height: 40px;
 }
 
-#profilepicture {
+#profilepicture, #like, #comment, #share {
   width: 40px;
   height: 40px;
   border-radius: 50%;
+}
+
+#buttons {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+#like, #comment, #share {
+  border: 1px solid lightgray;
+  color: lightgray;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.5s ease;
+}
+
+#like:hover, #comment:hover, #share:hover {
+  border: 1px solid grey;
+  color: gray;
 }
