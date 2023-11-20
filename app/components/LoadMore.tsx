@@ -6,7 +6,7 @@ import Spinner from './Spinner';
 import Post from "./Post";
 import fetchPosts from "../utils/fetchPosts"
 
-/*TODO: Instead of passing in postData as a Prop to this component, this component
+/* TODO: Instead of passing in postData as a Prop to this component, this component
  * should call an API route that returns the posts.
  */
 export default function LoadMore({postsData}: {postsData: Object[]}) {
