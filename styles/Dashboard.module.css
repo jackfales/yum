@@ -30,3 +30,14 @@
   height: 40px;
   border-radius: 50%;
 }
+
+#main {
+  margin-top: 75px;
+}
+
+#column {
+  flex: 0 1 670px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

@@ -1,13 +1,22 @@
 import { withSSRContext } from "aws-amplify";
 import { headers } from "next/headers";
-import Image from "next/image";
 import { redirect } from "next/navigation";
+import Navbar from "../components/Navbar";
+import CreatePostModal from "../components/CreatePostModal";
+import Post from "../components/Post";
+import LoadMore from "../components/LoadMore";
 import styles from "../../styles/Dashboard.module.css";
-import PostFormModal from "../components/PostFormModal";
+// TODO: Imports below are used to read test data, delete when DB is implemented
+import path from 'path';
+import fs from 'fs';
+import fetchPosts from "../utils/fetchPosts"
 
 export const metadata = {
   title: 'Dashboard'
 }
+
+const testDataPath: string = path.join(process.cwd(), 'data/posts.json');
+const testData: Object[] = JSON.parse(fs.readFileSync(testDataPath, 'utf8'));
 
 export default async function Dashboard() {
   // Packages cookies into request header
@@ -21,7 +30,7 @@ export default async function Dashboard() {
   const { Auth } = withSSRContext({ req });
 
   // Renders dashboard if logged in, else redirect to /login
-  let username;
+  let username: String;
   try {
     const data = await Auth.currentAuthenticatedUser();
     ({ username } = data);
@@ -31,20 +40,18 @@ export default async function Dashboard() {
   }
   
   return (<>
-    <div id={styles.header} className={`${styles.container} ${styles.spacebetween}`}>
-      <div>YUM</div>
-      <div>Dashboard</div>
-      <a className={styles.profilepicture} href={`/${username}`}>
-        <Image
-          className={styles.profilepicture}
-          src={`/images/pp/${username}.jpg`}
-          alt="Picture of the user"
-          width={40}
-          height={40}
-        />
-      </a>
-    </div>
-    <PostFormModal></PostFormModal>
+    <Navbar username={username}></Navbar>
+    <main id={styles.main} className={`${styles.container} ${styles.center}`}>
+      <div id={styles.column}>
+        <CreatePostModal/>
+        {
+          fetchPosts(0, testData).map((post, index) => (
+            <Post name={post['name']} key={index}></Post>
+          ))
+        }
+        <LoadMore postsData={testData}/>
+      </div>
+    </main>
   </>
   )
 }
