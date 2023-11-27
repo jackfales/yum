@@ -1,7 +1,6 @@
 'use client'
 import { isEmpty, isJSON } from 'validator';
 import { useEffect, useRef, useState, FormEvent } from 'react';
-import styles from "../../styles/Modal.module.css";
 
 type ErrorMessages = {
   serverResponse?: string,
@@ -90,52 +89,39 @@ export default function PostFormModal() {
   
   return (
     <>
-      <dialog ref={modalRef} id={styles.modal}>
+      <dialog ref={modalRef} className='rounded-xl shadow-md w-96'>
         <div>
-          <div className={`${styles.container} ${styles.spacebetween}`}
-               id={styles.header}>
-            <h3 id={styles.title}>Create Post</h3>
-            <button id={styles.closebutton} onClick={clickClose}>x</button>
+          <div className='flex items-center justify-between h-8 border-b border-b-gray-200'>
+            <h3 className='my-1.5 mx-2.5'>Create Post</h3>
+            <button className='bg-white h-full aspect-square hover:bg-gray-100' onClick={clickClose}>x</button>
           </div>
-          <form id='form' className={styles.form} onSubmit={onSubmitHandler}>
-            <div className={styles.error}>{errorMessages?.serverResponse}</div>
-            <div className={styles.field}>
-              <div className={styles.error}>{errorMessages?.url}</div>
-              <label htmlFor='url'>Choose an image for your dish:</label>
-              <input type='file' name='url'/>
-            </div>
-            <div className={styles.field}>
-              <div className={styles.error}>{errorMessages?.name}</div>
-              <label htmlFor='name'>Name:</label>
-              <input type='text' name='name'/>
-            </div>
-            <div className={styles.field}>
-              <div className={styles.error}>{errorMessages?.caption}</div>
-              <label htmlFor='caption'>Caption:</label>
-              <textarea name='caption' rows={3} className={styles.textbox}/>
-            </div>
-            <div className={styles.field}>
-              <div className={styles.error}>{errorMessages?.recipe}</div>
-              <label htmlFor='recipe'>Recipe:</label>
-              <textarea name='recipe' rows={12} className={styles.textbox}/>
-            </div>
-            <div className={styles.field}>
-              <div className={styles.error}>{errorMessages?.ingredients}</div>  
-              <label htmlFor='ingredients'>Ingredients: Enter as JSON format for now</label>
-              <input type='text' name='ingredients'/>
-            </div>
-            <div className={styles.field}>
-              <div className={styles.error}>{errorMessages?.tags}</div>
-              <label htmlFor='tags'>Tags: Enter as JSON format for now</label>
-              <input type='text' name='tags'/>
-            </div>
+          <form id='form' className='p-4' onSubmit={onSubmitHandler}>
+            <p className='whitespace-normal text-red-400'>{errorMessages?.serverResponse}</p>
+            <p className='whitespace-normal text-red-400'>{errorMessages?.url}</p>
+            <label className='block' htmlFor='url'>Choose an image for your dish:</label>
+            <input type='file' name='url'/>
+            <p className='whitespace-normal text-red-400'>{errorMessages?.name}</p>
+            <label className='block' htmlFor='name'>Name:</label>
+            <input className='block w-full border rounded-md px-1 focus:outline-none' type='text' name='name'/>
+            <p className='whitespace-normal text-red-400'>{errorMessages?.caption}</p>
+            <label htmlFor='caption'>Caption:</label>
+            <textarea className='block w-full border rounded-md px-1 focus:outline-none resize-none' name='caption' rows={3}/>
+            <p className='whitespace-normal text-red-400'>{errorMessages?.recipe}</p>
+            <label className='block' htmlFor='recipe'>Recipe:</label>
+            <textarea className='block w-full border rounded-md px-1 focus:outline-none resize-none' name='recipe' rows={12}/>
+            <p className='whitespace-normal text-red-400'>{errorMessages?.ingredients}</p>  
+            <label htmlFor='ingredients'>Ingredients: Enter as JSON format for now</label>
+            <input className='block w-full border rounded-md px-1 focus:outline-none' type='text' name='ingredients'/>
+            <p className='whitespace-normal text-red-400'>{errorMessages?.tags}</p>
+            <label htmlFor='tags'>Tags: Enter as JSON format for now</label>
+            <input className='block w-full border rounded-md px-1 focus:outline-none' type='text' name='tags'/>
           </form>
-            <div id={styles.footer} className={`${styles.container} ${styles.center}`}>
-              <button id={styles.submitbutton} form="form" type="submit">Submit</button>
-            </div>
+          <div className='flex items-center justify-between h-8 border-t border-t-gray-200'>
+            <button className='bg-white border-0 h-full w-full hover:bg-gray-100' form="form" type="submit">Submit</button>
+          </div>
         </div>
       </dialog>
-      <button id={styles.modalbutton} onClick={clickOpen}>Create Post</button>
+      <button className='w-36 h-10 rounded-full bg-sky-200' onClick={clickOpen}>Create Post</button>
     </>
   )
 }
