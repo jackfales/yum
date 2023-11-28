@@ -114,31 +114,31 @@ export default function CreateAccount() {
       </Head>
       <main className='bg-cream-100 h-screen flex justify-center items-center'>
         <div className='flex flex-col justify-center items-start gap-14 w-80'>
-          <h1 className='text-5xl font-bold self-center'>Sign up to start cooking!</h1>
-          <form onSubmit={handleSubmit} className='flex flex-col items-start gap w-full px-2'>
+          <h1 className='text-5xl tracking-tight font-bold self-center'>Sign up to start cooking!</h1>
+          <form onSubmit={handleSubmit} className='flex flex-col items-start gap w-full'>
             <label htmlFor='firstName' className='font-semibold'>First name:</label>
-            <input type='text' name='firstName' placeholder='John' className='w-full border border-gray-200 py-1 px-2 rounded-md'/>
+            <input type='text' name='firstName' placeholder='John' className='w-full border border-gray-200 shadow-inner py-1 px-2 rounded-md'/>
             <div className='mb-2 text-red-400'>{inputErrorMessages.firstName}</div>
 
             <label htmlFor='lastName' className='font-semibold'>Last name:</label>
-            <input type='text' name='lastName' placeholder='Smith' className='w-full border border-gray-200 py-1 px-2 rounded-md'/>
+            <input type='text' name='lastName' placeholder='Smith' className='w-full border border-gray-200 shadow-inner py-1 px-2 rounded-md'/>
             <div className='mb-2 text-red-400'>{inputErrorMessages.lastName}</div>
 
 
             <label htmlFor='email' className='font-semibold'>Email:</label>
-            <input type='text' name='email' placeholder='name@domain.com' className='w-full border border-gray-200 py-1 px-2 rounded-md'/>
+            <input type='text' name='email' placeholder='name@domain.com' className='w-full border border-gray-200 shadow-inner py-1 px-2 rounded-md'/>
             <div className='mb-2 text-red-400'>{inputErrorMessages.email}</div>
 
             <label htmlFor='username' className='font-semibold'>Username:</label>
-            <input type='text' name='username' placeholder='johnsmith2023' className='w-full border border-gray-200 py-1 px-2 rounded-md'/>
+            <input type='text' name='username' placeholder='johnsmith2023' className='w-full border border-gray-200 shadow-inner py-1 px-2 rounded-md'/>
             <div className='mb-2 text-red-400'>{inputErrorMessages.username}</div>
 
             <label htmlFor='password' className='font-semibold'>Password:</label>
-            <input type='password' name='password' className='w-full border border-gray-200 py-1 px-2 rounded-md'/>
+            <input type='password' name='password' className='w-full border border-gray-200 shadow-inner py-1 px-2 rounded-md'/>
             <div className='mb-2 text-red-400'>{inputErrorMessages.password}</div>
 
             <label htmlFor='confirmPassword' className='font-semibold'>Confirm Password:</label>
-            <input type='password' name='confirmPassword' className='w-full border border-gray-200 py-1 px-2 rounded-md'/>
+            <input type='password' name='confirmPassword' className='w-full border border-gray-200 shadow-inner py-1 px-2 rounded-md'/>
             <div className='mb-2 text-red-400'>{inputErrorMessages.confirmPassword}</div>
 
             <button type='submit' className='my-2 py-2 w-full border bg-emerald-600 transition-colors hover:bg-emerald-700 rounded-full text-white text-lg font-semibold text-center'>Sign up</button>

@@ -22,11 +22,11 @@ export default function Home() {
       <main className='bg-cream-100 h-screen flex justify-center items-center'>
         <div className='flex flex-col lg:flex-row justify-center items-center gap-16'>
           <div className='w-[375px] lg:w-[580px]'>
-            <h1 className={`${playfair.className} text-7xl text-rose-200 text-center lg:text-left`}>Yum.</h1>
-            <p className={`${roboto.className} text-3xl text-neutral-800 text-center lg:text-left`}>A social platform for chefs and home-cooks alike.</p>
+            <h1 className={`${playfair.className} text-7xl tracking-tight text-rose-200 text-center lg:text-left`}>Yum.</h1>
+            <h2 className={`${roboto.className} text-3xl text-neutral-800 text-center lg:text-left`}>Discover and share recipes with chefs and home-cooks alike.</h2>
           </div>
           <div className='flex flex-col border border-gray-100 bg-white shadow-md rounded-lg w-80 p-5'>
-            <p className='text-2xl'>First time?</p>
+            <h2 className='text-2xl tracking-tight'>First time?</h2>
             <Link href='/create-account' className='my-5 py-2 border border-emerald-600 transition-colors hover:border-emerald-500 rounded-full text-emerald-600 hover:text-emerald-500 text-xl font-semibold text-center'>Create Account</Link>
             <div class="relative flex items-center">
               <div class="flex-grow border-t border-gray-400"></div>
