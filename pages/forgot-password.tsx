@@ -33,29 +33,25 @@ function ForgotPassword() {
   };
 
   return (
-    <div className={styles.container}>
+    <>
       <Head>
         <title>YUM | Forgot Password</title>
         <link rel="icon" href="/favicon-32x32.png"/>
       </Head>
 
-      <form onSubmit={onSubmit}>
-        <div id="forgot-password">
-          <h1>Forgot Password</h1>
+      <main className='bg-cream-100 h-screen flex justify-center items-center'>
+        <div className='flex flex-col justify-center items-start w-96'>
+          <h1 className='text-5xl tracking-tight font-bold mb-4'>Forgot Password</h1>
+          <h2 className='mb-6'>Enter the <span className='font-semibold'>username</span> associated with your account and we&apos;ll send an email to reset your password.</h2>
+          <form onSubmit={onSubmit} className='w-full'>
+            <label htmlFor='username' className='font-semibold'>Username:</label>
+            <input type="text" name="username" className='w-full border border-gray-200 shadow-inner py-1 px-2 rounded-md'/>
+            <div className='mb-2 text-red-400'>{errorMessage}</div>
+            <button type="submit" className='my-2 py-2 w-full border bg-emerald-600 transition-colors hover:bg-emerald-700 rounded-full text-white text-lg font-semibold text-center'>Submit</button>
+          </form>
         </div>
-        <div id="message">
-          <p id="message">{errorMessage}</p>
-        </div>
-        <div id="username">
-          <h3>Username</h3>
-          <input type="text" name="username" />
-        </div>
-        <div>
-         <br></br>
-         <button type="submit">Submit</button>
-        </div>
-      </form>
-    </div>
+      </main>
+    </>
   );
 };
 
