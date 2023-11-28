@@ -3,10 +3,9 @@ import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import isStrongPassword from 'validator/lib/isStrongPassword';
 import { Auth } from 'aws-amplify';
-import styles from '../styles/Home.module.css';
 
 function ResetPassword() {
-  const [errorMessage, setErrorMessage] = useState('Please enter your email, verification code sent to your email, and your new password');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const passwordConstraints = {
     minLength: 8,
@@ -42,37 +41,29 @@ function ResetPassword() {
   };
 
   return (
-    <div className={styles.container}>
+    <>
       <Head>
         <title>YUM | Reset Password</title>
         <link rel="icon" href="/favicon-32x32.png"/>
       </Head>
 
-      <form onSubmit={onSubmit}>
-        <div id="resetPassword">
-          <h1>Reset Password</h1>
+      <main className='bg-cream-100 h-screen flex justify-center'>
+        <div className='flex flex-col justify-center items-start w-80'>
+          <h1 className='text-5xl tracking-tight font-bold mb-4'>Password Reset</h1>
+          <h2 className='mb-6'>Enter your <span className='font-semibold'>username</span>, the <span className='font-semibold'>vertification code</span> sent to your email, and your new <span className='font-semibold'>password</span>.</h2>
+          <form onSubmit={onSubmit} className='w-full'>
+            <p className='mb-2 text-red-400'>{errorMessage}</p>
+            <label htmlFor='username' className='font-semibold'>Username:</label>
+            <input type="text" name="username" className='w-full border border-gray-200 shadow-inner mb-2 py-1 px-2 rounded-md'/>
+            <label htmlFor='verificationCode' className='font-semibold'>Verification Code:</label>
+            <input type="text" name="verificationCode" className='w-full border border-gray-200 shadow-inner mb-2 py-1 px-2 rounded-md'/>
+            <label htmlFor='newPassword' className='font-semibold'>New Password:</label>
+            <input type="password" name="newPassword" className='w-full border border-gray-200 shadow-inner mb-2 py-1 px-2 rounded-md'/>
+            <button type="submit" className='my-2 py-2 w-full border bg-emerald-600 transition-colors hover:bg-emerald-700 rounded-full text-white text-lg font-semibold text-center'>Submit</button>
+          </form>
         </div>
-        <div id="message">
-          <p id="message">{errorMessage}</p>
-        </div>
-        <div id="username">
-          <h3>Username</h3>
-          <input type="text" name="username" />
-        </div>
-        <div id="verificationCode">
-          <h3>Verification Code</h3>
-          <input type="text" name="verificationCode" />
-        </div>
-        <div id="newPassword">
-          <h3>New Password</h3>
-          <input type="password" name="newPassword" />
-        </div>
-        <div>
-         <br></br>
-         <button type="submit">Submit</button>
-        </div>
-      </form>
-    </div>
+      </main>
+    </>
   );
 };
 
