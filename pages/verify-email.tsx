@@ -42,7 +42,7 @@ export default function ConfirmSignUp() {
                 <input type='text' name='username' className='w-full border border-gray-200 shadow-inner mb-2 py-1 px-2 rounded-md'/>
                 <label htmlFor='confirmationCode' className='font-semibold'>Confirmation Code:</label>
                 <input type='text' name='confirmationCode' className='w-full border border-gray-200 shadow-inner mb-2 py-1 px-2 rounded-md'/>
-                <button type='submit' className='my-2 py-2 w-full border bg-emerald-600 transition-colors hover:bg-emerald-700 rounded-full text-white text-lg font-semibold text-center'>Confirm Account</button>
+                <button type='submit' className='my-2 py-2 w-full border bg-emerald-500 transition-colors hover:bg-emerald-600 rounded-full text-white text-lg font-semibold text-center'>Confirm Account</button>
               </form>
             </div>
           </main>

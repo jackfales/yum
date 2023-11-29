@@ -8,7 +8,7 @@ const varela_round = Varela_Round({
 
 export default function Post({name}: {name: String}) {
   return (<>
-    <div className={`${varela_round.className} flex flex-col border border-solid border-gray-200 rounded-lg my-5 transition ease-in-out duration-500 hover:shadow-xl`}>
+    <div className={`${varela_round.className} flex flex-col border border-solid border-gray-200 rounded-lg bg-white my-5 transition ease-in-out duration-500 hover:shadow-xl`}>
       <div className='flex justify-between items-center h-14 px-5'>
         <div className='flex-auto text-2xl'>{name}</div>
       </div>

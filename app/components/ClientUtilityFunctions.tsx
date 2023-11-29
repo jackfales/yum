@@ -15,8 +15,8 @@ export function EditProfileAndFollowButton({ user, isUser }: { user: string, isU
     }
 
     if (isUser) {
-      return (<button onClick={handleClick} className='w-36 h-10 bg-emerald-600 transitions-colors hover:bg-emerald-700 rounded-full text-white text-md font-semibold text-center'>Edit profile</button>);
+      return (<button onClick={handleClick} className='w-36 h-10 bg-emerald-500 transitions-colors hover:bg-emerald-600 rounded-full text-white text-md font-semibold text-center'>Edit profile</button>);
     } else {
-      return (<button className='w-36 h-10 bg-emerald-600 transitions-colors hover:bg-emerald-700 rounded-full text-white text-md font-semibold text-center'>Follow</button>);
+      return (<button className='w-36 h-10 bg-emerald-500 transitions-colors hover:bg-emerald-600 rounded-full text-white text-md font-semibold text-center'>Follow</button>);
     }
 }

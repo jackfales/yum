@@ -64,7 +64,7 @@ export default async function Profile({ params }: { params: {user: string}}) {
 
   return (<>
     <Navbar username={currUser}/>
-    <main className='flex items-center justify-center mt-14'>
+    <main className='bg-cream-100 h-screen flex items-start justify-center pt-14'>
       <div className='flex-[0_1_670px] flex flex-col items-center'>
         <div className='flex flex-row flex-nowrap justify-between items-center gap-2 w-full p-4 border-b'>
           <Image

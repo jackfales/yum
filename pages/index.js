@@ -27,13 +27,13 @@ export default function Home() {
           </div>
           <div className='flex flex-col border border-gray-100 bg-white shadow-md rounded-lg w-80 p-5'>
             <h2 className='text-2xl text-neutral-800 tracking-tight text-center'>New to Yum?</h2>
-            <Link href='/create-account' className='my-5 py-2 border border-emerald-600 transition-colors hover:border-emerald-500 rounded-full text-emerald-600 hover:text-emerald-500 text-xl font-semibold text-center'>Create Account</Link>
+            <Link href='/create-account' className='my-5 py-2 border border-emerald-500 transition-colors hover:border-emerald-600 rounded-full text-emerald-500 hover:text-emerald-600 text-xl font-semibold text-center'>Create Account</Link>
             <div class="relative flex items-center">
               <div class="flex-grow border-t border-gray-400"></div>
                 <span class="flex-shrink mx-4 text-gray-400">OR</span>
               <div class="flex-grow border-t border-gray-400"></div>
             </div>
-            <Link href='/login' className='my-5 py-2 border bg-emerald-600 transition-colors hover:bg-emerald-700 rounded-full text-white text-xl font-semibold text-center'>Log in</Link>
+            <Link href='/login' className='my-5 py-2 border bg-emerald-500 transition-colors hover:bg-emerald-600 rounded-full text-white text-xl font-semibold text-center'>Log in</Link>
             <Link href='/forgot-password' className='text-center text-blue-400'>Forgot password?</Link>
           </div>
         </div>

@@ -141,7 +141,7 @@ export default function CreateAccount() {
             <input type='password' name='confirmPassword' className='w-full border border-gray-200 shadow-inner py-1 px-2 rounded-md'/>
             <div className='mb-2 text-red-400'>{inputErrorMessages.confirmPassword}</div>
 
-            <button type='submit' className='my-2 py-2 w-full border bg-emerald-600 transition-colors hover:bg-emerald-700 rounded-full text-white text-lg font-semibold text-center'>Sign up</button>
+            <button type='submit' className='my-2 py-2 w-full border bg-emerald-500 transition-colors hover:bg-emerald-600 rounded-full text-white text-lg font-semibold text-center'>Sign up</button>
           </form>
         </div>
       </main>

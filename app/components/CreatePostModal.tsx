@@ -121,7 +121,7 @@ export default function PostFormModal() {
           </div>
         </div>
       </dialog>
-      <button className='w-36 h-10 rounded-full bg-sky-200' onClick={clickOpen}>Create Post</button>
+      <button onClick={clickOpen} className='w-36 h-10 bg-emerald-500 transitions-colors hover:bg-emerald-600 rounded-full text-white text-md font-semibold text-center'>Create Post</button>
     </>
   )
 }
