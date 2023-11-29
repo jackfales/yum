@@ -1,6 +1,5 @@
 'use client'
 import { useRouter } from 'next/navigation';
-import styles from "../../styles/Profile.module.css"
 /**
  * Conditionally renders the button if the profile belongs to the current user
  * session else renders a follow button
@@ -16,8 +15,8 @@ export function EditProfileAndFollowButton({ user, isUser }: { user: string, isU
     }
 
     if (isUser) {
-      return (<button onClick={handleClick} id={styles['profilebutton']}>Edit profile</button>);
+      return (<button onClick={handleClick} className='w-36 h-10 bg-emerald-600 transitions-colors hover:bg-emerald-700 rounded-full text-white text-md font-semibold text-center'>Edit profile</button>);
     } else {
-      return (<button id={styles['profilebutton']}>Follow</button>);
+      return (<button className='w-36 h-10 bg-emerald-600 transitions-colors hover:bg-emerald-700 rounded-full text-white text-md font-semibold text-center'>Follow</button>);
     }
 }
