@@ -1,11 +1,11 @@
 import { withSSRContext } from "aws-amplify";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import styles from "../../../styles/Dashboard.module.css";
+import Navbar from "../../components/Navbar";
 import EditProfileForm from "../../components/EditProfileForm";
 
 export const metadata = {
-  title: 'EditProfile'
+  title: 'Edit Profile'
 }
 
 export default async function EditProfile() {
@@ -29,12 +29,13 @@ export default async function EditProfile() {
   }
 
   return (<>
-    <div>
-        <div id={styles.header} className={`${styles.container} ${styles.spacebetween}`}>
-        <div>EDIT PROFILE</div>
-        </div>
-    </div>
-    <EditProfileForm></EditProfileForm>
+    <Navbar username={username}/>
+    <main className='bg-cream-100 h-screen flex justify-center items-center pt-12'>
+      <div className='flex flex-col justify-center items-start w-80'>
+        <h1 className='text-5xl tracking-tight font-bold mb-4 text-neutral-800'>Edit Profile</h1>
+        <EditProfileForm/>
+      </div>
+    </main>
   </>
   )
 }
