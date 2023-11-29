@@ -2,7 +2,6 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import { Auth } from 'aws-amplify';
-import styles from '../styles/Home.module.css';
 
 function ForgotPassword() {
   const [errorMessage, setErrorMessage] = useState('');
@@ -40,7 +39,7 @@ function ForgotPassword() {
       </Head>
 
       <main className='bg-cream-100 h-screen flex justify-center items-center'>
-        <div className='flex flex-col justify-center items-start w-96'>
+        <div className='flex flex-col justify-center items-start w-80'>
           <h1 className='text-5xl tracking-tight font-bold mb-4'>Forgot Password</h1>
           <h2 className='mb-6'>Enter the <span className='font-semibold'>username</span> associated with your account and we&apos;ll send an email to reset your password.</h2>
           <form onSubmit={onSubmit} className='w-full'>
