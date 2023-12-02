@@ -26,5 +26,23 @@
       "providerPlugin": "awscloudformation",
       "service": "Cognito"
     }
+  },
+  "parameters": {
+    "AMPLIFY_function_userProfileDBHandlerDev_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "userProfileDBHandlerDev"
+        }
+      ]
+    },
+    "AMPLIFY_function_userProfileDBHandlerDev_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "userProfileDBHandlerDev"
+        }
+      ]
+    }
   }
 }
