@@ -50,7 +50,7 @@ function ResetPassword() {
       <main className='bg-cream-100 h-screen flex justify-center'>
         <div className='flex flex-col justify-center items-start w-80'>
           <h1 className='text-5xl tracking-tight font-bold mb-4'>Password Reset</h1>
-          <h2 className='mb-6'>Enter your <span className='font-semibold'>username</span>, the <span className='font-semibold'>vertification code</span> sent to your email, and your new <span className='font-semibold'>password</span>.</h2>
+          <h2 className='mb-6'>Enter your <span className='font-semibold'>username</span>, the <span className='font-semibold'>verification code</span> sent to your email, and your new <span className='font-semibold'>password</span>.</h2>
           <form onSubmit={onSubmit} className='w-full'>
             <p className='mb-2 text-red-400'>{errorMessage}</p>
             <label htmlFor='username' className='font-semibold'>Username:</label>
