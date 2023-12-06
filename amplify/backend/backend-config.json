@@ -27,20 +27,90 @@
       "service": "Cognito"
     }
   },
+  "function": {
+    "neptuneDelete": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "neptuneGet": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "neptunePost": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "neptunePut": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
   "parameters": {
-    "AMPLIFY_function_userProfileDBHandlerDev_deploymentBucketName": {
+    "AMPLIFY_function_neptuneDelete_deploymentBucketName": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "userProfileDBHandlerDev"
+          "resourceName": "neptuneDelete"
         }
       ]
     },
-    "AMPLIFY_function_userProfileDBHandlerDev_s3Key": {
+    "AMPLIFY_function_neptuneDelete_s3Key": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "userProfileDBHandlerDev"
+          "resourceName": "neptuneDelete"
+        }
+      ]
+    },
+    "AMPLIFY_function_neptuneGet_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "neptuneGet"
+        }
+      ]
+    },
+    "AMPLIFY_function_neptuneGet_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "neptuneGet"
+        }
+      ]
+    },
+    "AMPLIFY_function_neptunePost_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "neptunePost"
+        }
+      ]
+    },
+    "AMPLIFY_function_neptunePost_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "neptunePost"
+        }
+      ]
+    },
+    "AMPLIFY_function_neptunePut_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "neptunePut"
+        }
+      ]
+    },
+    "AMPLIFY_function_neptunePut_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "neptunePut"
         }
       ]
     }

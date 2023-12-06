@@ -47,12 +47,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "userProfileDBHandlerDev",
+            "neptuneGet",
             {
               "Fn::Join": [
                 "",
                 [
-                  "userProfileDBHandlerDev",
+                  "neptuneGet",
                   "-",
                   {
                     "Ref": "env"
@@ -89,12 +89,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "yumLambdaRole5f1fb8a2",
+            "yumLambdaRole7677c236",
             {
               "Fn::Join": [
                 "",
                 [
-                  "yumLambdaRole5f1fb8a2",
+                  "yumLambdaRole7677c236",
                   "-",
                   {
                     "Ref": "env"
