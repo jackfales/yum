@@ -1,7 +1,7 @@
 import { withSSRContext } from "aws-amplify";
 import { headers } from "next/headers";
 import Image from 'next/image';
-import styles from "../../styles/Profile.module.css"
+import Navbar from "../components/Navbar";
 import { EditProfileAndFollowButton } from "../components/ClientUtilityFunctions";
 // TODO These imports may not be needed when we implement a database
 import path from 'path';
@@ -62,32 +62,30 @@ export default async function Profile({ params }: { params: {user: string}}) {
   const { user } = params;
   const { followers, following, postCount } = getProfileData(user);
 
-  return (
-    <main id={styles['main']}>
-      <div id={styles['profilebanner']} className={`${styles.container} ${styles.column}`}>
-        <div id={styles['profileheader']} 
-             className={`${styles.container} 
-                         ${styles.row} 
-                         ${styles.spacebetween}`}>
+  return (<>
+    <Navbar username={currUser}/>
+    <main className='bg-cream-100 h-screen flex items-start justify-center pt-14'>
+      <div className='flex-[0_1_670px] flex flex-col items-center'>
+        <div className='flex flex-row flex-nowrap justify-between items-center gap-2 w-full p-4 border-b'>
           <Image
-            id={styles['profilepicture']}
-            src={`/images/pp/${user}.jpg`}
-            alt="Picture of the user"
-            width={100}
-            height={100}
+              className='w-[150px] h-[150px] rounded-full shadow-inner'
+              src={`/images/pp/${user}.jpg`}
+              alt="Picture of the user"
+              width={150}
+              height={150}          
           />
-          <h1>{user}</h1>
-        </div>
-        <div id={styles['profileinfo']} 
-             className={`${styles.container} 
-             ${styles.row} 
-             ${styles.spacebetween}`}>
-          <p>Followers: {followers}</p>
-          <p>Following: {following}</p>
-          <p>Post Count: {postCount}</p>
+          <div className='flex flex-col items-center h-full gap-1.5'>
+            <h1 className='text-2xl'>{user}</h1>
+            <div className='flex gap-4 justify-between'>
+              <p><span className='font-medium'>{followers}</span> Followers</p>
+              <p><span className='font-medium'>{following}</span> Following</p>
+              <p><span className='font-medium'>{postCount}</span> Posts</p>
+            </div>
+            <EditProfileAndFollowButton user={currUser} isUser={currUser === user}/>
+          </div>
         </div>
       </div>
-      <EditProfileAndFollowButton user={currUser} isUser={currUser === user}></EditProfileAndFollowButton>
     </main>
+  </>
   )
 }

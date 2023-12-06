@@ -5,7 +5,6 @@ import Navbar from "../components/Navbar";
 import CreatePostModal from "../components/CreatePostModal";
 import Post from "../components/Post";
 import LoadMore from "../components/LoadMore";
-import styles from "../../styles/Dashboard.module.css";
 // TODO: Imports below are used to read test data, delete when DB is implemented
 import path from 'path';
 import fs from 'fs';
@@ -41,8 +40,8 @@ export default async function Dashboard() {
   
   return (<>
     <Navbar username={username}></Navbar>
-    <main id={styles.main} className={`${styles.container} ${styles.center}`}>
-      <div id={styles.column}>
+    <main className='bg-cream-100 flex items-center justify-center pt-14'>
+      <div className='flex-[0_1_670px] flex flex-col items-center'>
         <CreatePostModal/>
         {
           fetchPosts(0, testData).map((post, index) => (

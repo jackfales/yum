@@ -2,7 +2,6 @@ import { Auth } from 'aws-amplify'
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import styles from '../styles/Home.module.css';
 
 export default function Login() {
   const [errorMessage, setErrorMessage] = useState('');
@@ -38,32 +37,25 @@ export default function Login() {
   }
 
   return (
-    <div className={styles.container}>
+    <>
       <Head>
         <title>YUM | Login</title>
         <link rel="icon" href="/favicon-32x32.png"/>
       </Head>
 
-      <form onSubmit={onSubmit}>
-        <div id="login-header">
-          <h1>Login</h1>
+      <main className='bg-cream-100 h-screen flex justify-center items-center'>
+        <div className='flex flex-col justify-center items-start w-80'>
+          <h1 className='text-5xl tracking-tight font-bold mb-4'>Log in to Yum</h1>
+          <form onSubmit={onSubmit} className='w-full'>
+            <p className='mb-2 text-red-400'>{errorMessage}</p>
+            <label htmlFor='username' className='font-semibold'>Username:</label>
+            <input type="text" name="username" className='w-full border border-gray-200 shadow-inner mb-2 py-1 px-2 rounded-md'/>
+            <label htmlFor='password' className='font-semibold'>Password:</label>
+            <input type="password" name="password" className='w-full border border-gray-200 shadow-inner mb-2 py-1 px-2 rounded-md'/>
+            <button type="submit" className='my-2 py-2 w-full border bg-emerald-500 transition-colors hover:bg-emerald-600 rounded-full text-white text-lg font-semibold text-center'>Submit</button>
+          </form>
         </div>
-        <div id="error">
-          <p id="error-message">{errorMessage}</p>
-        </div>
-        <div id="username">
-          <h3>Username</h3>
-          <input type="text" name="username" />
-        </div>
-        <div id="password">
-          <h3>Password</h3>
-          <input type="password" name="password" />
-        </div>
-        <div>
-         <br></br>
-         <button type="submit">Submit</button>
-        </div>
-      </form>
-    </div>
+      </main>
+    </>
   );
 }
