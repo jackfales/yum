@@ -7,42 +7,29 @@ def lambda_handler(event, context):
     endpoint = os.environ['NEPTUNE_ENDPOINT']
     port = os.environ['NEPTUNE_PORT']
 
-    try:
-        method = event["method"]
-    except:
-        return {
-        "statusCode": 400,
-        "body": "Bad Request: \"method\" parameter required."
-        }
-
     # Connect to Neptune
     db = client.Client(f"wss://{endpoint}:{port}/gremlin", "g")
 
-    def db_modify_user(userData):
-        username = userData["user"]
-        attribute = userData["attribute"]
-        newValue = userData["newValue"]
-        # Get vertex ID
-        query = f"g.V().has('username', '{username}').id();"
-        vertexID = db.submit(query).all().result()
-        # Add new value
-        query = f"g.V({vertexID}).property(single, '{attribute}', '{newValue}');"
+    userData = json.loads(event["body"])["userInfo"]
+    username = event["pathParameters"]["userId"]
+    attribute = userData["attribute"]
+    newValue = userData["newValue"]
+    # Get vertex ID
+    query = f"g.V().has('username', '{username}').id();"
+    vertexID = db.submit(query).all().result()
+    # Add new value
+    query = f"g.V({vertexID}).property(single, '{attribute}', '{newValue}');"
+
+    try:
         db.submit(query)
-        return "Query executed successfully"
-
-    result = ""
-
-    if method == "PUT":
-        userData = event["userInfo"]
-        result = db_modify_user(userData)
-    else:
-        return {
-            "statusCode": 400,
-            "body": "Bad Request: \"method\" parameter must be \"PUT\"."
-        }
+        result = "Query submitted successfully"
+        statusCode = 200
+    except:
+        result = "Query failed"
+        statusCode = 400
 
     # Process and return results
     return {
-        "statusCode": 200,
+        "statusCode": statusCode,
         "body": result
     }

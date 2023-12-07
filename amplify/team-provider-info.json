@@ -18,19 +18,19 @@
       "function": {
         "neptuneGet": {
           "deploymentBucketName": "amplify-yum-dev-214045-deployment",
-          "s3Key": "amplify-builds/neptuneGet-6a4f424757346c386d69-build.zip"
+          "s3Key": "amplify-builds/neptuneGet-70624d71775473673366-build.zip"
         },
         "neptunePost": {
           "deploymentBucketName": "amplify-yum-dev-214045-deployment",
-          "s3Key": "amplify-builds/neptunePost-6d48526e484837467251-build.zip"
+          "s3Key": "amplify-builds/neptunePost-34333450614130575064-build.zip"
         },
         "neptunePut": {
           "deploymentBucketName": "amplify-yum-dev-214045-deployment",
-          "s3Key": "amplify-builds/neptunePut-4f77574b4f2f41345374-build.zip"
+          "s3Key": "amplify-builds/neptunePut-7367346539706c64317a-build.zip"
         },
         "neptuneDelete": {
           "deploymentBucketName": "amplify-yum-dev-214045-deployment",
-          "s3Key": "amplify-builds/neptuneDelete-645145367758666b3464-build.zip"
+          "s3Key": "amplify-builds/neptuneDelete-4d657168356b2f614170-build.zip"
         }
       }
     }
