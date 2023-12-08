@@ -31,6 +31,10 @@
         "neptuneDelete": {
           "deploymentBucketName": "amplify-yum-dev-214045-deployment",
           "s3Key": "amplify-builds/neptuneDelete-4d657168356b2f614170-build.zip"
+        },
+        "createPostHandler": {
+          "deploymentBucketName": "amplify-yum-dev-214045-deployment",
+          "s3Key": "amplify-builds/createPostHandler-494930336b7935736653-build.zip"
         }
       }
     }

@@ -28,6 +28,11 @@
     }
   },
   "function": {
+    "createPostHandler": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "neptuneDelete": {
       "build": true,
       "providerPlugin": "awscloudformation",
@@ -50,6 +55,22 @@
     }
   },
   "parameters": {
+    "AMPLIFY_function_createPostHandler_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "createPostHandler"
+        }
+      ]
+    },
+    "AMPLIFY_function_createPostHandler_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "createPostHandler"
+        }
+      ]
+    },
     "AMPLIFY_function_neptuneDelete_deploymentBucketName": {
       "usedBy": [
         {
