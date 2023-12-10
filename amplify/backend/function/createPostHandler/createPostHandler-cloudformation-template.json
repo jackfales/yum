@@ -89,20 +89,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-<<<<<<< HEAD
             "yumLambdaRolebaffe068",
-=======
-            "yumLambdaRole3bc0528b",
->>>>>>> main
             {
               "Fn::Join": [
                 "",
                 [
-<<<<<<< HEAD
                   "yumLambdaRolebaffe068",
-=======
-                  "yumLambdaRole3bc0528b",
->>>>>>> main
                   "-",
                   {
                     "Ref": "env"
