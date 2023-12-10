@@ -1,4 +1,20 @@
 {
+  "api": {
+    "postApi": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "createPostHandler"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
+    }
+  },
   "auth": {
     "yum17ce7d7b": {
       "customAuth": false,
@@ -32,6 +48,7 @@
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
+<<<<<<< HEAD
     },
     "neptuneDelete": {
       "build": true,
@@ -52,6 +69,8 @@
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
+=======
+>>>>>>> main
     }
   },
   "parameters": {
@@ -70,6 +89,7 @@
           "resourceName": "createPostHandler"
         }
       ]
+<<<<<<< HEAD
     },
     "AMPLIFY_function_neptuneDelete_deploymentBucketName": {
       "usedBy": [
@@ -134,6 +154,8 @@
           "resourceName": "neptunePut"
         }
       ]
+=======
+>>>>>>> main
     }
   }
 }

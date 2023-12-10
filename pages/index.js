@@ -1,86 +1,43 @@
 import Head from 'next/head';
-import styles from '../styles/Home.module.css';
+import Link from 'next/link';
+import { Playfair, Roboto } from "next/font/google";
+
+const playfair = Playfair({
+  subsets: ['latin'],
+  weight: ['700']
+})
+const roboto = Roboto({
+  subsets: ['latin'],
+  weight: ['400']
+})
 
 export default function Home() {
   return (
-    <div className={styles.container}>
+    <>
       <Head>
         <title>YUM</title>
         <link rel="icon" href="/favicon-32x32.png"/>
       </Head>
 
-      <main>
-        <h1 className={styles.title}>
-          Hello World!
-        </h1>
+      <main className='bg-cream-100 h-screen flex justify-center items-center'>
+        <div className='flex flex-col lg:flex-row justify-center items-center gap-16'>
+          <div className='w-[375px] lg:w-[580px]'>
+            <h1 className={`${playfair.className} text-7xl tracking-tight text-rose-200 text-center lg:text-left`}>Yum.</h1>
+            <h2 className={`${roboto.className} text-3xl text-neutral-800 text-center lg:text-left`}>Discover and share recipes with chefs and home-cooks alike.</h2>
+          </div>
+          <div className='flex flex-col border border-gray-100 bg-white shadow-md rounded-lg w-80 p-5'>
+            <h2 className='text-2xl text-neutral-800 tracking-tight text-center'>New to Yum?</h2>
+            <Link href='/create-account' className='my-5 py-2 border border-emerald-500 transition-colors hover:border-emerald-600 rounded-full text-emerald-500 hover:text-emerald-600 text-xl font-semibold text-center'>Create Account</Link>
+            <div class="relative flex items-center">
+              <div class="flex-grow border-t border-gray-400"></div>
+                <span class="flex-shrink mx-4 text-gray-400">OR</span>
+              <div class="flex-grow border-t border-gray-400"></div>
+            </div>
+            <Link href='/login' className='my-5 py-2 border bg-emerald-500 transition-colors hover:bg-emerald-600 rounded-full text-white text-xl font-semibold text-center'>Log in</Link>
+            <Link href='/forgot-password' className='text-center text-blue-400'>Forgot password?</Link>
+          </div>
+        </div>
       </main>
-
-      <style jsx>{`
-        main {
-          padding: 5rem 0;
-          flex: 1;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-        }
-        footer {
-          width: 100%;
-          height: 100px;
-          border-top: 1px solid #eaeaea;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-        footer img {
-          margin-left: 0.5rem;
-        }
-        footer a {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          text-decoration: none;
-          color: inherit;
-        }
-        code {
-          background: #fafafa;
-          border-radius: 5px;
-          padding: 0.75rem;
-          font-size: 1.1rem;
-          font-family:
-            Menlo,
-            Monaco,
-            Lucida Console,
-            Liberation Mono,
-            DejaVu Sans Mono,
-            Bitstream Vera Sans Mono,
-            Courier New,
-            monospace;
-        }
-      `}</style>
-
-      <style jsx global>{`
-        html,
-        body {
-          padding: 0;
-          margin: 0;
-          font-family:
-            -apple-system,
-            BlinkMacSystemFont,
-            Segoe UI,
-            Roboto,
-            Oxygen,
-            Ubuntu,
-            Cantarell,
-            Fira Sans,
-            Droid Sans,
-            Helvetica Neue,
-            sans-serif;
-        }
-        * {
-          box-sizing: border-box;
-        }
-      `}</style>
-    </div>
+    </>
   );
 }

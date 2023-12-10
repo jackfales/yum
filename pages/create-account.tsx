@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import isEmail from 'validator/lib/isEmail';
 import isStrongPassword from 'validator/lib/isStrongPassword';
 import { useRouter } from 'next/router';
-import styles from '../styles/Home.module.css';
 import { Auth } from 'aws-amplify'
 
 export default function CreateAccount() {
@@ -109,89 +108,43 @@ export default function CreateAccount() {
   }
   
   return (
-    <div>
+    <>
       <Head>
           <title>YUM | Create Account</title>
       </Head>
-      <main className={styles.container}>
-        <form onSubmit={handleSubmit}>
-          <div>
-            <label htmlFor='firstName'>First name:</label>
-            <input type='text' name='firstName'/>
-            <div className='error'>{inputErrorMessages.firstName}</div>
-          </div>
-          <div>
-            <label htmlFor='lastName'>Last name:</label>
-            <input type='text' name='lastName'/>
-            <div className='error'>{inputErrorMessages.lastName}</div>
-          </div>
-          <div>
-            <label htmlFor='email'>Email:</label>
-            <input type='text' name='email'/>
-            <div className='error'>{inputErrorMessages.email}</div>
-          </div>
-          <div>
-            <label htmlFor='username'>Username:</label>
-            <input type='text' name='username'/>
-            <div className='error'>{inputErrorMessages.username}</div>
-          </div>
-          <div>
-            <label htmlFor='password'>Password:</label>
-            <input type='password' name='password'/>
-            <div className='error'>{inputErrorMessages.password}</div>
-          </div>
-          <div>
-            <label htmlFor='confirmPassword'>Confirm Password:</label>
-            <input type='password' name='confirmPassword'/>
-            <div className='error'>{inputErrorMessages.confirmPassword}</div>
-          </div>
-          <button type='submit'>Create Account</button>
-        </form>
+      <main className='bg-cream-100 h-screen flex justify-center items-center'>
+        <div className='flex flex-col justify-center items-start gap-14 w-80'>
+          <h1 className='text-5xl tracking-tight font-bold self-center'>Sign up to start cooking!</h1>
+          <form onSubmit={handleSubmit} className='flex flex-col items-start gap w-full'>
+            <label htmlFor='firstName' className='font-semibold'>First name:</label>
+            <input type='text' name='firstName' placeholder='John' className='w-full border border-gray-200 shadow-inner py-1 px-2 rounded-md'/>
+            <div className='mb-2 text-red-400'>{inputErrorMessages.firstName}</div>
+
+            <label htmlFor='lastName' className='font-semibold'>Last name:</label>
+            <input type='text' name='lastName' placeholder='Smith' className='w-full border border-gray-200 shadow-inner py-1 px-2 rounded-md'/>
+            <div className='mb-2 text-red-400'>{inputErrorMessages.lastName}</div>
+
+
+            <label htmlFor='email' className='font-semibold'>Email:</label>
+            <input type='text' name='email' placeholder='name@domain.com' className='w-full border border-gray-200 shadow-inner py-1 px-2 rounded-md'/>
+            <div className='mb-2 text-red-400'>{inputErrorMessages.email}</div>
+
+            <label htmlFor='username' className='font-semibold'>Username:</label>
+            <input type='text' name='username' placeholder='johnsmith2023' className='w-full border border-gray-200 shadow-inner py-1 px-2 rounded-md'/>
+            <div className='mb-2 text-red-400'>{inputErrorMessages.username}</div>
+
+            <label htmlFor='password' className='font-semibold'>Password:</label>
+            <input type='password' name='password' className='w-full border border-gray-200 shadow-inner py-1 px-2 rounded-md'/>
+            <div className='mb-2 text-red-400'>{inputErrorMessages.password}</div>
+
+            <label htmlFor='confirmPassword' className='font-semibold'>Confirm Password:</label>
+            <input type='password' name='confirmPassword' className='w-full border border-gray-200 shadow-inner py-1 px-2 rounded-md'/>
+            <div className='mb-2 text-red-400'>{inputErrorMessages.confirmPassword}</div>
+
+            <button type='submit' className='my-2 py-2 w-full border bg-emerald-500 transition-colors hover:bg-emerald-600 rounded-full text-white text-lg font-semibold text-center'>Sign up</button>
+          </form>
+        </div>
       </main>
-      <style jsx>{`
-        label {
-          display: block;
-          font-size: 18px;
-        }
-
-        form {
-          padding: 30px;
-          width: 300px;
-        }
-
-        input, button {
-          width: 100%;
-          height: 25px;
-        }
-
-        .error {
-          text-wrap: wrap;
-          height: 45px;
-          color: #FA535E;
-        }
-      `}</style>
-      <style jsx global>{`
-        html,
-        body {
-          padding: 0;
-          margin: 0;
-          font-family:
-            -apple-system,
-            BlinkMacSystemFont,
-            Segoe UI,
-            Roboto,
-            Oxygen,
-            Ubuntu,
-            Cantarell,
-            Fira Sans,
-            Droid Sans,
-            Helvetica Neue,
-            sans-serif;
-        }
-        * {
-          box-sizing: border-box;
-        }
-      `}</style>
-    </div>
+    </>
   )
 }

@@ -1,11 +1,10 @@
 import Head from 'next/head';
 import React, { useState } from 'react';
 import { Auth } from 'aws-amplify';
-import styles from '../styles/Home.module.css';
 import { useRouter } from 'next/router';
 
 export default function ConfirmSignUp() {
-    const [errorMessage, setErrorMessage] = useState('Please input your username and confirmation code sent to your email.');
+    const [errorMessage, setErrorMessage] = useState('');
     const router = useRouter();
 
     const handleSubmit = async (e) => {
@@ -13,81 +12,41 @@ export default function ConfirmSignUp() {
 
         const formData = new FormData(e.target);
 
-        const username = formData.get("username").toString()
-        const confirmationCode = formData.get("confirmationCode").toString()
+        const username = formData.get("username")?.toString()
+        const confirmationCode = formData.get("confirmationCode")?.toString()
 
-        try {
-            await Auth.confirmSignUp(username, confirmationCode);
-            router.push("/login")
-        } catch (error) {
-            setErrorMessage(error.toString())
+        if (!!!username || !!!confirmationCode) {
+          setErrorMessage('Please provide your username and confirmation code.');
+        } else {
+            try {
+              await Auth.confirmSignUp(username, confirmationCode);
+              router.push("/login");
+            } catch (error) {
+              setErrorMessage(error.toString());
+            }
         }
     }
 
     return (
-        <div>
+        <>
           <Head>
               <title>YUM | Confirm Account</title>
           </Head>
-          <main className={styles.container}>
-            <form onSubmit={handleSubmit}>
-              <div className='error'>{errorMessage}</div>
-              <div>
-                <h3>Username</h3>
-                <input type='text' name='username'/>   
-              </div>
-              <div>
-                <h3>Confirmation Code</h3>
-                <input type='text' name='confirmationCode'/>
-              </div>
-              <button type='submit'>Confirm Account</button>
-            </form>
+
+          <main className='bg-cream-100 h-screen flex justify-center items-center'>
+            <div className='flex flex-col justify-center items-start w-80'>
+              <h1 className='text-5xl tracking-tight font-bold mb-4'>Email Confirmation</h1>
+              <form onSubmit={handleSubmit} className='w-full'>
+                <p className='mb-2 text-red-400'>{errorMessage}</p>
+                <label htmlFor='username' className='font-semibold'>Username:</label>
+                <input type='text' name='username' className='w-full border border-gray-200 shadow-inner mb-2 py-1 px-2 rounded-md'/>
+                <label htmlFor='confirmationCode' className='font-semibold'>Confirmation Code:</label>
+                <input type='text' name='confirmationCode' className='w-full border border-gray-200 shadow-inner mb-2 py-1 px-2 rounded-md'/>
+                <button type='submit' className='my-2 py-2 w-full border bg-emerald-500 transition-colors hover:bg-emerald-600 rounded-full text-white text-lg font-semibold text-center'>Confirm Account</button>
+              </form>
+            </div>
           </main>
-          <style jsx>{`
-            label {
-              display: block;
-              font-size: 18px;
-            }
-    
-            form {
-              padding: 30px;
-              width: 300px;
-            }
-    
-            input, button {
-              width: 100%;
-              height: 25px;
-            }
-    
-            .error {
-              text-wrap: wrap;
-              height: 45px;
-              color: #FA535E;
-            }
-          `}</style>
-          <style jsx global>{`
-            html,
-            body {
-              padding: 0;
-              margin: 0;
-              font-family:
-                -apple-system,
-                BlinkMacSystemFont,
-                Segoe UI,
-                Roboto,
-                Oxygen,
-                Ubuntu,
-                Cantarell,
-                Fira Sans,
-                Droid Sans,
-                Helvetica Neue,
-                sans-serif;
-            }
-            * {
-              box-sizing: border-box;
-            }
-          `}</style>
-        </div>
+        </>
       )
 
 }
