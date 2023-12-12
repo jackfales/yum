@@ -1,8 +1,8 @@
-import { headers } from 'next/headers';
+import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 import { withSSRContext } from "aws-amplify";
 
-export async function PUT(request: Request) {
+export async function POST(request: Request) {
   // Checks if the request comes from an authenticated user
   const req = {
     headers: {
@@ -29,14 +29,6 @@ export async function PUT(request: Request) {
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(payload)
   });
-  
-  const data = await res.json();
 
-  const body = data['body']
-  if (data.statusCode == 200) {
-    return NextResponse.json({result: `${body}`}, {status: data.statusCode});
-  } else {
-    const errorMessage = `${body['errorType']}: ${body['errorMessage'][1]}`;
-    return NextResponse.json({error: errorMessage}, {status: data.statusCode})
-  }
+  const data = await res.json();
 }

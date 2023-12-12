@@ -1,20 +1,4 @@
 {
-  "api": {
-    "postApi": {
-      "dependsOn": [
-        {
-          "attributes": [
-            "Name",
-            "Arn"
-          ],
-          "category": "function",
-          "resourceName": "createPostHandler"
-        }
-      ],
-      "providerPlugin": "awscloudformation",
-      "service": "API Gateway"
-    }
-  },
   "auth": {
     "yum17ce7d7b": {
       "customAuth": false,
@@ -46,6 +30,12 @@
   "function": {
     "createPostHandler": {
       "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "getUsersFollowing": {
+      "build": true,
+      "dependsOn": [],
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
@@ -84,6 +74,22 @@
         {
           "category": "function",
           "resourceName": "createPostHandler"
+        }
+      ]
+    },
+    "AMPLIFY_function_getUsersFollowing_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "getUsersFollowing"
+        }
+      ]
+    },
+    "AMPLIFY_function_getUsersFollowing_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "getUsersFollowing"
         }
       ]
     },

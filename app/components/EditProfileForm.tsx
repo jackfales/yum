@@ -2,9 +2,8 @@
 import { FormEvent } from 'react';
 
 export default function EditProfileForm() {
-
   /**
-   * Submits new post data
+   * Submits form data
    * 
    * @param e - the form submit event
   */

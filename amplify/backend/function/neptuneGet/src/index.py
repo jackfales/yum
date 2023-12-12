@@ -11,10 +11,10 @@ def lambda_handler(event, context):
     db = client.Client(f"wss://{endpoint}:{port}/gremlin", "g")
 
     username = event["pathParameters"]["userId"]
-    query = f"g.V().hasLabel('user').has('username', '{username}').values();"
+    query = f"g.V().hasLabel('user').has('username', '{username}').valueMap();"
     
     try:
-        result = db.submit(query).all().result()
+        result = db.submit(query)
         statusCode = 200
     except:
         result = "Query failed"
@@ -23,5 +23,5 @@ def lambda_handler(event, context):
     # Process and return results
     return {
         "statusCode": statusCode,
-        "body": json.dumps(result)
+        "body": json.dumps(list(result)[0])
     }

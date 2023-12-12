@@ -18,7 +18,7 @@
       "function": {
         "neptuneGet": {
           "deploymentBucketName": "amplify-yum-dev-214045-deployment",
-          "s3Key": "amplify-builds/neptuneGet-70624d71775473673366-build.zip"
+          "s3Key": "amplify-builds/neptuneGet-6d374a3041644a415979-build.zip"
         },
         "neptunePost": {
           "deploymentBucketName": "amplify-yum-dev-214045-deployment",
@@ -35,6 +35,10 @@
         "createPostHandler": {
           "deploymentBucketName": "amplify-yum-dev-214045-deployment",
           "s3Key": "amplify-builds/createPostHandler-494930336b7935736653-build.zip"
+        },
+        "getUsersFollowing": {
+          "deploymentBucketName": "amplify-yum-dev-214045-deployment",
+          "s3Key": "amplify-builds/getUsersFollowing-4e35614a4e68345a6e37-build.zip"
         }
       }
     }
