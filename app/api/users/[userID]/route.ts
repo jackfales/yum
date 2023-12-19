@@ -6,23 +6,6 @@ export async function GET(request: Request, { params }: { params: { userID: stri
   // Checks if the request comes from an authenticated user
   const userID = params.userID
 
-  const req = {
-    headers: {
-      cookie: headers().get("cookie")
-    },
-  };
-
-  const { Auth } = withSSRContext({ req });
-
-  try {
-    await Auth.currentAuthenticatedUser();
-  } catch(err) {
-    return NextResponse.json(
-      {error: 'You do not have permission to access this resource'}, 
-      {status: 401}
-    );
-  }
-
   const res = await fetch(`https://dzcmprdreb.execute-api.us-west-2.amazonaws.com/api/users/${userID}`, {
     method: 'GET',
     headers: {'Content-Type': 'application/json'},
@@ -35,23 +18,6 @@ export async function GET(request: Request, { params }: { params: { userID: stri
 export async function PUT(request: Request, { params }: { params: { userID: string } }) {
   // Checks if the request comes from an authenticated user
   const userID = params.userID
-
-  const req = {
-    headers: {
-      cookie: headers().get("cookie")
-    },
-  };
-
-  const { Auth } = withSSRContext({ req });
-
-  try {
-    await Auth.currentAuthenticatedUser();
-  } catch(err) {
-    return NextResponse.json(
-      {error: 'You do not have permission to access this resource'}, 
-      {status: 401}
-    );
-  }
 
   // TODO: parse form data and send appropriate API request
   const payload: Object = (Object.fromEntries(await request.formData()));
@@ -70,23 +36,6 @@ export async function PUT(request: Request, { params }: { params: { userID: stri
 export async function DELETE(request: Request, { params }: { params: { userID: string } }) {
   // Checks if the request comes from an authenticated user
   const userID = params.userID
-
-  const req = {
-    headers: {
-      cookie: headers().get("cookie")
-    },
-  };
-
-  const { Auth } = withSSRContext({ req });
-
-  try {
-    await Auth.currentAuthenticatedUser();
-  } catch(err) {
-    return NextResponse.json(
-      {error: 'You do not have permission to access this resource'}, 
-      {status: 401}
-    );
-  }
 
   const res = await fetch(`https://dzcmprdreb.execute-api.us-west-2.amazonaws.com/api/users/${userID}`, {
     method: 'DELETE',

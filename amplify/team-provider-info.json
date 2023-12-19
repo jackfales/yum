@@ -38,7 +38,7 @@
         },
         "getUsersFollowing": {
           "deploymentBucketName": "amplify-yum-dev-214045-deployment",
-          "s3Key": "amplify-builds/getUsersFollowing-4e35614a4e68345a6e37-build.zip"
+          "s3Key": "amplify-builds/getUsersFollowing-4a564833457770443234-build.zip"
         }
       }
     }
