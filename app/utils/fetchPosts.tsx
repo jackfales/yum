@@ -1,14 +1,17 @@
-/* TODO: This function should be an API Route that requests post from the user's 
-* followed chefs by querying the database. The query would return the data in
-* chronological order
-*
-* The query shoud look something like this:
-* SELECT * FROM posts 
-* WHERE (user_id = [followed user ids]) 
-* ORDER BY created_at DESC
-* LIMIT 5
-* OFFSET (pageNum * 5);
+/* TODO:
+* This function should be an Route Handler that:
+*   1. Queries the graphDB for all the users that specified user follows
+*     a. The graph query should look something like:
+*        g.V().has("username", "dtran").out("follows").id()
+*   2. Queries the relationalDB for all the posts belonging to the followed users (chronologically)
+*     a. The relational query should look something like:
+*        SELECT * FROM posts
+*        WHERE (created_by = [followed user_ids])
+*        ORDER BY created_at DESC
+*        LIMIT 5
+*        OFFSET (pageNum * 5);
 */
+
 /**
  * Returns the Post data for the five posts belonging to the specified page
  * 
