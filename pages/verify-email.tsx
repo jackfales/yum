@@ -15,6 +15,7 @@ export default function ConfirmSignUp() {
         const username = formData.get("username")?.toString()
         const confirmationCode = formData.get("confirmationCode")?.toString()
 
+        // Validates user inputted data and generates error messages
         if (!!!username || !!!confirmationCode) {
           setErrorMessage('Please provide your username and confirmation code.');
         } else {
