@@ -1,10 +1,10 @@
 'use client'
 import { FormEvent } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 export default function EditProfileForm({userData}) {
 
-  //const router = useRouter();
+  const router = useRouter();
 
   const firstName = userData['data'][0]['firstName'][0]
   const lastName = userData['data'][0]['lastName'][0]
@@ -26,16 +26,14 @@ export default function EditProfileForm({userData}) {
     console.log(formData);
 
     for (const [key, value] of Object.entries(formData)) {
-      console.log(`${key}: ${value}`);
       // No support for profile picture yet
       if (key === "profilePicture") {
         continue;
       }
-
       // If the value is the same, don't send the request, else send request
-      if (userInfo[key] === value) {
+      if (userInfo.get(key) === value) {
         continue;
-      } else{
+      } else {
         const payload = {
           "method" : "PUT",
           "userInfo" : {
@@ -53,6 +51,8 @@ export default function EditProfileForm({userData}) {
         console.log(data)
       }
     }
+
+    router.refresh();
   }
   
   return (

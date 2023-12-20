@@ -22,15 +22,15 @@
         },
         "neptunePost": {
           "deploymentBucketName": "amplify-yum-dev-214045-deployment",
-          "s3Key": "amplify-builds/neptunePost-34333450614130575064-build.zip"
+          "s3Key": "amplify-builds/neptunePost-51716831394d2b6d6455-build.zip"
         },
         "neptunePut": {
           "deploymentBucketName": "amplify-yum-dev-214045-deployment",
-          "s3Key": "amplify-builds/neptunePut-7367346539706c64317a-build.zip"
+          "s3Key": "amplify-builds/neptunePut-6d3535776157516b7641-build.zip"
         },
         "neptuneDelete": {
           "deploymentBucketName": "amplify-yum-dev-214045-deployment",
-          "s3Key": "amplify-builds/neptuneDelete-4d657168356b2f614170-build.zip"
+          "s3Key": "amplify-builds/neptuneDelete-622b374a356238645868-build.zip"
         },
         "createPostHandler": {
           "deploymentBucketName": "amplify-yum-dev-214045-deployment",
