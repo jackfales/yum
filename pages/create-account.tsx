@@ -32,10 +32,11 @@ export default function CreateAccount() {
 
     const errors : { [key: string]: string } = {};
     
-    // Validation criteria for each field
+    // Validates user inputted account data and generates error messages
     formData.forEach((input, field) => {
       let errorMessage;
       switch (field) {
+        // TODO: Change input.length to validator.isEmpty() or .isLength() for consistency
         case 'firstName':
           errorMessage = input.length === 0 ?
             'Please provide a first name!' : '';
@@ -69,7 +70,6 @@ export default function CreateAccount() {
       errors[field] = errorMessage;
       console.log(`${field}: ${input}`);
     });
-    // Update the error messages, telling React to re-render the component
     setErrorMessages({"confirmPassword" : errors["confirmPassword"],
                       "email" : errors["email"],
                       "firstName" : errors["firstName"],
@@ -77,11 +77,14 @@ export default function CreateAccount() {
                       "password" : errors["password"],
                       "username" : errors["username"]
                       });
-
-    // Check if the form has any errors
+           
+    // Submits user inputted post data if there are no errors
     const hasNoErrors = Object.values(errors)
                                 .every((input) => input === '');
-
+    /* TODO: Separate backend from frontend. The following code should be 
+     * refactored to an Route Handler. 
+     * Similar to what is done in `./app/components/CreatePostModal.tsx`
+     */        
     const username = formData.get("username").toString()
     const password = formData.get("password").toString()
     const email = formData.get("email").toString()
