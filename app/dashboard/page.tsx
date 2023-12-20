@@ -5,7 +5,9 @@ import Navbar from "../components/Navbar";
 import CreatePostModal from "../components/CreatePostModal";
 import Post from "../components/Post";
 import LoadMore from "../components/LoadMore";
-// TODO: Imports below are used to read test data, delete when DB is implemented
+/* TODO: Remove the imports below and static post data located at `./data/posts.json` 
+* once data is queried from relational database.
+*/
 import path from 'path';
 import fs from 'fs';
 import fetchPosts from "../utils/fetchPosts"
@@ -14,6 +16,7 @@ export const metadata = {
   title: 'Dashboard'
 }
 
+//TODO: Remove these constants as these were for the static data
 const testDataPath: string = path.join(process.cwd(), 'data/posts.json');
 const testData: Object[] = JSON.parse(fs.readFileSync(testDataPath, 'utf8'));
 
@@ -25,7 +28,6 @@ export default async function Dashboard() {
     },
   };
 
-  // Passes client-side credentials to server via cookies
   const { Auth } = withSSRContext({ req });
 
   // Renders dashboard if logged in, else redirect to /login

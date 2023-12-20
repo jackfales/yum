@@ -3,7 +3,7 @@ import { headers } from "next/headers";
 import Image from 'next/image';
 import Navbar from "../components/Navbar";
 import { EditProfileAndFollowButton } from "../components/ClientUtilityFunctions";
-/* TODO: Remove the exports below and static user data located at `./data` and
+/* TODO: Remove the imports below and static user data located at `./data` and
  * `./public/images` at once data is queried from the graphDB.
  */
 import path from 'path';
@@ -56,9 +56,10 @@ export default async function Profile({ params }: { params: {user: string}}) {
     },
   };
 
-  // Passes client-side credentials to server via cookies
   const { Auth } = withSSRContext({ req });
 
+  // TODO: Need to redirect to `/login` similar to `./dashboard/page.tsx`
+  // Renders the profile page if logged in, else redirect to /login
   let currUser
   try {
     const data = await Auth.currentAuthenticatedUser();
