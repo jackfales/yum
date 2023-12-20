@@ -3,7 +3,9 @@ import { headers } from "next/headers";
 import Image from 'next/image';
 import Navbar from "../components/Navbar";
 import { EditProfileAndFollowButton } from "../components/ClientUtilityFunctions";
-// TODO These imports may not be needed when we implement a database
+/* TODO: Remove the exports below and static user data located at `./data` and
+ * `./public/images` at once data is queried from the graphDB.
+ */
 import path from 'path';
 import fs from 'fs';
 
@@ -12,7 +14,9 @@ export const metadata = {
 }
 
 const profileDirectory: string = path.join(process.cwd(), 'data');
-
+/* TODO: Update generateStaticParams function to query the graphDB for all 
+ * existing users instead of searching the static files.
+ */
 /**
  * Returns all of the endpoints for the dynamic route
  * 
@@ -27,6 +31,9 @@ export async function generateStaticParams() {
   })
 }
 
+/* TODO: Update getProfileData function to query the graphDB for the user data
+ * in JSON format
+ */
 /**
  * Returns the profile data associated with the provided user
  * 
@@ -41,6 +48,7 @@ export function getProfileData(id: string): any {
 
 
 export default async function Profile({ params }: { params: {user: string}}) {
+  /* TODO: Replace this authorization check with a check at the API gateway */
   // Packages cookies into request header
   const req = {
     headers: {
