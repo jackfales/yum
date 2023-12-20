@@ -12,10 +12,14 @@ export default function Navbar({username}: {username: String}) {
   const [prevScrollPos, setPrevScrollPos] = useState<number>(0);
   const [visible, setVisible] = useState<Boolean>(true);
 
+  /**
+   * Updates Navbar visability based on scroll. Hides on scroll down, reveals on
+   * scroll up.
+   */
   const handleScroll = () => {
     const currentScrollPos = window.scrollY;
 
-    setVisible(currentScrollPos < prevScrollPos );
+    setVisible(currentScrollPos < prevScrollPos);
     setPrevScrollPos(currentScrollPos);
   };
 
