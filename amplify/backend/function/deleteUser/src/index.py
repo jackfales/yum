@@ -10,23 +10,16 @@ def lambda_handler(event, context):
     # Connect to Neptune
     db = client.Client(f"wss://{endpoint}:{port}/gremlin", "g")
 
-    userData = json.loads(event["body"])["userInfo"]
     username = event["pathParameters"]["userId"]
-    attribute = userData["attribute"]
-    newValue = userData["newValue"]
-    # Get vertex ID
-    query = f"g.V().has('username', '{username}').id();"
-    vertexID = db.submit(query).all().result()
-    # Add new value
-    query = f"g.V({vertexID}).property(single, '{attribute}', '{newValue}');"
+    query = f"g.V().hasLabel('user').has('username', '{username}').drop()"
 
     try:
         db.submit(query)
-        result = "Query submitted successfully"
+        result = f"User : {username} deleted successfully"
         statusCode = 200
     except:
-        result = "Query failed"
-        statusCode = 400
+        result = f"Server failed to delete user : {username}"
+        statusCode = 500
 
     # Process and return results
     return {

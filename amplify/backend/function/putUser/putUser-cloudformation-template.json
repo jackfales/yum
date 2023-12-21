@@ -47,12 +47,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "neptuneDelete",
+            "putUser",
             {
               "Fn::Join": [
                 "",
                 [
-                  "neptuneDelete",
+                  "putUser",
                   "-",
                   {
                     "Ref": "env"
@@ -89,12 +89,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "yumLambdaRole8e691968",
+            "yumLambdaRoleb785dd22",
             {
               "Fn::Join": [
                 "",
                 [
-                  "yumLambdaRole8e691968",
+                  "yumLambdaRoleb785dd22",
                   "-",
                   {
                     "Ref": "env"

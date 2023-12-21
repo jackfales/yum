@@ -33,27 +33,27 @@
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
+    "deleteUser": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "getUser": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "getUsersFollowing": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
-    "neptuneDelete": {
+    "postUser": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
-    "neptuneGet": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    },
-    "neptunePost": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    },
-    "neptunePut": {
+    "putUser": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
@@ -76,6 +76,38 @@
         }
       ]
     },
+    "AMPLIFY_function_deleteUser_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "deleteUser"
+        }
+      ]
+    },
+    "AMPLIFY_function_deleteUser_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "deleteUser"
+        }
+      ]
+    },
+    "AMPLIFY_function_getUser_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "getUser"
+        }
+      ]
+    },
+    "AMPLIFY_function_getUser_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "getUser"
+        }
+      ]
+    },
     "AMPLIFY_function_getUsersFollowing_deploymentBucketName": {
       "usedBy": [
         {
@@ -92,67 +124,35 @@
         }
       ]
     },
-    "AMPLIFY_function_neptuneDelete_deploymentBucketName": {
+    "AMPLIFY_function_postUser_deploymentBucketName": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "neptuneDelete"
+          "resourceName": "postUser"
         }
       ]
     },
-    "AMPLIFY_function_neptuneDelete_s3Key": {
+    "AMPLIFY_function_postUser_s3Key": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "neptuneDelete"
+          "resourceName": "postUser"
         }
       ]
     },
-    "AMPLIFY_function_neptuneGet_deploymentBucketName": {
+    "AMPLIFY_function_putUser_deploymentBucketName": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "neptuneGet"
+          "resourceName": "putUser"
         }
       ]
     },
-    "AMPLIFY_function_neptuneGet_s3Key": {
+    "AMPLIFY_function_putUser_s3Key": {
       "usedBy": [
         {
           "category": "function",
-          "resourceName": "neptuneGet"
-        }
-      ]
-    },
-    "AMPLIFY_function_neptunePost_deploymentBucketName": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "neptunePost"
-        }
-      ]
-    },
-    "AMPLIFY_function_neptunePost_s3Key": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "neptunePost"
-        }
-      ]
-    },
-    "AMPLIFY_function_neptunePut_deploymentBucketName": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "neptunePut"
-        }
-      ]
-    },
-    "AMPLIFY_function_neptunePut_s3Key": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "neptunePut"
+          "resourceName": "putUser"
         }
       ]
     }

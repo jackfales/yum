@@ -24,11 +24,11 @@ def lambda_handler(event, context):
         
     try:
         db.submit(query)
-        result = "Query excecuted successfully"
-        statusCode = 200
+        result = f"User : {username} created successfully"
+        statusCode = 201
     except:
-        result = "Query failed"
-        statusCode = 400
+        result = f"Server failed at creating user : {username}"
+        statusCode = 500
         
     # Process and return results
     return {

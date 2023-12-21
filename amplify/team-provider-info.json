@@ -16,22 +16,6 @@
         "yum17ce7d7b": {}
       },
       "function": {
-        "neptuneGet": {
-          "deploymentBucketName": "amplify-yum-dev-214045-deployment",
-          "s3Key": "amplify-builds/neptuneGet-6d374a3041644a415979-build.zip"
-        },
-        "neptunePost": {
-          "deploymentBucketName": "amplify-yum-dev-214045-deployment",
-          "s3Key": "amplify-builds/neptunePost-51716831394d2b6d6455-build.zip"
-        },
-        "neptunePut": {
-          "deploymentBucketName": "amplify-yum-dev-214045-deployment",
-          "s3Key": "amplify-builds/neptunePut-6d3535776157516b7641-build.zip"
-        },
-        "neptuneDelete": {
-          "deploymentBucketName": "amplify-yum-dev-214045-deployment",
-          "s3Key": "amplify-builds/neptuneDelete-622b374a356238645868-build.zip"
-        },
         "createPostHandler": {
           "deploymentBucketName": "amplify-yum-dev-214045-deployment",
           "s3Key": "amplify-builds/createPostHandler-494930336b7935736653-build.zip"
@@ -39,6 +23,22 @@
         "getUsersFollowing": {
           "deploymentBucketName": "amplify-yum-dev-214045-deployment",
           "s3Key": "amplify-builds/getUsersFollowing-4a564833457770443234-build.zip"
+        },
+        "deleteUser": {
+          "deploymentBucketName": "amplify-yum-dev-214045-deployment",
+          "s3Key": "amplify-builds/deleteUser-454933314c356a416b6f-build.zip"
+        },
+        "getUser": {
+          "deploymentBucketName": "amplify-yum-dev-214045-deployment",
+          "s3Key": "amplify-builds/getUser-515a38766965706a6a45-build.zip"
+        },
+        "putUser": {
+          "deploymentBucketName": "amplify-yum-dev-214045-deployment",
+          "s3Key": "amplify-builds/putUser-4b49776a567861592f78-build.zip"
+        },
+        "postUser": {
+          "deploymentBucketName": "amplify-yum-dev-214045-deployment",
+          "s3Key": "amplify-builds/postUser-6b6a6b4954565949514d-build.zip"
         }
       }
     }
