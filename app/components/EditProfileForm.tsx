@@ -12,45 +12,46 @@ export default function EditProfileForm({userData}) {
   const gender = userData['data'][0]['gender'][0]
   const bio = userData['data'][0]['bio'][0]
 
-  const userInfo = new Map([
-    ['firstName', firstName],
-    ['lastName', lastName],
-    ['username', username],
-    ['gender', gender],
-    ['bio', bio]
-  ])
+  const userInfo = {
+    'firstName' : firstName,
+    'lastName' : lastName,
+    'username' : username,
+    'gender' : gender,
+    'bio' : bio
+  };
 
   const onSubmitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData: Object = Object.fromEntries((new FormData(e.currentTarget)));
-    console.log(formData);
+    
+    let attributes = {};
 
     for (const [key, value] of Object.entries(formData)) {
-      // No support for profile picture yet
+      // TODO: Add support for profile picture
       if (key === "profilePicture") {
         continue;
       }
       // If the value is the same, don't send the request, else send request
-      if (userInfo.get(key) === value) {
+      if (userInfo[key] === value) {
         continue;
       } else {
-        const payload = {
-          "method" : "PUT",
-          "userInfo" : {
-            "attribute" : key,
-            "newValue" : value
-          }
-        }
-        const res = await fetch(`http://localhost:3000/api/users/${username}`, {
+        attributes[key] = value;
+      }
+    }
+
+    const payload = {
+      "method" : "PUT",
+      "attributes" : attributes
+    }
+
+    const res = await fetch(`http://localhost:3000/api/users/${username}`, {
           method: 'PUT',
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify(payload)
         });
 
-        const data = await res.json();
-        console.log(data)
-      }
-    }
+    const data = await res.json();
+    console.log(data)
 
     router.refresh();
   }

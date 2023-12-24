@@ -3,13 +3,13 @@ import os
 import gremlin_python
 from gremlin_python.driver import client, serializer
 
+endpoint = os.environ['NEPTUNE_ENDPOINT']
+port = os.environ['NEPTUNE_PORT']
+
+# Connect to Neptune
+db = client.Client(f"wss://{endpoint}:{port}/gremlin", "g")
+
 def lambda_handler(event, context):
-    endpoint = os.environ['NEPTUNE_ENDPOINT']
-    port = os.environ['NEPTUNE_PORT']
-
-    # Connect to Neptune
-    db = client.Client(f"wss://{endpoint}:{port}/gremlin", "g")
-
     userData = event["userInfo"]
     firstName = userData["firstName"]
     lastName = userData["lastName"]

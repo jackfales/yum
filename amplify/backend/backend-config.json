@@ -43,11 +43,6 @@
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
-    "getUsersFollowing": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    },
     "postUser": {
       "build": true,
       "providerPlugin": "awscloudformation",
@@ -105,22 +100,6 @@
         {
           "category": "function",
           "resourceName": "getUser"
-        }
-      ]
-    },
-    "AMPLIFY_function_getUsersFollowing_deploymentBucketName": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "getUsersFollowing"
-        }
-      ]
-    },
-    "AMPLIFY_function_getUsersFollowing_s3Key": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "getUsersFollowing"
         }
       ]
     },

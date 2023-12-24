@@ -20,25 +20,21 @@
           "deploymentBucketName": "amplify-yum-dev-214045-deployment",
           "s3Key": "amplify-builds/createPostHandler-494930336b7935736653-build.zip"
         },
-        "getUsersFollowing": {
-          "deploymentBucketName": "amplify-yum-dev-214045-deployment",
-          "s3Key": "amplify-builds/getUsersFollowing-4a564833457770443234-build.zip"
-        },
         "deleteUser": {
           "deploymentBucketName": "amplify-yum-dev-214045-deployment",
-          "s3Key": "amplify-builds/deleteUser-454933314c356a416b6f-build.zip"
+          "s3Key": "amplify-builds/deleteUser-454b796a7a3653695a78-build.zip"
         },
         "getUser": {
           "deploymentBucketName": "amplify-yum-dev-214045-deployment",
-          "s3Key": "amplify-builds/getUser-515a38766965706a6a45-build.zip"
+          "s3Key": "amplify-builds/getUser-427972734954574e7877-build.zip"
         },
         "putUser": {
           "deploymentBucketName": "amplify-yum-dev-214045-deployment",
-          "s3Key": "amplify-builds/putUser-4b49776a567861592f78-build.zip"
+          "s3Key": "amplify-builds/putUser-74767351454646323175-build.zip"
         },
         "postUser": {
           "deploymentBucketName": "amplify-yum-dev-214045-deployment",
-          "s3Key": "amplify-builds/postUser-6b6a6b4954565949514d-build.zip"
+          "s3Key": "amplify-builds/postUser-62547a34724b4b623441-build.zip"
         }
       }
     }
