@@ -31,7 +31,7 @@ export default function EditProfileForm({userData}) {
       if (key === "profilePicture") {
         continue;
       }
-      // If the value is the same, don't send the request, else send request
+      // If the value is the same, don't add to the request
       if (userInfo[key] === value) {
         continue;
       } else {

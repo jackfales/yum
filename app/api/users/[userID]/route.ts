@@ -1,11 +1,10 @@
-import { headers } from "next/headers";
 import { NextResponse } from "next/server";
-import { withSSRContext } from "aws-amplify";
 
 const neptune_url = "https://dzcmprdreb.execute-api.us-west-2.amazonaws.com/api/users/"
-
+/**
+ * Retrieves user information associated with a specific user
+ */
 export async function GET(request: Request, { params }: { params: { userID: string } }) {
-  // Checks if the request comes from an authenticated user
   const userID = params.userID
 
   const res = await fetch(`${neptune_url}${userID}`, {
@@ -16,9 +15,10 @@ export async function GET(request: Request, { params }: { params: { userID: stri
   const data = await res.json();
   return NextResponse.json({data})
 }
-
+/**
+ * Modifies attributes of a specific user if the user exists
+ */
 export async function PUT(request: Request, { params }: { params: { userID: string } }) {
-  // Checks if the request comes from an authenticated user
   const userID = params.userID
   var response = "Request Failed"
 
@@ -35,10 +35,10 @@ export async function PUT(request: Request, { params }: { params: { userID: stri
   })
   return NextResponse.json({response})
 }
-
-
+/**
+ * Deletes all attributes associated with a specific user
+ */
 export async function DELETE(request: Request, { params }: { params: { userID: string } }) {
-  // Checks if the request comes from an authenticated user
   const userID = params.userID
 
   const res = await fetch(`${neptune_url}${userID}`, {

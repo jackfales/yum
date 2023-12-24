@@ -1,7 +1,9 @@
 import { NextResponse } from "next/server";
 
 const neptune_url = "https://dzcmprdreb.execute-api.us-west-2.amazonaws.com/api/users"
-
+/**
+ * Creates a user given specific user attributes
+ */
 export async function POST(request: Request) {
 
   var response = "Request Failed"
