@@ -26,7 +26,8 @@ export default function LoadMore({postsData}: {postsData: Object[]}) {
     setPagesLoaded(nextPage);
   }
 
-  /* Attaches an in view hook to the spinner, loading more posts when the
+  /* 
+   * Attaches an in view hook to the spinner, loading more posts when the
    * spinner is in view.
    */
   const { ref, inView } = useInView();

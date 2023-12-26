@@ -28,9 +28,7 @@ function ForgotPassword() {
      * refactored to an Route Handler. 
      * Similar to what is done in `./app/components/CreatePostModal.tsx`
      */        
-    /* Sends an reset password to the email associated with the username, then
-     * redirects.
-     */
+    // Sends an reset password to the email associated with the username
     try {
       await Auth.forgotPassword(username);
       router.push('/reset-password');

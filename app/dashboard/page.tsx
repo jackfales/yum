@@ -21,7 +21,7 @@ const testDataPath: string = path.join(process.cwd(), 'data/posts.json');
 const testData: Object[] = JSON.parse(fs.readFileSync(testDataPath, 'utf8'));
 
 export default async function Dashboard() {
-  // Packages cookies into request header
+  // Checks if the request comes from an authenticated user
   const req = {
     headers: {
       cookie: headers().get("cookie"),
