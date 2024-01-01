@@ -6,7 +6,8 @@ const neptune_url = "https://dzcmprdreb.execute-api.us-west-2.amazonaws.com/api/
  */
 export async function POST(request: Request) {
 
-  var response = "Request Failed"
+  var response = {"body" : "Server error",
+                  "statusCode" : 500}
 
   await request.json()
   .then( async data => {
@@ -19,5 +20,6 @@ export async function POST(request: Request) {
 
     response = await res.json();
   })
-  return NextResponse.json({response})
+  return NextResponse.json({body: response.body},
+                           {status: response.statusCode})
 }

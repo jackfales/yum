@@ -19,14 +19,18 @@ def lambda_handler(event, context):
             result = f"Server failed to find user : {username}"
             statusCode = 404
         else:
-            result = result[0]
+            result = result[0][0]
             statusCode = 200
     except:
         result = "Unknown server error"
         statusCode = 500
 
-
-    return {
+    response = {
+        "isBase64Encoded": False,
         "statusCode": statusCode,
+        "headers": {},
+        "multiValueHeaders": {},
         "body": json.dumps(result)
     }
+
+    return response

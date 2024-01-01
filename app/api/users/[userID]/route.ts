@@ -12,15 +12,19 @@ export async function GET(request: Request, { params }: { params: { userID: stri
     headers: {'Content-Type': 'application/json'},
   });
   
-  const data = await res.json();
-  return NextResponse.json({data})
+  const response = await res.json();
+
+  return NextResponse.json({body: response},
+                           {status: res.status})
 }
 /**
  * Modifies attributes of a specific user if the user exists
  */
 export async function PUT(request: Request, { params }: { params: { userID: string } }) {
   const userID = params.userID
-  var response = "Request Failed"
+
+  var response = {}
+  var statusCode = 500
 
   await request.json()
   .then( async data => {
@@ -31,9 +35,12 @@ export async function PUT(request: Request, { params }: { params: { userID: stri
       body: JSON.stringify(data)
     });
 
-    response = await res.json();
+    response = await res.json()
+    statusCode = res.status
+    
   })
-  return NextResponse.json({response})
+  return NextResponse.json({body: response},
+                           {status: statusCode})
 }
 /**
  * Deletes all attributes associated with a specific user
@@ -46,6 +53,7 @@ export async function DELETE(request: Request, { params }: { params: { userID: s
     headers: {'Content-Type': 'application/json'},
   });
   
-  const data = await res.json();
-  return NextResponse.json({data})
+  const response = await res.json();
+  return NextResponse.json({body: response},
+                           {status: res.status})
 }
