@@ -1,14 +1,13 @@
 'use client'
 import { FormEvent } from 'react';
-import { redirect } from 'next/navigation';
 
 export default function EditProfileForm({userData}) {
 
-  const firstName = userData['data'][0]['firstName'][0]
-  const lastName = userData['data'][0]['lastName'][0]
-  const username = userData['data'][0]['username'][0]
-  const gender = userData['data'][0]['gender'][0]
-  const bio = userData['data'][0]['bio'][0]
+  const firstName = userData['body']['firstName'][0]
+  const lastName = userData['body']['lastName'][0]
+  const username = userData['body']['username'][0]
+  const gender = userData['body']['gender'][0]
+  const bio = userData['body']['bio'][0]
 
   const userInfo = {
     'firstName' : firstName,
@@ -50,8 +49,6 @@ export default function EditProfileForm({userData}) {
 
     const data = await res.json();
     console.log(data)
-
-    redirect("/dashboard");
   }
   
   return (
