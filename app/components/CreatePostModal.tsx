@@ -48,7 +48,7 @@ export default function PostFormModal() {
     e.preventDefault();
     const formData: FormData = new FormData(e.currentTarget);
 
-    /* TODO: Remove the line below. Upon form submission there should be a 
+    /* TODO(SWE-68): Remove the line below. Upon form submission there should be a 
      * function to upload the post images to the cloud. This function should 
      * return the URI(s) pointing to the images which will then be stored in 
      * the database.

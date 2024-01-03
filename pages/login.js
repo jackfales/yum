@@ -17,7 +17,7 @@ export default function Login() {
     let password = formData.get("password")
 
     // Validates user inputted data and generates error messages
-    // TODO: Change input.length to validator.isEmpty() for consistency
+    // TODO(SWE-59): Change input.length to validator.isEmpty() for consistency
     if (username.length === 0 || password.length === 0) {
       setErrorMessage("Please enter both a Username and Password.")
       return

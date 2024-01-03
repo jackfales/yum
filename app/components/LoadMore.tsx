@@ -4,17 +4,17 @@ import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import Spinner from './Spinner';
 import Post from "./Post";
-// TODO: Remove import after implementing route handler
+// TODO(SWE-36): Remove import after implementing route handler
 import fetchPosts from "../utils/fetchPosts"
 
-/* TODO: Once graphDB is implemented, this function should call a Route Handler
+/* TODO(SWE-36): Once graphDB is implemented, this function should call a Route Handler
  * instead of using static postsData prop.
  */
 export default function LoadMore({postsData}: {postsData: Object[]}) {
   const [posts, setPosts] = useState<Object[]>([]);
   const [pagesLoaded, setPagesLoaded] = useState(0);
 
-  // TODO: Call to Route handler instead of `fetchPosts`
+  // TODO(SWE-36): Call to Route handler instead of `fetchPosts`
   /**
    * Grabs posts associated with the next page then updates the `pagesLoaded`
    * and `posts` state

@@ -5,7 +5,7 @@ import Navbar from "../components/Navbar";
 import CreatePostModal from "../components/CreatePostModal";
 import Post from "../components/Post";
 import LoadMore from "../components/LoadMore";
-/* TODO: Remove the imports below and static post data located at `./data/posts.json` 
+/* TODO(SWE-36): Remove the imports below and static post data located at `./data/posts.json` 
 * once data is queried from relational database.
 */
 import path from 'path';
@@ -16,7 +16,7 @@ export const metadata = {
   title: 'Dashboard'
 }
 
-//TODO: Remove these constants as these were for the static data
+// TODO(SWE-36): Remove these constants as these were for the static data
 const testDataPath: string = path.join(process.cwd(), 'data/posts.json');
 const testData: Object[] = JSON.parse(fs.readFileSync(testDataPath, 'utf8'));
 

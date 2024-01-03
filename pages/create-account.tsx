@@ -36,7 +36,7 @@ export default function CreateAccount() {
     formData.forEach((input, field) => {
       let errorMessage;
       switch (field) {
-        // TODO: Change input.length to validator.isEmpty() or .isLength() for consistency
+        // TODO(SWE-59): Change input.length to validator.isEmpty() or .isLength() for consistency
         case 'firstName':
           errorMessage = input.length === 0 ?
             'Please provide a first name!' : '';
@@ -76,12 +76,11 @@ export default function CreateAccount() {
                       "lastName" : errors["lastName"],
                       "password" : errors["password"],
                       "username" : errors["username"]
-                      });
-           
+                      });  
     // Submits user inputted post data if there are no errors
     const hasNoErrors = Object.values(errors)
                                 .every((input) => input === '');
-    /* TODO: Separate backend from frontend. The following code should be 
+    /* TODO(SWE-59): Separate backend from frontend. The following code should be 
      * refactored to an Route Handler. 
      * Similar to what is done in `./app/components/CreatePostModal.tsx`
      */        

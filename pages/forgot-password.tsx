@@ -15,7 +15,7 @@ function ForgotPassword() {
 
     const username = formData.get("username").toString()
 
-    // TODO: Change input.length to validator.isEmpty() for consistency
+    // TODO(SWE-59): Change input.length to validator.isEmpty() for consistency
     // Validates user inputted data and generates error messages
     if (username.length === 0) {
         setErrorMessage("Please enter a valid username.")
@@ -24,11 +24,11 @@ function ForgotPassword() {
         setErrorMessage("")
     }
 
-    /* TODO: Separate backend from frontend. The following code should be 
+    // Sends an reset password to the email associated with the username
+    /* TODO(SWE-59): Separate backend from frontend. The following code should be 
      * refactored to an Route Handler. 
      * Similar to what is done in `./app/components/CreatePostModal.tsx`
      */        
-    // Sends an reset password to the email associated with the username
     try {
       await Auth.forgotPassword(username);
       router.push('/reset-password');

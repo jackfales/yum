@@ -1,4 +1,4 @@
-/* TODO:
+/* TODO (SWE-36):
 * This function should be an Route Handler that:
 *   1. Queries the graphDB for all the users that specified user follows
 *     a. The graph query should look something like:
