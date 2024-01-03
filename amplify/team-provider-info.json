@@ -18,11 +18,24 @@
       "function": {
         "createPostHandler": {
           "deploymentBucketName": "amplify-yum-dev-214045-deployment",
-          "s3Key": "amplify-builds/createPostHandler-554f4d37426332687057-build.zip"
+          "s3Key": "amplify-builds/createPostHandler-494930336b7935736653-build.zip"
+        },
+        "deleteUser": {
+          "deploymentBucketName": "amplify-yum-dev-214045-deployment",
+          "s3Key": "amplify-builds/deleteUser-326345546b4462514664-build.zip"
+        },
+        "getUser": {
+          "deploymentBucketName": "amplify-yum-dev-214045-deployment",
+          "s3Key": "amplify-builds/getUser-5a63632f38483667674b-build.zip"
+        },
+        "putUser": {
+          "deploymentBucketName": "amplify-yum-dev-214045-deployment",
+          "s3Key": "amplify-builds/putUser-504a32425736654d5044-build.zip"
+        },
+        "postUser": {
+          "deploymentBucketName": "amplify-yum-dev-214045-deployment",
+          "s3Key": "amplify-builds/postUser-6731734d766235483459-build.zip"
         }
-      },
-      "api": {
-        "postApi": {}
       }
     }
   }

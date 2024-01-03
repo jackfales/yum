@@ -47,12 +47,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "createPostHandler",
+            "getUser",
             {
               "Fn::Join": [
                 "",
                 [
-                  "createPostHandler",
+                  "getUser",
                   "-",
                   {
                     "Ref": "env"
@@ -89,12 +89,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "yumLambdaRolebaffe068",
+            "yumLambdaRole68a8f248",
             {
               "Fn::Join": [
                 "",
                 [
-                  "yumLambdaRolebaffe068",
+                  "yumLambdaRole68a8f248",
                   "-",
                   {
                     "Ref": "env"
