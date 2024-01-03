@@ -68,8 +68,6 @@ npm run build
 npm run start
 ```
 
-## Run Backend
-
 # 📚 Documentation
-For documentation on how to utilize our API please visit this 
-[link.](https://documenter.getpostman.com/view/31017970/2s9YkuYy3k)
+For documentation on how to utilize our API please visit our Postman API
+[docs.](https://documenter.getpostman.com/view/31017970/2s9YkuYy3k)
