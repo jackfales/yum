@@ -1,7 +1,10 @@
 'use client'
 import { FormEvent } from 'react';
+import { useRouter } from 'next/navigation'
 
 export default function EditProfileForm({userData}) {
+
+  const router = useRouter();
 
   const firstName = userData['body']['firstName'][0]
   const lastName = userData['body']['lastName'][0]
@@ -49,6 +52,8 @@ export default function EditProfileForm({userData}) {
 
     const data = await res.json();
     console.log(data)
+
+    router.push("/dashboard")
   }
   
   return (
