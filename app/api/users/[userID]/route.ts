@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 
 const neptune_url = "https://dzcmprdreb.execute-api.us-west-2.amazonaws.com/api/users/"
+
 /**
  * Retrieves user information associated with a specific user
  */

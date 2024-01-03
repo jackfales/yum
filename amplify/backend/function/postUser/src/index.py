@@ -19,7 +19,6 @@ def lambda_handler(event, context):
     gender = userData["gender"]
     bio = userData["bio"]
 
-    # For readability
     query = f"g.addV('user').property('firstName', '{firstName}').property('lastName', '{lastName}').property('DOB', '{dob}').property('username', '{username}').property('email', '{email}').property('gender', '{gender}').property('bio', '{bio}');"
         
     try:

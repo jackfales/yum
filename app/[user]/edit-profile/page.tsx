@@ -27,7 +27,6 @@ export default async function EditProfile() {
     console.log(err);
     redirect('/login');
   }
-  // Change value attribute to pre populate
   const res = await fetch(`http://localhost:3000/api/users/${username}`, {
     method: 'GET',
     headers: {'Content-Type': 'application/json'},
