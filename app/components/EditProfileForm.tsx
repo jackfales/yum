@@ -1,8 +1,10 @@
 'use client'
 import { FormEvent } from 'react';
 import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 
 export default function EditProfileForm({userData}) {
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
   const router = useRouter();
 
@@ -52,13 +54,21 @@ export default function EditProfileForm({userData}) {
 
     const data = await res.json();
     console.log(data)
+    const status = res.status
 
-    router.push("/dashboard")
+    if (status == 200) {
+      setErrorMessage("")
+      router.push("/dashboard")
+    }
+    else {
+      setErrorMessage(data['body'])
+    }
   }
   
   return (
     <>
         <form onSubmit={onSubmitHandler} className='w-full'>
+              <p>{errorMessage}</p>
               <label htmlFor='profilePicture' className='font-semibold'>Profile Picture:</label>
               <input type='file' name='profilePicture' className='w-full mb-2'/>
               <label htmlFor='firstName' className='font-semibold'>First Name:</label>
