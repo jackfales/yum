@@ -22,18 +22,24 @@ export default async function EditProfile() {
   let username;
   try {
     const data = await Auth.currentAuthenticatedUser();
-    ({ username } = data);
+     username  = data.username;
   } catch(err) {
     console.log(err);
     redirect('/login');
   }
+  const res = await fetch(`http://localhost:3000/api/users/${username}`, {
+    method: 'GET',
+    headers: {'Content-Type': 'application/json'},
+  });
+  
+  const data = await res.json();
 
   return (<>
     <Navbar username={username}/>
     <main className='bg-cream-100 h-screen flex justify-center items-center pt-12'>
       <div className='flex flex-col justify-center items-start w-80'>
         <h1 className='text-5xl tracking-tight font-bold mb-4 text-neutral-800'>Edit Profile</h1>
-        <EditProfileForm/>
+        <EditProfileForm userData={data}/>
       </div>
     </main>
   </>
