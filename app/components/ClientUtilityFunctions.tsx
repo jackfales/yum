@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation';
  */
 export function EditProfileAndFollowButton({ user, isUser }: { user: string, isUser: boolean }) {
     const { push } = useRouter();
-
+    // TODO(SWE-67): Need to handle the follow button click
     const handleClick = (e) => {
         e.preventDefault();
         push(`${user}/edit-profile`);

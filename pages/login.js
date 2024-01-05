@@ -11,13 +11,13 @@ export default function Login() {
   async function onSubmit(event) {
     event.preventDefault()
 
-    // Get form data
     const formData = new FormData(event.target)
 
     let username = formData.get("username")
     let password = formData.get("password")
 
-    // Check if user input username and password
+    // Validates user inputted data and generates error messages
+    // TODO(SWE-59): Change input.length to validator.isEmpty() for consistency
     if (username.length === 0 || password.length === 0) {
       setErrorMessage("Please enter both a Username and Password.")
       return
