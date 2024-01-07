@@ -4,15 +4,21 @@ import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import Spinner from './Spinner';
 import Post from "./Post";
+// TODO(SWE-36): Remove import after implementing route handler
 import fetchPosts from "../utils/fetchPosts"
 
-/* TODO: Instead of passing in postData as a Prop to this component, this component
- * should call an API route that returns the posts.
+/* TODO(SWE-36): Once graphDB is implemented, this function should call a Route Handler
+ * instead of using static postsData prop.
  */
 export default function LoadMore({postsData}: {postsData: Object[]}) {
   const [posts, setPosts] = useState<Object[]>([]);
   const [pagesLoaded, setPagesLoaded] = useState(0);
 
+  // TODO(SWE-36): Call to Route handler instead of `fetchPosts`
+  /**
+   * Grabs posts associated with the next page then updates the `pagesLoaded`
+   * and `posts` state
+   */ 
   const loadMore = () => {
     const nextPage = pagesLoaded + 1;
     const nextPosts = fetchPosts(nextPage, postsData) ?? [];
@@ -20,11 +26,13 @@ export default function LoadMore({postsData}: {postsData: Object[]}) {
     setPagesLoaded(nextPage);
   }
 
+  /* 
+   * Attaches an in view hook to the spinner, loading more posts when the
+   * spinner is in view.
+   */
   const { ref, inView } = useInView();
-
   useEffect(() => {
     if (inView) {
-      console.log("Spinner in view");
       loadMore();
     }
   }, [inView]);

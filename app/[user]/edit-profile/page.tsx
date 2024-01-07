@@ -9,13 +9,13 @@ export const metadata = {
 }
 
 export default async function EditProfile() {
+  // Checks if the request comes from an authenticated user
   const req = {
     headers: {
       cookie: headers().get("cookie"),
     },
   };
 
-  // Passes client-side credentials to server via cookies
   const { Auth } = withSSRContext({ req });
 
   // Renders edit profile page if authenticated, else redirect to login

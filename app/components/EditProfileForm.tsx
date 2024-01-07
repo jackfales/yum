@@ -24,7 +24,7 @@ export default function EditProfileForm({userData}) {
     let attributes = {};
 
     for (const [key, value] of Object.entries(formData)) {
-      // TODO: Add support for profile picture
+      // TODO(SWE-73): Add support for profile picture
       if (key === "profilePicture") {
         continue;
       }

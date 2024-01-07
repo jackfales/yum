@@ -3,7 +3,9 @@ import { headers } from "next/headers";
 import Image from 'next/image';
 import Navbar from "../components/Navbar";
 import { EditProfileAndFollowButton } from "../components/ClientUtilityFunctions";
-// TODO These imports may not be needed when we implement a database
+/* TODO(SWE-65): Remove the imports below and static user data located at `./data` and
+ * `./public/images` at once data is queried from the graphDB.
+ */
 import path from 'path';
 import fs from 'fs';
 
@@ -12,7 +14,9 @@ export const metadata = {
 }
 
 const profileDirectory: string = path.join(process.cwd(), 'data');
-
+/* TODO(SWE-65): Update generateStaticParams function to query the graphDB for all 
+ * existing users instead of searching the static files.
+ */
 /**
  * Returns all of the endpoints for the dynamic route
  * 
@@ -27,6 +31,9 @@ export async function generateStaticParams() {
   })
 }
 
+/* TODO(SWE-65): Update getProfileData function to query the graphDB for the user data
+ * in JSON format
+ */
 /**
  * Returns the profile data associated with the provided user
  * 
@@ -41,6 +48,7 @@ export function getProfileData(id: string): any {
 
 
 export default async function Profile({ params }: { params: {user: string}}) {
+  // TODO(SWE-25): Replace this authorization check with a check at the API gateway
   // Packages cookies into request header
   const req = {
     headers: {
@@ -48,9 +56,10 @@ export default async function Profile({ params }: { params: {user: string}}) {
     },
   };
 
-  // Passes client-side credentials to server via cookies
   const { Auth } = withSSRContext({ req });
 
+  // TODO(SWE-59): Need to redirect to `/login` similar to `./dashboard/page.tsx`
+  // Renders the profile page if logged in, else redirect to /login
   let currUser
   try {
     const data = await Auth.currentAuthenticatedUser();
@@ -62,6 +71,8 @@ export default async function Profile({ params }: { params: {user: string}}) {
   const { user } = params;
   const { followers, following, postCount } = getProfileData(user);
 
+  // TODO(SWE-66): Update the profile page to display the user's posts in a
+  // responsive grid
   return (<>
     <Navbar username={currUser}/>
     <main className='bg-cream-100 h-screen flex items-start justify-center pt-14'>

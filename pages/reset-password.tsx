@@ -26,8 +26,7 @@ function ResetPassword() {
     const verificationCode = formData.get("verificationCode").toString()
     const newPassword = formData.get("newPassword").toString()
 
-
-    // Make sure password conforms to policy
+    // Validates password and submits the reset password request
     if (!isStrongPassword(newPassword, passwordConstraints)) {
       setErrorMessage("Password must be at least 8 characters long, contain one number, and one special character!")
     } else {

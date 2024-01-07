@@ -24,6 +24,7 @@ export async function POST(request: Request) {
     );
   }
 
+  // Sends the request to the AWS API Gateway Endpoint and processes the response
   const payload: Object = (Object.fromEntries(await request.formData()));
 
   const res = await fetch('https://wb07xao9oa.execute-api.us-west-2.amazonaws.com/dev/posts', {

@@ -40,17 +40,22 @@ export default function PostFormModal() {
   }
 
   /**
-   * Submits new post data then closes the modal
+   * Validates post data inputted into form, then submits and closes the modal.
    * 
    * @param e - the form submit event
-  */
+   */
   const onSubmitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData: FormData = new FormData(e.currentTarget);
 
-    // TODO: Replace test URL once we have image storage set up
+    /* TODO(SWE-68): Remove the line below. Upon form submission there should be a 
+     * function to upload the post images to the cloud. This function should 
+     * return the URI(s) pointing to the images which will then be stored in 
+     * the database.
+     */
     formData.set('url', 'https://example.com/');
 
+    // Validates user inputted post data and generates error messages
     const errors: ErrorMessages = {};
     formData.forEach((input, field) => {
       switch (field) {
@@ -70,9 +75,9 @@ export default function PostFormModal() {
       }
       setErrorMessages(errors);
     })
-
-    const hasNoErrors = Object.values(errors)
-                                .every((input) => input === '');
+    
+    // Submits user inputted post data if there are no errors
+    const hasNoErrors = Object.values(errors).every((input) => input === '');
     if (hasNoErrors) {
       const res = await fetch('http://localhost:3000/api/posts', {
         method: 'POST',
