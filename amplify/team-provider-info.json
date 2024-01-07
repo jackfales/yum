@@ -30,7 +30,7 @@
         },
         "putUser": {
           "deploymentBucketName": "amplify-yum-dev-214045-deployment",
-          "s3Key": "amplify-builds/putUser-3343354e306f4d625579-build.zip"
+          "s3Key": "amplify-builds/putUser-3332664a6847794b6542-build.zip"
         },
         "postUser": {
           "deploymentBucketName": "amplify-yum-dev-214045-deployment",
