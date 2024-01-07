@@ -4,24 +4,28 @@ import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import Spinner from './Spinner';
 import Post from "./Post";
-// TODO(SWE-36): Remove import after implementing route handler
-import fetchPosts from "../utils/fetchPosts"
 
-/* TODO(SWE-36): Once graphDB is implemented, this function should call a Route Handler
- * instead of using static postsData prop.
- */
-export default function LoadMore({postsData}: {postsData: Object[]}) {
+export default function LoadMore() {
   const [posts, setPosts] = useState<Object[]>([]);
   const [pagesLoaded, setPagesLoaded] = useState(0);
 
-  // TODO(SWE-36): Call to Route handler instead of `fetchPosts`
   /**
    * Grabs posts associated with the next page then updates the `pagesLoaded`
    * and `posts` state
    */ 
-  const loadMore = () => {
+  const loadMore = async () => {
     const nextPage = pagesLoaded + 1;
-    const nextPosts = fetchPosts(nextPage, postsData) ?? [];
+
+    // TODO(SWE-36, Potentially): Grab posts from following users
+    // Sends a request to load the next set of posts
+    const payload = { "userIds": ['dtran', 'jfales', 'sfales'] };
+    const res = await fetch(`http://localhost:3000/api/posts/users?page=${nextPage}&pageSize=5`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(payload),
+    });
+    const nextPosts = (await res.json())['posts'];
+
     setPosts((prevPosts: Object[]) => [...prevPosts, ...nextPosts]);
     setPagesLoaded(nextPage);
   }
@@ -40,7 +44,7 @@ export default function LoadMore({postsData}: {postsData: Object[]}) {
   return (<>
     {
       posts.map((post, index) => (
-        <Post name={post['name']} key={index}></Post>
+        <Post imageUrl={post[0]} title={post[1]} createdBy={post[6]} key={index}></Post>
       ))
     }
     <div ref={ref}>

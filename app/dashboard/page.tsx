@@ -5,19 +5,10 @@ import Navbar from "../components/Navbar";
 import CreatePostModal from "../components/CreatePostModal";
 import Post from "../components/Post";
 import LoadMore from "../components/LoadMore";
-/* TODO(SWE-36): Remove the imports below and static post data located at `./data/posts.json` 
-* once data is queried from relational database.
-*/
-import path from 'path';
-import fs from 'fs';
 
 export const metadata = {
   title: 'Dashboard'
 }
-
-// TODO(SWE-36): Remove these constants as these were for the static data
-const testDataPath: string = path.join(process.cwd(), 'data/posts.json');
-const testData: Object[] = JSON.parse(fs.readFileSync(testDataPath, 'utf8'));
 
 export default async function Dashboard() {
   // Checks if the request comes from an authenticated user
@@ -39,7 +30,8 @@ export default async function Dashboard() {
     redirect('/login');
   }
   
-  // Sends a request for the initial posts
+  // TODO(SWE-36, Potentially): Grab posts from following users
+  // Sends a request to load the initial posts
   const payload = { "userIds": ['dtran', 'jfales', 'sfales'] };
   const res = await fetch('http://localhost:3000/api/posts/users?page=0&pageSize=5', {
     method: 'POST',
@@ -59,7 +51,7 @@ export default async function Dashboard() {
             <Post imageUrl={post[0]} title={post[1]} createdBy={post[6]} key={index}></Post>
           ))
         }
-        <LoadMore postsData={testData}/>
+        <LoadMore/>
       </div>
     </main>
   </>
