@@ -10,7 +10,9 @@ connection = pymysql.connect(host = os.environ['HOST'],
 
 def lambda_handler(event, context):
   cursor = connection.cursor()
-  user_ids = event['userIds']
+  user_ids = json.loads(event["body"])["userIds"]
+  page = int(event["queryStringParameters"]["page"])
+  pageSize = int(event["queryStringParameters"]["pageSize"])
 
   # Formats the query with the correct number of placeholders for the parameters
   placeholders = ", ".join(["%s"] * len(user_ids))
@@ -22,30 +24,34 @@ def lambda_handler(event, context):
   OFFSET {}""".format(placeholders, "%s", "%s")
 
   try:
-    # Concatenate all parameters into a single array
-    parameters = user_ids + [event['pageSize']] + [(event['pageCount'] * event['pageSize'])]
+    # Concatenate parameters and execute query
+    parameters = user_ids + [pageSize] + [(page * pageSize)]
     cursor.execute(sql, parameters)
     results = cursor.fetchall()
 
     return {
-    'statusCode': 201,
-    'headers': {
-          'Access-Control-Allow-Headers': '*',
-          'Access-Control-Allow-Origin': '*',
-    },
-    'body': json.dumps({
-      "posts": results
-    })
+      'isBase64Encoded': False,
+      'statusCode': 201,
+      'headers': {
+        'Access-Control-Allow-Headers': '*',
+        'Access-Control-Allow-Origin': '*',
+      },
+      'multiValueHeaders': {},
+      'body': json.dumps({
+        "posts": results
+        })
   }
   except Exception as e:
     print(type(e).__name__, e.args)
 
     return {
+      'isBase64Encoded': False,
       'statusCode': 400,
       'headers': {
         'Access-Control-Allow-Headers': '*',
         'Access-Control-Allow-Origin': '*',
       },
+      'multiValueHeaders': {},
       'body': json.dumps({
         "errorType": type(e).__name__,
         "errorMessage": e.args
