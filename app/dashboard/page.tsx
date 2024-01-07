@@ -8,7 +8,6 @@ import LoadMore from "../components/LoadMore";
 // TODO: Imports below are used to read test data, delete when DB is implemented
 import path from 'path';
 import fs from 'fs';
-import fetchPosts from "../utils/fetchPosts"
 
 export const metadata = {
   title: 'Dashboard'
@@ -38,14 +37,24 @@ export default async function Dashboard() {
     redirect('/login');
   }
   
+  // Sends a request for the initial posts
+  const payload = { "userIds": ['dtran', 'jfales', 'sfales'] };
+  const res = await fetch('http://localhost:3000/api/posts/users?page=0&pageSize=5', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(payload),
+  });
+
+  const posts = (await res.json())['posts'];
+
   return (<>
     <Navbar username={username}></Navbar>
     <main className='bg-cream-100 flex items-center justify-center pt-14'>
       <div className='flex-[0_1_670px] flex flex-col items-center'>
         <CreatePostModal/>
         {
-          fetchPosts(0, testData).map((post, index) => (
-            <Post name={post['name']} key={index}></Post>
+          posts.map((post, index) => (
+            <Post imageUrl={post[0]} title={post[1]} createdBy={post[6]} key={index}></Post>
           ))
         }
         <LoadMore postsData={testData}/>

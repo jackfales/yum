@@ -17,5 +17,5 @@ export async function POST(request: NextRequest) {
   });
 
   const response = await res.json();
-  return NextResponse.json({body: response}, {status: response.statusCode});
+  return NextResponse.json({posts: response['posts']}, {status: response.statusCode});
 }
