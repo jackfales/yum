@@ -16,22 +16,20 @@ def lambda_handler(event, context):
     # Get vertex ID
     query = f"g.V().has('username', '{username}').id();"
     vertexID = db.submit(query).all().result()
-    result = ""
 
-    if len(userData) > 0:
+    result = ""
+    if len(vertexID) == 0:
+        result = f"Server failed to find user : {username}"
+        statusCode = 404
+    elif len(userData) > 0:
         for attribute in userData:
             newValue = userData[attribute]
             # Add new value
             query = f"g.V({vertexID}).property(single, '{attribute}', '{newValue}');"
             try:
-                if len(vertexID) == 0:
-                    result = f"Server failed to find user : {username}"
-                    statusCode = 404
-                    break
-                else:
-                    db.submit(query)
-                    result += f"User attribute : \"{attribute}\" successfully changed to : \"{newValue}\"\n"
-                    statusCode = 200
+                db.submit(query)
+                result += f"User attribute : \"{attribute}\" successfully changed to : \"{newValue}\"\n"
+                statusCode = 200
             except:
                 result += f"Server failed at modifying attribute : \"{attribute}\" for user : \"{username}\"\n"
                 statusCode = 500

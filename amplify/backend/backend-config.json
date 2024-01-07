@@ -38,6 +38,11 @@
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
+    "getPostByUserIds": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "getUser": {
       "build": true,
       "providerPlugin": "awscloudformation",
@@ -84,6 +89,22 @@
         {
           "category": "function",
           "resourceName": "deleteUser"
+        }
+      ]
+    },
+    "AMPLIFY_function_getPostByUserIds_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "getPostByUserIds"
+        }
+      ]
+    },
+    "AMPLIFY_function_getPostByUserIds_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "getPostByUserIds"
         }
       ]
     },
