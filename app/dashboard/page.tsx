@@ -30,7 +30,7 @@ export default async function Dashboard() {
     redirect('/login');
   }
   
-  // TODO(SWE-36, Potentially): Grab posts from following users
+  // TODO(SWE-67): Grab posts from following users
   // Sends a request to load the initial posts
   const payload = { "userIds": ['dtran', 'jfales', 'sfales'] };
   const res = await fetch('http://localhost:3000/api/posts/users?page=0&pageSize=5', {
@@ -44,7 +44,7 @@ export default async function Dashboard() {
   return (<>
     <Navbar username={username}></Navbar>
     <main className='bg-cream-100 flex items-center justify-center pt-14'>
-      <div className='flex-[0_1_670px] flex flex-col items-center'>
+      <div className='flex-[0_1_670px] flex flex-col items-center pb-7'>
         <CreatePostModal/>
         {
           posts.map((post, index) => (
