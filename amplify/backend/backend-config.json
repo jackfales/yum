@@ -28,6 +28,11 @@
     }
   },
   "function": {
+    "cognitoCreateNetpuneUser": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "createPostHandler": {
       "build": true,
       "providerPlugin": "awscloudformation",
@@ -60,6 +65,22 @@
     }
   },
   "parameters": {
+    "AMPLIFY_function_cognitoCreateNetpuneUser_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "cognitoCreateNetpuneUser"
+        }
+      ]
+    },
+    "AMPLIFY_function_cognitoCreateNetpuneUser_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "cognitoCreateNetpuneUser"
+        }
+      ]
+    },
     "AMPLIFY_function_createPostHandler_deploymentBucketName": {
       "usedBy": [
         {
