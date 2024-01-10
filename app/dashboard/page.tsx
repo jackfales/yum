@@ -31,6 +31,7 @@ export default async function Dashboard() {
   }
   
   // TODO(SWE-67): Grab posts from following users
+  // TODO(SWE-63): Switch from usernames to userIds
   // Sends a request to load the initial posts
   const payload = { "userIds": ['dtran', 'jfales', 'sfales'] };
   const res = await fetch('http://localhost:3000/api/posts/users?page=0&pageSize=5', {
@@ -39,8 +40,10 @@ export default async function Dashboard() {
     body: JSON.stringify(payload),
   });
 
-  // Convert from an array of Post arrays to an array of Post objects, also
-  // omitting unneccessary post information (recipe, ingredients, tags, etc.)
+  /* 
+   * Convert from an array of Post arrays to an array of Post objects, also
+   * omitting unneccessary post information (recipe, ingredients, tags, etc.)
+   */
   let posts: any = [];
   for (const post of (await res.json())['posts']) {
     const postObj = { imageUrl: post[0], title: post[1], createdBy: post[6] }

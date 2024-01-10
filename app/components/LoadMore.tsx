@@ -6,15 +6,15 @@ import Spinner from './Spinner';
 import Post from "./Post";
 
 export default function LoadMore() {
-  const [posts, setPosts] = useState<Object[]>([]);
+  const [posts, setPosts] = useState<any>([]);
   const [pagesLoaded, setPagesLoaded] = useState(0);
   const [hasMorePosts, setHasMorePosts] = useState(true);
 
   /*
-   * Grabs posts associated with the next page then updates the `pagesLoaded`
-   * and `posts` state
+   * Fetches posts associated with the next page, storing the new posts in 
+   * 'posts' state array and incrementing the 'pagesLoaded' state counter.
    */ 
-  const loadMore = async () => {
+  const loadMorePosts = async () => {
     const nextPage = pagesLoaded + 1;
     // TODO(SWE-67): Grab posts from following users
     // Sends a request to load the next set of posts
@@ -25,9 +25,18 @@ export default function LoadMore() {
       body: JSON.stringify(payload),
     });
 
-    const nextPosts = (await res.json())['posts'];
-    if (nextPosts.length > 0) {
-      setPosts((prevPosts: Object[]) => [...prevPosts, ...nextPosts]);
+    /* 
+     * Convert from an array of Post arrays to an array of Post objects, also
+     * omitting unneccessary post information (recipe, ingredients, tags, etc.)
+     */
+    let posts: any = [];
+    for (const post of (await res.json())['posts']) {
+      const postObj = { imageUrl: post[0], title: post[1], createdBy: post[6] }
+      posts.push(postObj);
+    }
+
+    if (posts.length > 0) {
+      setPosts((prevPosts: Object[]) => [...prevPosts, ...posts]);
       setPagesLoaded(nextPage);
     } else {
       setHasMorePosts(false);
@@ -41,14 +50,16 @@ export default function LoadMore() {
   const { ref, inView } = useInView();
   useEffect(() => {
     if (inView) {
-      loadMore();
+      loadMorePosts();
     }
   }, [inView]);
 
   return (<>
-    {posts.map((post, index) => (
-        <Post imageUrl={post[0]} title={post[1]} createdBy={post[6]} key={index}></Post>
-    ))}
+    {
+      posts.map((post, index) => (
+          <Post imageUrl={post.imageUrl} title={post.title} createdBy={posts.createdBy} key={index}></Post>
+      ))
+    }
     <div ref={ref}>
       {hasMorePosts ? <Spinner /> : <p className='text-lg text-stone-950 text-opacity-40'>No additional posts to show</p>}
     </div>
