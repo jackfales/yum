@@ -39,7 +39,13 @@ export default async function Dashboard() {
     body: JSON.stringify(payload),
   });
 
-  const posts = (await res.json())['posts'];
+  // Convert from an array of Post arrays to an array of Post objects, also
+  // omitting unneccessary post information (recipe, ingredients, tags, etc.)
+  let posts: any = [];
+  for (const post of (await res.json())['posts']) {
+    const postObj = { imageUrl: post[0], title: post[1], createdBy: post[6] }
+    posts.push(postObj);
+  }
 
   return (<>
     <Navbar username={username}></Navbar>
@@ -48,7 +54,7 @@ export default async function Dashboard() {
         <CreatePostModal/>
         {
           posts.map((post, index) => (
-            <Post imageUrl={post[0]} title={post[1]} createdBy={post[6]} key={index}></Post>
+            <Post imageUrl={post.imageUrl} title={post.title} createdBy={post.createdBy} key={index}></Post>
           ))
         }
         <LoadMore/>
