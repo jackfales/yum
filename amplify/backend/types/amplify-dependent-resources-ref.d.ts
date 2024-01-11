@@ -11,6 +11,13 @@ export type AmplifyDependentResourcesAttributes = {
     }
   },
   "function": {
+    "cognitoCreateNetpuneUser": {
+      "Arn": "string",
+      "LambdaExecutionRole": "string",
+      "LambdaExecutionRoleArn": "string",
+      "Name": "string",
+      "Region": "string"
+    },
     "createPostHandler": {
       "Arn": "string",
       "LambdaExecutionRole": "string",
