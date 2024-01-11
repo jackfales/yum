@@ -79,7 +79,7 @@ export default function PostFormModal() {
     // Submits user inputted post data if there are no errors
     const hasNoErrors = Object.values(errors).every((input) => input === '');
     if (hasNoErrors) {
-      const res = await fetch('http://localhost:3000/api/post', {
+      const res = await fetch('http://localhost:3000/api/posts', {
         method: 'POST',
         body: formData
       });

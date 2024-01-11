@@ -2,6 +2,9 @@ import { headers } from 'next/headers';
 import { NextResponse } from "next/server";
 import { withSSRContext } from "aws-amplify";
 
+/**
+ * Creates a post with the given attributes
+ */
 export async function POST(request: Request) {
   // Checks if the request comes from an authenticated user
   const req = {
@@ -24,7 +27,7 @@ export async function POST(request: Request) {
   // Sends the request to the AWS API Gateway Endpoint and processes the response
   const payload: Object = (Object.fromEntries(await request.formData()));
 
-  const res = await fetch('https://wb07xao9oa.execute-api.us-west-2.amazonaws.com/dev/post', {
+  const res = await fetch('https://wb07xao9oa.execute-api.us-west-2.amazonaws.com/dev/posts', {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(payload)
