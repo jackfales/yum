@@ -38,7 +38,7 @@
         },
         "getPostByUserIds": {
           "deploymentBucketName": "amplify-yum-dev-214045-deployment",
-          "s3Key": "amplify-builds/getPostByUserIds-54506b346658396a7231-build.zip"
+          "s3Key": "amplify-builds/getPostByUserIds-7159714573446d363578-build.zip"
         },
         "cognitoCreateNetpuneUser": {
           "deploymentBucketName": "amplify-yum-dev-214045-deployment",

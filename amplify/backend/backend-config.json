@@ -28,11 +28,6 @@
     }
   },
   "function": {
-    "cognitoCreateNetpuneUser": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    },
     "createPostHandler": {
       "build": true,
       "providerPlugin": "awscloudformation",
