@@ -19,15 +19,15 @@ export default async function EditProfile() {
   const { Auth } = withSSRContext({ req });
 
   // Renders edit profile page if authenticated, else redirect to login
-  let username;
+  let userID;
   try {
     const data = await Auth.currentAuthenticatedUser();
-     username  = data.username;
+     userID  = data.attributes.sub;
   } catch(err) {
     console.log(err);
     redirect('/login');
   }
-  const res = await fetch(`http://localhost:3000/api/users/${username}`, {
+  const res = await fetch(`http://localhost:3000/api/users/${userID}`, {
     method: 'GET',
     headers: {'Content-Type': 'application/json'},
   });
@@ -35,7 +35,7 @@ export default async function EditProfile() {
   const data = await res.json();
 
   return (<>
-    <Navbar username={username}/>
+    <Navbar username={userID}/>
     <main className='bg-cream-100 h-screen flex justify-center items-center pt-12'>
       <div className='flex flex-col justify-center items-start w-80'>
         <h1 className='text-5xl tracking-tight font-bold mb-4 text-neutral-800'>Edit Profile</h1>

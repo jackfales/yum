@@ -10,23 +10,23 @@ port = os.environ['NEPTUNE_PORT']
 db = client.Client(f"wss://{endpoint}:{port}/gremlin", "g")
 
 def lambda_handler(event, context):
-    username = event["pathParameters"]["userId"]
+    userID = event["pathParameters"]["userId"]
 
      # Get vertex ID
-    query = f"g.V().has('username', '{username}').id();"
+    query = f"g.V().has('id', '{userID}').id();"
     vertexID = db.submit(query).all().result()
 
     query = f"g.V({vertexID}).drop()"
     try:
         if len(vertexID) == 0:
-            result = f"Server failed to find user : {username}"
+            result = f"Server failed to find user : {userID}"
             statusCode = 404
         else:
             db.submit(query)
-            result = f"User : {username} deleted successfully"
+            result = f"User : {userID} deleted successfully"
             statusCode = 200
     except:
-        result = f"Server failed to delete user : {username}"
+        result = f"Server failed to delete user : {userID}"
         statusCode = 500
 
     # Process and return results
