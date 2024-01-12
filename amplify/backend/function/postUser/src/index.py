@@ -16,6 +16,7 @@ def lambda_handler(event, context):
     lastName = userData["family_name"]
     username = userData["preferred_username"]
     email = userData["email"]
+    sub = userData["sub"]
 
     # Inputs not required by cognito
     dob = ""
@@ -23,13 +24,7 @@ def lambda_handler(event, context):
     bio = ""
 
     # Add a user
-    query = f"g.addV('user').property('firstName', '{firstName}').property('lastName', '{lastName}').property('DOB', '{dob}').property('username', '{username}').property('email', '{email}').property('gender', '{gender}').property('bio', '{bio}');"
-    db.submit(query)
-    # Get the user's vertex ID
-    query = f"g.V().has('username', '{username}').id();"
-    vertexID = db.submit(query).all().result()
-    # Add the vertex ID as a user property
-    query = f"g.V({vertexID}).property('id', '{vertexID[0]}');"
+    query = f"g.addV('user').property('firstName', '{firstName}').property('lastName', '{lastName}').property('DOB', '{dob}').property('username', '{username}').property('email', '{email}').property('gender', '{gender}').property('bio', '{bio}').property('id', '{sub}');"
     db.submit(query)
         
     # Process and return results
