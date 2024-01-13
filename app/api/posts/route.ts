@@ -1,29 +1,36 @@
-import { headers } from 'next/headers';
 import { NextResponse } from "next/server";
-import { withSSRContext } from "aws-amplify";
+import { uploadData } from 'aws-amplify/storage';
+import { getCurrentUser } from 'aws-amplify/auth/server';
+import { runWithAmplifyServerContext } from '../../utils/amplifyServerUtils';
+import { cookies } from 'next/headers';
 
 /**
  * Creates a post with the given attributes
  */
 export async function POST(request: Request) {
   // Checks if the request comes from an authenticated user
-  const req = {
-    headers: {
-      cookie: headers().get("cookie")
-    },
-  };
-
-  const { Auth } = withSSRContext({ req });
-
-  try {
-    await Auth.currentAuthenticatedUser();
-  } catch(err) {
+  const user = await runWithAmplifyServerContext({
+    nextServerContext: { cookies },
+    operation: (contextSpec) => getCurrentUser(contextSpec)
+  });
+  if (!user) {
     return NextResponse.json(
       {error: 'You do not have permission to access this resource'}, 
       {status: 401}
     );
   }
+  
+  console.log(user);
 
+  const result = await uploadData({
+    key: 'test.txt',
+    data: 'Hello',
+    options: {
+      accessLevel: 'guest'
+    }
+  }).result;
+
+  console.log(result);
   // Sends the request to the AWS API Gateway Endpoint and processes the response
   const payload: Object = (Object.fromEntries(await request.formData()));
 

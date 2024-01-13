@@ -1,4 +1,4 @@
-import { Auth } from 'aws-amplify'
+import { signIn } from 'aws-amplify/auth'
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
@@ -29,7 +29,7 @@ export default function Login() {
     console.log("Password: %s", password)
 
     try {
-      await Auth.signIn(username, password);
+      await signIn({ username, password });
       router.push(`/dashboard`);
     } catch (error) {
       setErrorMessage(error.toString());

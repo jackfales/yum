@@ -1,6 +1,7 @@
 'use client'
 import { isEmpty, isJSON } from 'validator';
-import { useEffect, useRef, useState, FormEvent } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { uploadData } from 'aws-amplify/storage'
 
 type ErrorMessages = {
   serverResponse?: string,
@@ -44,7 +45,7 @@ export default function PostFormModal() {
    * 
    * @param e - the form submit event
    */
-  const onSubmitHandler = async (e: FormEvent<HTMLFormElement>) => {
+  const onSubmitHandler = async (e) => {
     e.preventDefault();
     const formData: FormData = new FormData(e.currentTarget);
 

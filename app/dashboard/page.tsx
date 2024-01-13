@@ -1,3 +1,4 @@
+// TODO: Breaks with aws-amplify@6
 import { withSSRContext } from "aws-amplify";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
@@ -12,24 +13,24 @@ export const metadata = {
 
 export default async function Dashboard() {
   // Checks if the request comes from an authenticated user
-  const req = {
-    headers: {
-      cookie: headers().get("cookie"),
-    },
-  };
+  // const req = {
+  //   headers: {
+  //     cookie: headers().get("cookie"),
+  //   },
+  // };
 
-  const { Auth } = withSSRContext({ req });
+  // const { Auth } = withSSRContext({ req });
 
-  // Renders dashboard if logged in, else redirect to /login
-  let username: String;
-  try {
-    const data = await Auth.currentAuthenticatedUser();
-    ({ username } = data);
-  } catch(err) {
-    console.log(err);
-    redirect('/login');
-  }
-  
+  // // Renders dashboard if logged in, else redirect to /login
+  // let username: String;
+  // try {
+  //   const data = await Auth.currentAuthenticatedUser();
+  //   ({ username } = data);
+  // } catch(err) {
+  //   console.log(err);
+  //   redirect('/login');
+  // }
+  const username = 'dtran'
   // TODO(SWE-67): Grab posts from following users
   // TODO(SWE-63): Switch from usernames to userIds
   // Sends a request to load the initial posts
