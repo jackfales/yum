@@ -4,26 +4,43 @@ import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import Spinner from './Spinner';
 import Post from "./Post";
-// TODO(SWE-36): Remove import after implementing route handler
-import fetchPosts from "../utils/fetchPosts"
 
-/* TODO(SWE-36): Once graphDB is implemented, this function should call a Route Handler
- * instead of using static postsData prop.
- */
-export default function LoadMore({postsData}: {postsData: Object[]}) {
-  const [posts, setPosts] = useState<Object[]>([]);
+export default function LoadMore() {
+  const [posts, setPosts] = useState<any>([]);
   const [pagesLoaded, setPagesLoaded] = useState(0);
+  const [hasMorePosts, setHasMorePosts] = useState(true);
 
-  // TODO(SWE-36): Call to Route handler instead of `fetchPosts`
-  /**
-   * Grabs posts associated with the next page then updates the `pagesLoaded`
-   * and `posts` state
+  /*
+   * Fetches posts associated with the next page, storing the new posts in 
+   * 'posts' state array and incrementing the 'pagesLoaded' state counter.
    */ 
-  const loadMore = () => {
+  const loadMorePosts = async () => {
     const nextPage = pagesLoaded + 1;
-    const nextPosts = fetchPosts(nextPage, postsData) ?? [];
-    setPosts((prevPosts: Object[]) => [...prevPosts, ...nextPosts]);
-    setPagesLoaded(nextPage);
+    // TODO(SWE-67): Grab posts from following users
+    // Sends a request to load the next set of posts
+    const payload = { "userIds": ['dtran', 'jfales', 'sfales'] };
+    const res = await fetch(`http://localhost:3000/api/posts/users?page=${nextPage}&pageSize=5`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(payload),
+    });
+
+    /* 
+     * Convert from an array of Post arrays to an array of Post objects, also
+     * omitting unneccessary post information (recipe, ingredients, tags, etc.)
+     */
+    let posts: any = [];
+    for (const post of (await res.json())['posts']) {
+      const postObj = { imageUrl: post[0], title: post[1], createdBy: post[6] }
+      posts.push(postObj);
+    }
+
+    if (posts.length > 0) {
+      setPosts((prevPosts: Object[]) => [...prevPosts, ...posts]);
+      setPagesLoaded(nextPage);
+    } else {
+      setHasMorePosts(false);
+    }
   }
 
   /* 
@@ -33,18 +50,18 @@ export default function LoadMore({postsData}: {postsData: Object[]}) {
   const { ref, inView } = useInView();
   useEffect(() => {
     if (inView) {
-      loadMore();
+      loadMorePosts();
     }
   }, [inView]);
 
   return (<>
     {
       posts.map((post, index) => (
-        <Post name={post['name']} key={index}></Post>
+          <Post imageUrl={post.imageUrl} title={post.title} createdBy={posts.createdBy} key={index}></Post>
       ))
     }
     <div ref={ref}>
-      <Spinner/>
+      {hasMorePosts ? <Spinner /> : <p className='text-lg text-stone-950 text-opacity-40'>No additional posts to show</p>}
     </div>
     </>
   )

@@ -5,20 +5,10 @@ import Navbar from "../components/Navbar";
 import CreatePostModal from "../components/CreatePostModal";
 import Post from "../components/Post";
 import LoadMore from "../components/LoadMore";
-/* TODO(SWE-36): Remove the imports below and static post data located at `./data/posts.json` 
-* once data is queried from relational database.
-*/
-import path from 'path';
-import fs from 'fs';
-import fetchPosts from "../utils/fetchPosts"
 
 export const metadata = {
   title: 'Dashboard'
 }
-
-// TODO(SWE-36): Remove these constants as these were for the static data
-const testDataPath: string = path.join(process.cwd(), 'data/posts.json');
-const testData: Object[] = JSON.parse(fs.readFileSync(testDataPath, 'utf8'));
 
 export default async function Dashboard() {
   // Checks if the request comes from an authenticated user
@@ -40,17 +30,37 @@ export default async function Dashboard() {
     redirect('/login');
   }
   
+  // TODO(SWE-67): Grab posts from following users
+  // TODO(SWE-63): Switch from usernames to userIds
+  // Sends a request to load the initial posts
+  const payload = { "userIds": ['dtran', 'jfales', 'sfales'] };
+  const res = await fetch('http://localhost:3000/api/posts/users?page=0&pageSize=5', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(payload),
+  });
+
+  /* 
+   * Convert from an array of Post arrays to an array of Post objects, also
+   * omitting unneccessary post information (recipe, ingredients, tags, etc.)
+   */
+  let posts: any = [];
+  for (const post of (await res.json())['posts']) {
+    const postObj = { imageUrl: post[0], title: post[1], createdBy: post[6] }
+    posts.push(postObj);
+  }
+
   return (<>
     <Navbar username={username}></Navbar>
     <main className='bg-cream-100 flex items-center justify-center pt-14'>
-      <div className='flex-[0_1_670px] flex flex-col items-center'>
+      <div className='flex-[0_1_670px] flex flex-col items-center pb-7'>
         <CreatePostModal/>
         {
-          fetchPosts(0, testData).map((post, index) => (
-            <Post name={post['name']} key={index}></Post>
+          posts.map((post, index) => (
+            <Post imageUrl={post.imageUrl} title={post.title} createdBy={post.createdBy} key={index}></Post>
           ))
         }
-        <LoadMore postsData={testData}/>
+        <LoadMore/>
       </div>
     </main>
   </>
