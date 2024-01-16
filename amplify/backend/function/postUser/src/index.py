@@ -18,13 +18,8 @@ def lambda_handler(event, context):
     email = userData["email"]
     sub = userData["sub"]
 
-    # Inputs not required by cognito
-    dob = ""
-    gender = ""
-    bio = ""
-
     # Add a user
-    query = f"g.addV('user').property('firstName', '{firstName}').property('lastName', '{lastName}').property('DOB', '{dob}').property('username', '{username}').property('email', '{email}').property('gender', '{gender}').property('bio', '{bio}').property('id', '{sub}');"
+    query = f"g.addV('user').property('firstName', '{firstName}').property('lastName', '{lastName}').property('DOB', '').property('username', '{username}').property('email', '{email}').property('gender', '').property('bio', '').property('id', '{sub}');"
     db.submit(query)
         
     # Process and return results

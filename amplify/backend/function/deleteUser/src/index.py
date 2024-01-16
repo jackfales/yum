@@ -13,7 +13,7 @@ def lambda_handler(event, context):
     userID = event["pathParameters"]["userId"]
 
      # Get vertex ID
-    query = f"g.V().has('id', '{userID}').id();"
+    query = f"g.V().hasLabel('user').has('id', '{userID}').id();"
     vertexID = db.submit(query).all().result()
 
     query = f"g.V({vertexID}).drop()"
