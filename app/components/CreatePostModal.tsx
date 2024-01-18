@@ -52,12 +52,6 @@ export default function PostFormModal() {
     e.preventDefault();
     const formData: FormData = new FormData(e.currentTarget);
 
-    /* TODO(SWE-68): Remove the line below. Upon form submission there should be a 
-     * function to upload the post images to the cloud. This function should 
-     * return the URI(s) pointing to the images which will then be stored in 
-     * the database.
-     */
-
     // Validates user inputted post data and generates error messages
     const errors: ErrorMessages = {};
     formData.forEach((input, field) => {
@@ -85,24 +79,25 @@ export default function PostFormModal() {
     // Submits user inputted post data if there are no errors
     const hasNoErrors = Object.values(errors).every((input) => input === '');
     if (hasNoErrors) {
-      // Uploads the image to S3 buckets
+      // Assigns the image a UUID and uploads it to the S3 bucket
       const user = await Auth.currentAuthenticatedUser();
       const userId = user.attributes.sub;
       const file: any = formData.get('file');
-      // TODO: CHANGE THIS TO A UUID
-      const filePath = `${userId}/${file.name}`;
+      const filePath = `${userId}/${crypto.randomUUID()}`;
+
       try {
         await Storage.put(filePath, file, {
           contentType: file.type
         })
-        formData.set('url', filePath);
-        formData.set('createdBy', userId);
-        formData.delete('file');
         console.log(`Successfully uploaded file: ${filePath}`)
       } catch (err) {
         console.log(`Error uploading file: ${filePath}`)
       }
 
+      // Updates formData then sends a request to create the post
+      formData.set('url', filePath);
+      formData.set('createdBy', userId);
+      formData.delete('file');
       const res = await fetch('http://localhost:3000/api/posts', {
         method: 'POST',
         body: formData
