@@ -4,7 +4,7 @@ import { useEffect, useRef, useState, FormEvent } from 'react';
 
 type ErrorMessages = {
   serverResponse?: string,
-  url?: string,
+  file?: string,
   name?: string,
   caption?: string,
   recipe?: string,
@@ -53,13 +53,15 @@ export default function PostFormModal() {
      * return the URI(s) pointing to the images which will then be stored in 
      * the database.
      */
-    formData.set('url', 'https://example.com/');
 
     // Validates user inputted post data and generates error messages
     const errors: ErrorMessages = {};
     formData.forEach((input, field) => {
       switch (field) {
-        case 'url':
+        case 'file':
+          const file: any = formData.get('file')
+          errors[field] = isEmpty(file.name) ? 'Please upload an image' : '';
+          break;
         case 'name':
         case 'caption':
         case 'recipe':
@@ -102,9 +104,9 @@ export default function PostFormModal() {
           </div>
           <form id='form' className='p-4' onSubmit={onSubmitHandler}>
             <p className='whitespace-normal text-red-400'>{errorMessages?.serverResponse}</p>
-            <p className='whitespace-normal text-red-400'>{errorMessages?.url}</p>
-            <label className='block' htmlFor='url'>Choose an image for your dish:</label>
-            <input type='file' name='url'/>
+            <p className='whitespace-normal text-red-400'>{errorMessages?.file}</p>
+            <label className='block' htmlFor='file'>Choose an image for your dish:</label>
+            <input type='file' name='file' accept='image/*'/>
             <p className='whitespace-normal text-red-400'>{errorMessages?.name}</p>
             <label className='block' htmlFor='name'>Name:</label>
             <input className='block w-full border rounded-md px-1 focus:outline-none' type='text' name='name'/>
