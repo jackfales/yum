@@ -156,5 +156,12 @@
         }
       ]
     }
+  },
+  "storage": {
+    "yumstorage": {
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "S3"
+    }
   }
 }

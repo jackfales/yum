@@ -10,13 +10,13 @@ port = os.environ['NEPTUNE_PORT']
 db = client.Client(f"wss://{endpoint}:{port}/gremlin", "g")
 
 def lambda_handler(event, context):
-    username = event["pathParameters"]["userId"]
-    query = f"g.V().hasLabel('user').has('username', '{username}').valueMap();"
+    userID = event["pathParameters"]["userId"]
+    query = f"g.V().hasLabel('user').has('id', '{userID}').valueMap();"
     
     try:
         result = list(db.submit(query))
         if len(result) == 0:
-            result = f"Server failed to find user : {username}"
+            result = f"Server failed to find user : {userID}"
             statusCode = 404
         else:
             result = result[0][0]
