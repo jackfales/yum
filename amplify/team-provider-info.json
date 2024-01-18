@@ -18,7 +18,7 @@
       "function": {
         "createPostHandler": {
           "deploymentBucketName": "amplify-yum-dev-214045-deployment",
-          "s3Key": "amplify-builds/createPostHandler-586c315671426a513245-build.zip"
+          "s3Key": "amplify-builds/createPostHandler-33576d79624759576b72-build.zip"
         },
         "deleteUser": {
           "deploymentBucketName": "amplify-yum-dev-214045-deployment",

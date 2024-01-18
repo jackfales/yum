@@ -11,7 +11,7 @@ def lambda_handler(event, context):
   cursor = connection.cursor()
 
   sql = '''INSERT INTO posts 
-        ('imageurl', 'name', 'caption', 'ingredients', 'recipe', 'tags', 'created_by') 
+        (`imageurl`, `name`, `caption`, `ingredients`, `recipe`, `tags`, `created_by`) 
         VALUES (%s, %s, %s, %s, %s, %s, %s);'''
   try:
     cursor.execute(sql, (event['url'], 
