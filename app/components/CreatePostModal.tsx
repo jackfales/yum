@@ -1,6 +1,10 @@
 'use client'
 import { isEmpty, isJSON } from 'validator';
 import { useEffect, useRef, useState, FormEvent } from 'react';
+import { Amplify, Storage, Auth } from 'aws-amplify';
+import awsExports from '../../src/aws-exports';
+
+Amplify.configure({ ...awsExports, ssr: true });
 
 type ErrorMessages = {
   serverResponse?: string,
@@ -81,6 +85,24 @@ export default function PostFormModal() {
     // Submits user inputted post data if there are no errors
     const hasNoErrors = Object.values(errors).every((input) => input === '');
     if (hasNoErrors) {
+      // Uploads the image to S3 buckets
+      const user = await Auth.currentAuthenticatedUser();
+      const userId = user.attributes.sub;
+      const file: any = formData.get('file');
+      // TODO: CHANGE THIS TO A UUID
+      const filePath = `${userId}/${file.name}`;
+
+      try {
+        await Storage.put(filePath, file, {
+          contentType: file.type
+        })
+        formData.delete('file');
+        formData.set('url', filePath);
+        console.log(`Successfully uploaded file: ${filePath}`)
+      } catch (err) {
+        console.log(`Error uploading file: ${filePath}`)
+      }
+
       const res = await fetch('http://localhost:3000/api/posts', {
         method: 'POST',
         body: formData
