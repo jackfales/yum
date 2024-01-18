@@ -52,7 +52,7 @@ export default async function Dashboard() {
 
   return (<>
     <Navbar username={username}></Navbar>
-    <main className='bg-cream-100 flex items-center justify-center pt-14'>
+    <main className='bg-cream-100 min-h-screen flex justify-center pt-14'>
       <div className='flex-[0_1_670px] flex flex-col items-center pb-7'>
         <CreatePostModal/>
         {
