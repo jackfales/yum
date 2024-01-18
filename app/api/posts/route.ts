@@ -1,6 +1,10 @@
 import { headers } from 'next/headers';
 import { NextResponse } from "next/server";
 import { withSSRContext } from "aws-amplify";
+import { Amplify } from 'aws-amplify';
+import awsExports from '../../../src/aws-exports';
+
+Amplify.configure({ ...awsExports, ssr: true });
 
 /**
  * Creates a post with the given attributes
@@ -17,7 +21,7 @@ export async function POST(request: Request) {
 
   try {
     await Auth.currentAuthenticatedUser();
-  } catch(err) {
+  } catch (err) {
     return NextResponse.json(
       {error: 'You do not have permission to access this resource'}, 
       {status: 401}

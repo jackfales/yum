@@ -11,16 +11,16 @@ def lambda_handler(event, context):
   cursor = connection.cursor()
 
   sql = '''INSERT INTO posts 
-        (`imageurl`, `name`, `caption`, `ingredients`, `recipe`, `tags`) 
-        VALUES (%s, %s, %s, %s, %s, %s);'''
+        ('imageurl', 'name', 'caption', 'ingredients', 'recipe', 'tags', 'created_by') 
+        VALUES (%s, %s, %s, %s, %s, %s, %s);'''
   try:
     cursor.execute(sql, (event['url'], 
                       event['name'], 
                       event['caption'], 
                       json.dumps(event['ingredients']),
                       event['recipe'],
-                      json.dumps(event['tags'])
-                      ))
+                      json.dumps(event['tags']),
+                      event['createdBy']))
     connection.commit()
   except Exception as e:
     print(type(e).__name__, e.args)

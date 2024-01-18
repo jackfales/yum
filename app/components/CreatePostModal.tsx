@@ -91,13 +91,13 @@ export default function PostFormModal() {
       const file: any = formData.get('file');
       // TODO: CHANGE THIS TO A UUID
       const filePath = `${userId}/${file.name}`;
-
       try {
         await Storage.put(filePath, file, {
           contentType: file.type
         })
-        formData.delete('file');
         formData.set('url', filePath);
+        formData.set('createdBy', userId);
+        formData.delete('file');
         console.log(`Successfully uploaded file: ${filePath}`)
       } catch (err) {
         console.log(`Error uploading file: ${filePath}`)
