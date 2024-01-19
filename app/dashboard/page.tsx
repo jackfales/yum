@@ -31,9 +31,8 @@ export default async function Dashboard() {
   }
   
   // TODO(SWE-67): Grab posts from following users
-  // TODO(SWE-63): Switch from usernames to userIds
   // Sends a request to load the initial posts
-  const payload = { "userIds": ['dtran', 'jfales', 'sfales'] };
+  const payload = { "userIds": ['428a9b3e-8add-4f77-9375-2a220f612d24'] };
   const res = await fetch('http://localhost:3000/api/posts/users?page=0&pageSize=5', {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
