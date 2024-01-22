@@ -10,27 +10,17 @@ port = os.environ['NEPTUNE_PORT']
 db = client.Client(f"wss://{endpoint}:{port}/gremlin", "g")
 
 def lambda_handler(event, context):
-    userData = event["userInfo"]
-    firstName = userData["firstName"]
-    lastName = userData["lastName"]
-    dob = userData["DOB"]
-    username = userData["username"]
+    userData = event["request"]["userAttributes"]
+    # Inputs currently required by cognito
+    firstName = userData["given_name"]
+    lastName = userData["family_name"]
+    username = userData["preferred_username"]
     email = userData["email"]
-    gender = userData["gender"]
-    bio = userData["bio"]
+    sub = userData["sub"]
 
-    query = f"g.addV('user').property('firstName', '{firstName}').property('lastName', '{lastName}').property('DOB', '{dob}').property('username', '{username}').property('email', '{email}').property('gender', '{gender}').property('bio', '{bio}');"
-        
-    try:
-        db.submit(query)
-        result = f"User : {username} created successfully"
-        statusCode = 201
-    except:
-        result = f"Server failed at creating user : {username}"
-        statusCode = 500
+    # Add a user
+    query = f"g.addV('user').property('firstName', '{firstName}').property('lastName', '{lastName}').property('DOB', '').property('username', '{username}').property('email', '{email}').property('gender', '').property('bio', '').property('id', '{sub}');"
+    db.submit(query)
         
     # Process and return results
-    return {
-        "statusCode": statusCode,
-        "body": json.dumps(result)
-    }
+    return event

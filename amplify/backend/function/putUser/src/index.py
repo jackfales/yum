@@ -20,16 +20,16 @@ valid_attributes = [
 
 def lambda_handler(event, context):
     userData = json.loads(event["body"])["attributes"]
-    username = event["pathParameters"]["userId"]
+    userID = event["pathParameters"]["userId"]
 
     # Get vertex ID
-    query = f"g.V().has('username', '{username}').id();"
+    query = f"g.V().has('id', '{userID}').id();"
     vertexID = db.submit(query).all().result()
 
     result = ""
     statusCode = 500
     if len(vertexID) == 0:
-        result = f"Server failed to find user : {username}"
+        result = f"Server failed to find user : {userID}"
         statusCode = 404
     elif len(userData) > 0:
         for attribute in userData:
@@ -43,11 +43,11 @@ def lambda_handler(event, context):
                     # if one query works, status code is 200, else status code is 500
                     statusCode = 200
                 except:
-                    result += f"Server failed at modifying attribute : \"{attribute}\" for user : \"{username}\"\n"
+                    result += f"Server failed at modifying attribute : \"{attribute}\" for user : \"{userID}\"\n"
             else:
                 result += f"Attribute : \"{attribute}\" is not a valid attribute\n"
     else:
-        result = f"No changes were made to user : \"{username}\""
+        result = f"No changes were made to user : \"{userID}\""
         statusCode = 200
 
     # Process and return results
