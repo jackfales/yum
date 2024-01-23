@@ -3,14 +3,8 @@
   "policyUUID": "3b5ddec6",
   "bucketName": "yumbucket",
   "storageAccess": "authAndGuest",
-  "guestAccess": [
-    "READ"
-  ],
-  "authAccess": [
-    "CREATE_AND_UPDATE",
-    "READ",
-    "DELETE"
-  ],
+  "guestAccess": ["READ"],
+  "authAccess": ["CREATE_AND_UPDATE", "READ", "DELETE"],
   "triggerFunction": "NONE",
   "groupAccess": {}
 }
