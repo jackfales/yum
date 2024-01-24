@@ -8,6 +8,7 @@ export default function EditProfileForm({userData}) {
 
   const router = useRouter();
 
+  const userID = userData['body']['id'][0]
   const firstName = userData['body']['firstName'][0]
   const lastName = userData['body']['lastName'][0]
   const username = userData['body']['username'][0]
@@ -46,7 +47,7 @@ export default function EditProfileForm({userData}) {
       "attributes" : attributes
     }
 
-    const res = await fetch(`http://localhost:3000/api/users/${username}`, {
+    const res = await fetch(`http://localhost:3000/api/users/${userID}`, {
           method: 'PUT',
           headers: {'Content-Type': 'application/json'},
           body: JSON.stringify(payload)
