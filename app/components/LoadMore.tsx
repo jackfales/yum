@@ -61,7 +61,7 @@ export default function LoadMore() {
       ))
     }
     <div ref={ref}>
-      {hasMorePosts ? <Spinner /> : <p className='text-lg text-stone-950 text-opacity-40'>No additional posts to show</p>}
+      {hasMorePosts ? <Spinner /> : <p className='mt-6 text-lg text-stone-950 text-opacity-40'>No additional posts to show</p>}
     </div>
     </>
   )
