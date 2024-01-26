@@ -1,5 +1,4 @@
 'use client'
-
 import { Storage } from "aws-amplify";
 import { useEffect, useState } from "react";
 
