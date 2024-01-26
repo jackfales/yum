@@ -2,6 +2,10 @@
 import { FormEvent } from 'react';
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+import { Amplify, Storage, Auth } from 'aws-amplify';
+import awsExports from '../../src/aws-exports';
+
+Amplify.configure({ ...awsExports, ssr: true });
 
 export default function EditProfileForm({userData}) {
   const [errorMessage, setErrorMessage] = useState<string>("");
@@ -15,7 +19,7 @@ export default function EditProfileForm({userData}) {
   const gender = userData['body']['gender'][0]
   const bio = userData['body']['bio'][0]
 
-  const userInfo = {
+  const currentUserInfo = {
     'firstName' : firstName,
     'lastName' : lastName,
     'username' : username,
@@ -25,17 +29,31 @@ export default function EditProfileForm({userData}) {
 
   const onSubmitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData: Object = Object.fromEntries((new FormData(e.currentTarget)));
+    const formData: FormData = new FormData(e.currentTarget);
     
-    let attributes = {};
-
-    for (const [key, value] of Object.entries(formData)) {
-      // TODO(SWE-73): Add support for profile picture
-      if (key === "profilePicture") {
-        continue;
+    // Uploads the profile picture to S3 buckets if the user submitted a file
+    const file: any = formData.get('file');
+    console.log(file)
+    const filePath = `${userID}/pfp`;
+    if (file) {
+      try {
+        await Auth.currentAuthenticatedUser();
+        await Storage.put(filePath, file, { 
+          contentType: file.type 
+        })
+        console.log(`Successfully uploaded profile picture: ${filePath}`)
+      } catch (err) {
+        console.log(`Error uploading profile picture: ${filePath}`)
       }
-      // If the value is the same, don't add to the request
-      if (userInfo[key] === value) {
+    }
+    formData.delete('file');
+
+    // Create an object to store new user information if it has changed from the
+    // current user information
+    let attributes = {};
+    const formInputs: Object = Object.fromEntries(formData);
+    for (const [key, value] of Object.entries(formInputs)) {
+      if (currentUserInfo[key] === value) {
         continue;
       } else {
         attributes[key] = value;
@@ -69,8 +87,8 @@ export default function EditProfileForm({userData}) {
     <>
         <form onSubmit={onSubmitHandler} className='w-full'>
               <p>{errorMessage}</p>
-              <label htmlFor='profilePicture' className='font-semibold'>Profile Picture:</label>
-              <input type='file' name='profilePicture' className='w-full mb-2'/>
+              <label htmlFor='file' className='font-semibold'>Profile Picture:</label>
+              <input type='file' name='file' accept='image/*' className='w-full mb-2'/>
               <label htmlFor='firstName' className='font-semibold'>First Name:</label>
               <input type='text' defaultValue={firstName} name='firstName' className='w-full border border-gray-200 shadow-inner mb-2 py-1 px-2 rounded-md'/>   
               <label htmlFor='lastName' className='font-semibold'>Last Name:</label>
