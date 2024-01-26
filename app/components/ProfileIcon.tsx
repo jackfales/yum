@@ -1,10 +1,28 @@
-import Image from "next/image";
+'use client'
 
-export default function ProfileIcon({username}: {username: String}) {
+import { Storage } from "aws-amplify";
+import { useEffect, useState } from "react";
+
+export default function ProfileIcon({username, userId}: {username: String, userId: String}) {
+  const [profilePicture, setProfilePicture] = useState<string | undefined>(undefined);
+
+  useEffect(() => {
+    async function getProfilePictureFromStorage() {
+      try {
+        const signedUrl = await Storage.get(`${userId}/pfp`);
+        setProfilePicture(signedUrl);
+      } catch (err) {
+        console.log(`Error retrieving image: ${err}`)
+      }
+    }
+
+    getProfilePictureFromStorage();
+  }, []);
+
   return (<>
     <a className='w-10 h-10 rounded-full' href={`/${username}`}>
-        <Image className='w-10 h-10 rounded-full'
-          src={`/images/pp/${username}.jpg`}
+        <img className='w-10 h-10 rounded-full'
+          src={profilePicture}
           alt="Picture of the user"
           width={40}
           height={40}
