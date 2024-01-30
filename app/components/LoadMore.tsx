@@ -57,25 +57,15 @@ export default function LoadMore() {
     }
   }, [inView]);
 
-  return (
-    <>
-      {posts.map((post, index) => (
-        <Post
-          imageUrl={post.imageUrl}
-          title={post.title}
-          createdBy={posts.createdBy}
-          key={index}
-        ></Post>
-      ))}
-      <div ref={ref}>
-        {hasMorePosts ? (
-          <Spinner />
-        ) : (
-          <p className="text-lg text-stone-950 text-opacity-40">
-            No additional posts to show
-          </p>
-        )}
-      </div>
+  return (<>
+    {
+      posts.map((post, index) => (
+          <Post imageUrl={post.imageUrl} title={post.title} createdBy={posts.createdBy} key={index}></Post>
+      ))
+    }
+    <div ref={ref}>
+      {hasMorePosts ? <Spinner /> : <p className='mt-6 text-lg text-stone-950 text-opacity-40'>No additional posts to show</p>}
+    </div>
     </>
   );
 }

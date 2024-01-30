@@ -1,10 +1,13 @@
 {
   "resourceName": "yumstorage",
-  "policyUUID": "3b5ddec6",
+  "policyUUID": "62bcf7b5",
   "bucketName": "yumbucket",
-  "storageAccess": "authAndGuest",
-  "guestAccess": ["READ"],
-  "authAccess": ["CREATE_AND_UPDATE", "READ", "DELETE"],
-  "triggerFunction": "NONE",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
   "groupAccess": {}
 }
