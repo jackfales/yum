@@ -1,10 +1,10 @@
-import { Auth } from "aws-amplify";
-import Head from "next/head";
-import { useRouter } from "next/router";
-import { useState } from "react";
+import { Auth } from 'aws-amplify';
+import Head from 'next/head';
+import { useRouter } from 'next/router';
+import { useState } from 'react';
 
 export default function Login() {
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState('');
 
   const router = useRouter();
 
@@ -13,20 +13,20 @@ export default function Login() {
 
     const formData = new FormData(event.target);
 
-    let username = formData.get("username");
-    let password = formData.get("password");
+    let username = formData.get('username');
+    let password = formData.get('password');
 
     // Validates user inputted data and generates error messages
     // TODO(SWE-59): Change input.length to validator.isEmpty() for consistency
     if (username.length === 0 || password.length === 0) {
-      setErrorMessage("Please enter both a Username and Password.");
+      setErrorMessage('Please enter both a Username and Password.');
       return;
     } else {
-      setErrorMessage("");
+      setErrorMessage('');
     }
 
-    console.log("Username: %s", username);
-    console.log("Password: %s", password);
+    console.log('Username: %s', username);
+    console.log('Password: %s', password);
 
     try {
       await Auth.signIn(username, password);

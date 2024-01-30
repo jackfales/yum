@@ -1,6 +1,6 @@
-import { headers } from "next/headers";
-import { NextResponse } from "next/server";
-import { withSSRContext } from "aws-amplify";
+import { headers } from 'next/headers';
+import { NextResponse } from 'next/server';
+import { withSSRContext } from 'aws-amplify';
 
 /**
  * Creates a post with the given attributes
@@ -9,7 +9,7 @@ export async function POST(request: Request) {
   // Checks if the request comes from an authenticated user
   const req = {
     headers: {
-      cookie: headers().get("cookie"),
+      cookie: headers().get('cookie'),
     },
   };
 
@@ -19,7 +19,7 @@ export async function POST(request: Request) {
     await Auth.currentAuthenticatedUser();
   } catch (err) {
     return NextResponse.json(
-      { error: "You do not have permission to access this resource" },
+      { error: 'You do not have permission to access this resource' },
       { status: 401 },
     );
   }
@@ -28,24 +28,24 @@ export async function POST(request: Request) {
   const payload: Object = Object.fromEntries(await request.formData());
 
   const res = await fetch(
-    "https://wb07xao9oa.execute-api.us-west-2.amazonaws.com/dev/posts",
+    'https://wb07xao9oa.execute-api.us-west-2.amazonaws.com/dev/posts',
     {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
     },
   );
 
   const data = await res.json();
 
-  const body = JSON.parse(data["body"]);
+  const body = JSON.parse(data['body']);
   if (data.statusCode == 201) {
     return NextResponse.json(
-      { url: `${body["url"]}` },
+      { url: `${body['url']}` },
       { status: data.statusCode },
     );
   } else {
-    const errorMessage = `${body["errorType"]}: ${body["errorMessage"][1]}`;
+    const errorMessage = `${body['errorType']}: ${body['errorMessage'][1]}`;
     return NextResponse.json(
       { error: errorMessage },
       { status: data.statusCode },

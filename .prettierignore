@@ -1,0 +1,9 @@
+package-lock.json
+yarn.lock
+node_modules
+package.json
+README.md
+postcss.config.js
+tailwind.config.js
+tsconfig.json
+.gitignore

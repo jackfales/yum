@@ -1,19 +1,19 @@
-import { withSSRContext } from "aws-amplify";
-import { headers } from "next/headers";
-import Image from "next/image";
-import Navbar from "../components/Navbar";
-import { EditProfileAndFollowButton } from "../components/ClientUtilityFunctions";
+import { withSSRContext } from 'aws-amplify';
+import { headers } from 'next/headers';
+import Image from 'next/image';
+import Navbar from '../components/Navbar';
+import { EditProfileAndFollowButton } from '../components/ClientUtilityFunctions';
 /* TODO(SWE-65): Remove the imports below and static user data located at `./data` and
  * `./public/images` at once data is queried from the graphDB.
  */
-import path from "path";
-import fs from "fs";
+import path from 'path';
+import fs from 'fs';
 
 export const metadata = {
-  title: "Dashboard",
+  title: 'Dashboard',
 };
 
-const profileDirectory: string = path.join(process.cwd(), "data");
+const profileDirectory: string = path.join(process.cwd(), 'data');
 /* TODO(SWE-65): Update generateStaticParams function to query the graphDB for all
  * existing users instead of searching the static files.
  */
@@ -26,7 +26,7 @@ export async function generateStaticParams() {
   const fileNames: string[] = fs.readdirSync(profileDirectory);
   return fileNames.map((fileName) => {
     return {
-      params: { user: fileName.replace(/\.json$/, "") },
+      params: { user: fileName.replace(/\.json$/, '') },
     };
   });
 }
@@ -43,7 +43,7 @@ export async function generateStaticParams() {
  */
 export function getProfileData(id: string): any {
   const profilePath: string = path.join(profileDirectory, `${id}.json`);
-  return JSON.parse(fs.readFileSync(profilePath, "utf8"));
+  return JSON.parse(fs.readFileSync(profilePath, 'utf8'));
 }
 
 export default async function Profile({
@@ -55,7 +55,7 @@ export default async function Profile({
   // Packages cookies into request header
   const req = {
     headers: {
-      cookie: headers().get("cookie"),
+      cookie: headers().get('cookie'),
     },
   };
 

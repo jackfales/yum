@@ -1,10 +1,10 @@
-import Head from "next/head";
-import React, { useState } from "react";
-import { Auth } from "aws-amplify";
-import { useRouter } from "next/router";
+import Head from 'next/head';
+import React, { useState } from 'react';
+import { Auth } from 'aws-amplify';
+import { useRouter } from 'next/router';
 
 export default function ConfirmSignUp() {
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState('');
   const router = useRouter();
 
   const handleSubmit = async (e) => {
@@ -12,16 +12,16 @@ export default function ConfirmSignUp() {
 
     const formData = new FormData(e.target);
 
-    const username = formData.get("username")?.toString();
-    const confirmationCode = formData.get("confirmationCode")?.toString();
+    const username = formData.get('username')?.toString();
+    const confirmationCode = formData.get('confirmationCode')?.toString();
 
     // Validates user inputted data and generates error messages
     if (!!!username || !!!confirmationCode) {
-      setErrorMessage("Please provide your username and confirmation code.");
+      setErrorMessage('Please provide your username and confirmation code.');
     } else {
       try {
         await Auth.confirmSignUp(username, confirmationCode);
-        router.push("/login");
+        router.push('/login');
       } catch (error) {
         setErrorMessage(error.toString());
       }

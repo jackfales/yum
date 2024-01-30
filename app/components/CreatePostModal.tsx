@@ -1,6 +1,6 @@
-"use client";
-import { isEmpty, isJSON } from "validator";
-import { useEffect, useRef, useState, FormEvent } from "react";
+'use client';
+import { isEmpty, isJSON } from 'validator';
+import { useEffect, useRef, useState, FormEvent } from 'react';
 
 type ErrorMessages = {
   serverResponse?: string;
@@ -53,35 +53,35 @@ export default function PostFormModal() {
      * return the URI(s) pointing to the images which will then be stored in
      * the database.
      */
-    formData.set("url", "https://example.com/");
+    formData.set('url', 'https://example.com/');
 
     // Validates user inputted post data and generates error messages
     const errors: ErrorMessages = {};
     formData.forEach((input, field) => {
       switch (field) {
-        case "url":
-        case "name":
-        case "caption":
-        case "recipe":
-          errors[field] = isEmpty(input) ? `Missing input for ${field}` : "";
+        case 'url':
+        case 'name':
+        case 'caption':
+        case 'recipe':
+          errors[field] = isEmpty(input) ? `Missing input for ${field}` : '';
           break;
-        case "ingredients":
-        case "tags":
+        case 'ingredients':
+        case 'tags':
           errors[field] = !isJSON(input)
             ? `Please format the ${field} as a JSON object`
-            : "";
+            : '';
           break;
         default:
-          errors[field] = "Default";
+          errors[field] = 'Default';
       }
       setErrorMessages(errors);
     });
 
     // Submits user inputted post data if there are no errors
-    const hasNoErrors = Object.values(errors).every((input) => input === "");
+    const hasNoErrors = Object.values(errors).every((input) => input === '');
     if (hasNoErrors) {
-      const res = await fetch("http://localhost:3000/api/posts", {
-        method: "POST",
+      const res = await fetch('http://localhost:3000/api/posts', {
+        method: 'POST',
         body: formData,
       });
       const body = await res.json();

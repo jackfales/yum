@@ -1,11 +1,11 @@
-import Head from "next/head";
-import { useRouter } from "next/router";
-import React, { useState } from "react";
-import isStrongPassword from "validator/lib/isStrongPassword";
-import { Auth } from "aws-amplify";
+import Head from 'next/head';
+import { useRouter } from 'next/router';
+import React, { useState } from 'react';
+import isStrongPassword from 'validator/lib/isStrongPassword';
+import { Auth } from 'aws-amplify';
 
 function ResetPassword() {
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState('');
 
   const passwordConstraints = {
     minLength: 8,
@@ -22,14 +22,14 @@ function ResetPassword() {
 
     const formData = new FormData(event.target);
 
-    const username = formData.get("username").toString();
-    const verificationCode = formData.get("verificationCode").toString();
-    const newPassword = formData.get("newPassword").toString();
+    const username = formData.get('username').toString();
+    const verificationCode = formData.get('verificationCode').toString();
+    const newPassword = formData.get('newPassword').toString();
 
     // Validates password and submits the reset password request
     if (!isStrongPassword(newPassword, passwordConstraints)) {
       setErrorMessage(
-        "Password must be at least 8 characters long, contain one number, and one special character!",
+        'Password must be at least 8 characters long, contain one number, and one special character!',
       );
     } else {
       try {
@@ -38,9 +38,9 @@ function ResetPassword() {
           verificationCode,
           newPassword,
         );
-        router.push("/login");
+        router.push('/login');
       } catch (err) {
-        setErrorMessage("Please make sure all entries are correct.");
+        setErrorMessage('Please make sure all entries are correct.');
       }
     }
   };
@@ -58,9 +58,9 @@ function ResetPassword() {
             Password Reset
           </h1>
           <h2 className="mb-6">
-            Enter your <span className="font-semibold">username</span>, the{" "}
+            Enter your <span className="font-semibold">username</span>, the{' '}
             <span className="font-semibold">verification code</span> sent to
-            your email, and your new{" "}
+            your email, and your new{' '}
             <span className="font-semibold">password</span>.
           </h2>
           <form onSubmit={onSubmit} className="w-full">

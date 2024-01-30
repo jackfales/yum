@@ -1,20 +1,20 @@
-import { withSSRContext } from "aws-amplify";
-import { headers } from "next/headers";
-import { redirect } from "next/navigation";
-import Navbar from "../components/Navbar";
-import CreatePostModal from "../components/CreatePostModal";
-import Post from "../components/Post";
-import LoadMore from "../components/LoadMore";
+import { withSSRContext } from 'aws-amplify';
+import { headers } from 'next/headers';
+import { redirect } from 'next/navigation';
+import Navbar from '../components/Navbar';
+import CreatePostModal from '../components/CreatePostModal';
+import Post from '../components/Post';
+import LoadMore from '../components/LoadMore';
 
 export const metadata = {
-  title: "Dashboard",
+  title: 'Dashboard',
 };
 
 export default async function Dashboard() {
   // Checks if the request comes from an authenticated user
   const req = {
     headers: {
-      cookie: headers().get("cookie"),
+      cookie: headers().get('cookie'),
     },
   };
 
@@ -27,18 +27,18 @@ export default async function Dashboard() {
     ({ username } = data);
   } catch (err) {
     console.log(err);
-    redirect("/login");
+    redirect('/login');
   }
 
   // TODO(SWE-67): Grab posts from following users
   // TODO(SWE-63): Switch from usernames to userIds
   // Sends a request to load the initial posts
-  const payload = { userIds: ["dtran", "jfales", "sfales"] };
+  const payload = { userIds: ['dtran', 'jfales', 'sfales'] };
   const res = await fetch(
-    "http://localhost:3000/api/posts/users?page=0&pageSize=5",
+    'http://localhost:3000/api/posts/users?page=0&pageSize=5',
     {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
     },
   );
@@ -48,7 +48,7 @@ export default async function Dashboard() {
    * omitting unneccessary post information (recipe, ingredients, tags, etc.)
    */
   let posts: any = [];
-  for (const post of (await res.json())["posts"]) {
+  for (const post of (await res.json())['posts']) {
     const postObj = { imageUrl: post[0], title: post[1], createdBy: post[6] };
     posts.push(postObj);
   }

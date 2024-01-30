@@ -1,19 +1,19 @@
-"use client";
-import { FormEvent } from "react";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+'use client';
+import { FormEvent } from 'react';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 export default function EditProfileForm({ userData }) {
-  const [errorMessage, setErrorMessage] = useState<string>("");
+  const [errorMessage, setErrorMessage] = useState<string>('');
 
   const router = useRouter();
 
-  const userID = userData["body"]["id"][0];
-  const firstName = userData["body"]["firstName"][0];
-  const lastName = userData["body"]["lastName"][0];
-  const username = userData["body"]["username"][0];
-  const gender = userData["body"]["gender"][0];
-  const bio = userData["body"]["bio"][0];
+  const userID = userData['body']['id'][0];
+  const firstName = userData['body']['firstName'][0];
+  const lastName = userData['body']['lastName'][0];
+  const username = userData['body']['username'][0];
+  const gender = userData['body']['gender'][0];
+  const bio = userData['body']['bio'][0];
 
   const userInfo = {
     firstName: firstName,
@@ -31,7 +31,7 @@ export default function EditProfileForm({ userData }) {
 
     for (const [key, value] of Object.entries(formData)) {
       // TODO(SWE-73): Add support for profile picture
-      if (key === "profilePicture") {
+      if (key === 'profilePicture') {
         continue;
       }
       // If the value is the same, don't add to the request
@@ -43,13 +43,13 @@ export default function EditProfileForm({ userData }) {
     }
 
     const payload = {
-      method: "PUT",
+      method: 'PUT',
       attributes: attributes,
     };
 
     const res = await fetch(`http://localhost:3000/api/users/${userID}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
     });
 
@@ -58,9 +58,9 @@ export default function EditProfileForm({ userData }) {
     const status = res.status;
 
     if (status == 200) {
-      router.push("/dashboard");
+      router.push('/dashboard');
     } else {
-      setErrorMessage(data["body"]);
+      setErrorMessage(data['body']);
     }
   };
 

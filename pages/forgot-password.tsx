@@ -1,10 +1,10 @@
-import Head from "next/head";
-import { useRouter } from "next/router";
-import React, { useState } from "react";
-import { Auth } from "aws-amplify";
+import Head from 'next/head';
+import { useRouter } from 'next/router';
+import React, { useState } from 'react';
+import { Auth } from 'aws-amplify';
 
 function ForgotPassword() {
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState('');
 
   const router = useRouter();
 
@@ -13,15 +13,15 @@ function ForgotPassword() {
 
     const formData = new FormData(event.target);
 
-    const username = formData.get("username").toString();
+    const username = formData.get('username').toString();
 
     // TODO(SWE-59): Change input.length to validator.isEmpty() for consistency
     // Validates user inputted data and generates error messages
     if (username.length === 0) {
-      setErrorMessage("Please enter a valid username.");
+      setErrorMessage('Please enter a valid username.');
       return;
     } else {
-      setErrorMessage("");
+      setErrorMessage('');
     }
 
     // Sends an reset password to the email associated with the username
@@ -31,9 +31,9 @@ function ForgotPassword() {
      */
     try {
       await Auth.forgotPassword(username);
-      router.push("/reset-password");
+      router.push('/reset-password');
     } catch (err) {
-      setErrorMessage("Please enter a valid username.");
+      setErrorMessage('Please enter a valid username.');
     }
   };
 

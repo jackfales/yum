@@ -1,18 +1,18 @@
-import Head from "next/head";
-import React, { useState } from "react";
-import isEmail from "validator/lib/isEmail";
-import isStrongPassword from "validator/lib/isStrongPassword";
-import { useRouter } from "next/router";
-import { Auth } from "aws-amplify";
+import Head from 'next/head';
+import React, { useState } from 'react';
+import isEmail from 'validator/lib/isEmail';
+import isStrongPassword from 'validator/lib/isStrongPassword';
+import { useRouter } from 'next/router';
+import { Auth } from 'aws-amplify';
 
 export default function CreateAccount() {
   const [inputErrorMessages, setErrorMessages] = useState({
-    confirmPassword: "",
-    email: "",
-    firstName: "",
-    lastName: "",
-    password: "",
-    username: "",
+    confirmPassword: '',
+    email: '',
+    firstName: '',
+    lastName: '',
+    password: '',
+    username: '',
   });
 
   const passwordConstraints = {
@@ -37,60 +37,60 @@ export default function CreateAccount() {
       let errorMessage;
       switch (field) {
         // TODO(SWE-59): Change input.length to validator.isEmpty() or .isLength() for consistency
-        case "firstName":
+        case 'firstName':
           errorMessage =
-            input.length === 0 ? "Please provide a first name!" : "";
+            input.length === 0 ? 'Please provide a first name!' : '';
           break;
-        case "lastName":
+        case 'lastName':
           errorMessage =
-            input.length === 0 ? "Please provide a last name!" : "";
+            input.length === 0 ? 'Please provide a last name!' : '';
           break;
-        case "email":
-          errorMessage = !isEmail(input) ? "Please provide a valid email!" : "";
+        case 'email':
+          errorMessage = !isEmail(input) ? 'Please provide a valid email!' : '';
           break;
-        case "username":
+        case 'username':
           errorMessage =
             input.length < 5
-              ? "Username must be at least 5 characters long!"
-              : "";
+              ? 'Username must be at least 5 characters long!'
+              : '';
           break;
-        case "password":
+        case 'password':
           errorMessage = !isStrongPassword(input, passwordConstraints)
-            ? "Password must be at least 8 characters long, contain one number, and one special character!"
-            : "";
+            ? 'Password must be at least 8 characters long, contain one number, and one special character!'
+            : '';
           break;
-        case "confirmPassword":
+        case 'confirmPassword':
           errorMessage =
-            formData.get("password") !== input ? "Passwords do not match!" : "";
+            formData.get('password') !== input ? 'Passwords do not match!' : '';
           errorMessage =
-            input.length === 0 ? "Please confirm your password!" : errorMessage;
+            input.length === 0 ? 'Please confirm your password!' : errorMessage;
           break;
         default:
-          errorMessage = "";
+          errorMessage = '';
           break;
       }
       errors[field] = errorMessage;
       console.log(`${field}: ${input}`);
     });
     setErrorMessages({
-      confirmPassword: errors["confirmPassword"],
-      email: errors["email"],
-      firstName: errors["firstName"],
-      lastName: errors["lastName"],
-      password: errors["password"],
-      username: errors["username"],
+      confirmPassword: errors['confirmPassword'],
+      email: errors['email'],
+      firstName: errors['firstName'],
+      lastName: errors['lastName'],
+      password: errors['password'],
+      username: errors['username'],
     });
     // Submits user inputted post data if there are no errors
-    const hasNoErrors = Object.values(errors).every((input) => input === "");
+    const hasNoErrors = Object.values(errors).every((input) => input === '');
     /* TODO(SWE-59): Separate backend from frontend. The following code should be
      * refactored to an Route Handler.
      * Similar to what is done in `./app/components/CreatePostModal.tsx`
      */
-    const username = formData.get("username").toString();
-    const password = formData.get("password").toString();
-    const email = formData.get("email").toString();
-    const firstName = formData.get("firstName").toString();
-    const lastName = formData.get("lastName").toString();
+    const username = formData.get('username').toString();
+    const password = formData.get('password').toString();
+    const email = formData.get('email').toString();
+    const firstName = formData.get('firstName').toString();
+    const lastName = formData.get('lastName').toString();
 
     if (hasNoErrors) {
       try {
@@ -104,7 +104,7 @@ export default function CreateAccount() {
             preferred_username: username,
           },
         });
-        router.push("/verify-email");
+        router.push('/verify-email');
       } catch (err) {
         console.log(err.toString());
       }

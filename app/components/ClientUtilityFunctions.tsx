@@ -1,5 +1,5 @@
-"use client";
-import { useRouter } from "next/navigation";
+'use client';
+import { useRouter } from 'next/navigation';
 /**
  * Conditionally renders the button if the profile belongs to the current user
  * session else renders a follow button

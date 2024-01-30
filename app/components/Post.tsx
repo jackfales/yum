@@ -1,9 +1,9 @@
-import ProfileIcon from "./ProfileIcon";
-import { Varela_Round } from "next/font/google";
+import ProfileIcon from './ProfileIcon';
+import { Varela_Round } from 'next/font/google';
 
 const varela_round = Varela_Round({
-  subsets: ["latin"],
-  weight: ["400"],
+  subsets: ['latin'],
+  weight: ['400'],
 });
 
 export default function Post({
