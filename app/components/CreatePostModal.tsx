@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import { isEmpty, isJSON } from 'validator';
 import { useEffect, useRef, useState, FormEvent } from 'react';
 import { Amplify, Storage, Auth } from 'aws-amplify';
@@ -34,18 +34,18 @@ export default function PostFormModal() {
    */
   const clickOpen = (): void => {
     setShowModal(true);
-  }
+  };
 
   /**
    * Closes the modal
    */
   const clickClose = (): void => {
     setShowModal(false);
-  }
+  };
 
   /**
    * Validates post data inputted into form, then submits and closes the modal.
-   * 
+   *
    * @param e - the form submit event
    */
   const onSubmitHandler = async (e: FormEvent<HTMLFormElement>) => {
@@ -67,15 +67,16 @@ export default function PostFormModal() {
           break;
         case 'ingredients':
         case 'tags':
-          errors[field] = !isJSON(input) ? 
-          `Please format the ${field} as a JSON object` : '';
+          errors[field] = !isJSON(input)
+            ? `Please format the ${field} as a JSON object`
+            : '';
           break;
         default:
           errors[field] = 'Default';
       }
       setErrorMessages(errors);
-    })
-    
+    });
+
     // Submits user inputted post data if there are no errors
     const hasNoErrors = Object.values(errors).every((input) => input === '');
     if (hasNoErrors) {
@@ -100,24 +101,29 @@ export default function PostFormModal() {
       formData.delete('file');
       const res = await fetch('http://localhost:3000/api/posts', {
         method: 'POST',
-        body: formData
+        body: formData,
       });
       const body = await res.json();
       if (res.status == 201) {
         clickClose();
       } else {
-        setErrorMessages({...errors, serverResponse: body.error});
+        setErrorMessages({ ...errors, serverResponse: body.error });
       }
     }
-  }
-  
+  };
+
   return (
     <>
-      <dialog ref={modalRef} className='rounded-xl shadow-md w-96'>
+      <dialog ref={modalRef} className="rounded-xl shadow-md w-96">
         <div>
-          <div className='flex items-center justify-between h-8 border-b border-b-gray-200'>
-            <h3 className='my-1.5 mx-2.5'>Create Post</h3>
-            <button className='bg-white h-full aspect-square hover:bg-gray-100' onClick={clickClose}>x</button>
+          <div className="flex items-center justify-between h-8 border-b border-b-gray-200">
+            <h3 className="my-1.5 mx-2.5">Create Post</h3>
+            <button
+              className="bg-white h-full aspect-square hover:bg-gray-100"
+              onClick={clickClose}
+            >
+              x
+            </button>
           </div>
           <form id='form' className='p-4' onSubmit={onSubmitHandler}>
             <p className='whitespace-normal text-red-400'>{errorMessages?.serverResponse}</p>
@@ -140,12 +146,23 @@ export default function PostFormModal() {
             <label htmlFor='tags'>Tags: Enter as JSON format for now</label>
             <input className='block w-full border rounded-md px-1 focus:outline-none' type='text' name='tags'/>
           </form>
-          <div className='flex items-center justify-between h-8 border-t border-t-gray-200'>
-            <button className='bg-white border-0 h-full w-full hover:bg-gray-100' form="form" type="submit">Submit</button>
+          <div className="flex items-center justify-between h-8 border-t border-t-gray-200">
+            <button
+              className="bg-white border-0 h-full w-full hover:bg-gray-100"
+              form="form"
+              type="submit"
+            >
+              Submit
+            </button>
           </div>
         </div>
       </dialog>
-      <button onClick={clickOpen} className='w-36 h-10 bg-emerald-500 transitions-colors hover:bg-emerald-600 rounded-full text-white text-md font-semibold text-center'>Create Post</button>
+      <button
+        onClick={clickOpen}
+        className="w-36 h-10 bg-emerald-500 transitions-colors hover:bg-emerald-600 rounded-full text-white text-md font-semibold text-center"
+      >
+        Create Post
+      </button>
     </>
-  )
+  );
 }

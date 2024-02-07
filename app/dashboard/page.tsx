@@ -1,20 +1,20 @@
-import { withSSRContext } from "aws-amplify";
-import { headers } from "next/headers";
-import { redirect } from "next/navigation";
-import Navbar from "../components/Navbar";
-import CreatePostModal from "../components/CreatePostModal";
-import Post from "../components/Post";
-import LoadMore from "../components/LoadMore";
+import { withSSRContext } from 'aws-amplify';
+import { headers } from 'next/headers';
+import { redirect } from 'next/navigation';
+import Navbar from '../components/Navbar';
+import CreatePostModal from '../components/CreatePostModal';
+import Post from '../components/Post';
+import LoadMore from '../components/LoadMore';
 
 export const metadata = {
-  title: 'Dashboard'
-}
+  title: 'Dashboard',
+};
 
 export default async function Dashboard() {
   // Checks if the request comes from an authenticated user
   const req = {
     headers: {
-      cookie: headers().get("cookie"),
+      cookie: headers().get('cookie'),
     },
   };
 
@@ -25,11 +25,11 @@ export default async function Dashboard() {
   try {
     const data = await Auth.currentAuthenticatedUser();
     ({ username } = data);
-  } catch(err) {
+  } catch (err) {
     console.log(err);
     redirect('/login');
   }
-  
+
   // TODO(SWE-67): Grab posts from following users
   // Sends a request to load the initial posts
   const payload = { "userIds": ['428a9b3e-8add-4f77-9375-2a220f612d24'] };
@@ -39,13 +39,13 @@ export default async function Dashboard() {
     body: JSON.stringify(payload),
   });
 
-  /* 
+  /*
    * Convert from an array of Post arrays to an array of Post objects, also
    * omitting unneccessary post information (recipe, ingredients, tags, etc.)
    */
   let posts: any = [];
   for (const post of (await res.json())['posts']) {
-    const postObj = { imageUrl: post[0], title: post[1], createdBy: post[6] }
+    const postObj = { imageUrl: post[0], title: post[1], createdBy: post[6] };
     posts.push(postObj);
   }
 
