@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
  * 
  * @param isUser - true if current session user matches page, false otherwise
  */
-export function EditProfileAndFollowButton({ user, isUser }: { user: String, isUser: boolean }) {
+export function EditProfileAndFollowButton({ user, isCurrentUser }: { user: String, isCurrentUser: boolean }) {
     const { push } = useRouter();
     // TODO(SWE-67): Need to handle the follow button click
     const handleClick = (e) => {
@@ -14,7 +14,7 @@ export function EditProfileAndFollowButton({ user, isUser }: { user: String, isU
         push(`${user}/edit-profile`);
     }
 
-    if (isUser) {
+    if (isCurrentUser) {
       return (<button onClick={handleClick} className='w-36 h-10 bg-emerald-500 transitions-colors hover:bg-emerald-600 rounded-full text-white text-md font-semibold text-center'>Edit profile</button>);
     } else {
       return (<button className='w-36 h-10 bg-emerald-500 transitions-colors hover:bg-emerald-600 rounded-full text-white text-md font-semibold text-center'>Follow</button>);
