@@ -6,8 +6,8 @@ import { useEffect, useState } from "react";
 
 const varela_round = Varela_Round({
   subsets: ['latin'],
-  weight: ['400']
-})
+  weight: ['400'],
+});
 
 export default function Post({imageUrl, title, createdBy}: {imageUrl: string, title: String, createdBy: String}) {
   const [postImage, setPostImage] = useState<string | undefined>(undefined);

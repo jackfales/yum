@@ -1,12 +1,12 @@
-'use client'
-import { useState, useEffect } from 'react'
-import ProfileIcon from "./ProfileIcon";
-import { Playfair } from "next/font/google"
+'use client';
+import { useState, useEffect } from 'react';
+import ProfileIcon from './ProfileIcon';
+import { Playfair } from 'next/font/google';
 
 const playfair = Playfair({
   subsets: ['latin'],
-  weight: ['700']
-})
+  weight: ['700'],
+});
 
 export default function Navbar({username, userId}: {username: String, userId: String}) {
   const [prevScrollPos, setPrevScrollPos] = useState<number>(0);

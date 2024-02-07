@@ -5,12 +5,14 @@
     "dev": "next dev",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
+    "style:all": "prettier . --write",
     "start": "next start",
     "prepare": "husky install"
   },
   "dependencies": {
     "aws-amplify": "^5.3.12",
     "next": "latest",
+    "prettier": "^3.2.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-intersection-observer": "^9.5.3",
@@ -24,6 +26,7 @@
     "autoprefixer": "^10.4.16",
     "eslint": "8.49.0",
     "eslint-config-next": "13.4.19",
+    "eslint-config-prettier": "^9.1.0",
     "husky": "^8.0.3",
     "lint-staged": "^14.0.1",
     "postcss": "^8.4.31",
@@ -31,7 +34,7 @@
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
-      "eslint --cache --cache-location .next/cache/eslint/ --fix"
+      "eslint --cache --cache-location .next/cache/eslint/ --fix", "prettier --write ."
     ]
   }
 }

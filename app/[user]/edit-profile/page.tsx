@@ -1,18 +1,18 @@
-import { withSSRContext } from "aws-amplify";
-import { headers } from "next/headers";
-import { redirect } from "next/navigation";
-import Navbar from "../../components/Navbar";
-import EditProfileForm from "../../components/EditProfileForm";
+import { withSSRContext } from 'aws-amplify';
+import { headers } from 'next/headers';
+import { redirect } from 'next/navigation';
+import Navbar from '../../components/Navbar';
+import EditProfileForm from '../../components/EditProfileForm';
 
 export const metadata = {
-  title: 'Edit Profile'
-}
+  title: 'Edit Profile',
+};
 
 export default async function EditProfile() {
   // Checks if the request comes from an authenticated user
   const req = {
     headers: {
-      cookie: headers().get("cookie"),
+      cookie: headers().get('cookie'),
     },
   };
 
@@ -32,9 +32,9 @@ export default async function EditProfile() {
 
   const res = await fetch(`http://localhost:3000/api/users/${userId}`, {
     method: 'GET',
-    headers: {'Content-Type': 'application/json'},
+    headers: { 'Content-Type': 'application/json' },
   });
-  
+
   const data = await res.json();
 
   return (<>

@@ -1,9 +1,9 @@
-'use client'
+'use client';
 import { useRouter } from 'next/navigation';
 /**
  * Conditionally renders the button if the profile belongs to the current user
  * session else renders a follow button
- * 
+ *
  * @param isUser - true if current session user matches page, false otherwise
  */
 export function EditProfileAndFollowButton({ user, isCurrentUser }: { user: String, isCurrentUser: boolean }) {

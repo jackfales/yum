@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import { FormEvent } from 'react';
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
@@ -7,17 +7,17 @@ import awsExports from '../../src/aws-exports';
 
 Amplify.configure({ ...awsExports, ssr: true });
 
-export default function EditProfileForm({userData}) {
-  const [errorMessage, setErrorMessage] = useState<string>("");
+export default function EditProfileForm({ userData }) {
+  const [errorMessage, setErrorMessage] = useState<string>('');
 
   const router = useRouter();
 
-  const userID = userData['body']['id'][0]
-  const firstName = userData['body']['firstName'][0]
-  const lastName = userData['body']['lastName'][0]
-  const username = userData['body']['username'][0]
-  const gender = userData['body']['gender'][0]
-  const bio = userData['body']['bio'][0]
+  const userID = userData['body']['id'][0];
+  const firstName = userData['body']['firstName'][0];
+  const lastName = userData['body']['lastName'][0];
+  const username = userData['body']['username'][0];
+  const gender = userData['body']['gender'][0];
+  const bio = userData['body']['bio'][0];
 
   const currentUserInfo = {
     'firstName' : firstName,
@@ -61,28 +61,27 @@ export default function EditProfileForm({userData}) {
     }
 
     const payload = {
-      "method" : "PUT",
-      "attributes" : attributes
-    }
+      method: 'PUT',
+      attributes: attributes,
+    };
 
     const res = await fetch(`http://localhost:3000/api/users/${userID}`, {
-          method: 'PUT',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify(payload)
-        });
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
 
     const data = await res.json();
-    console.log(data)
-    const status = res.status
+    console.log(data);
+    const status = res.status;
 
     if (status == 200) {
-      router.push("/dashboard")
+      router.push('/dashboard');
+    } else {
+      setErrorMessage(data['body']);
     }
-    else {
-      setErrorMessage(data['body'])
-    }
-  }
-  
+  };
+
   return (
     <>
         <form onSubmit={onSubmitHandler} className='w-full'>
@@ -102,5 +101,5 @@ export default function EditProfileForm({userData}) {
             <button type='submit' className='my-2 py-2 w-full border bg-emerald-500 transition-colors hover:bg-emerald-600 rounded-full text-white text-lg font-semibold text-center'>Save Changes</button>
         </form>
     </>
-  )
+  );
 }

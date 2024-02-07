@@ -25,8 +25,8 @@ export default function ProfileIcon({username, userId}: {username: String, userI
           alt="Picture of the user"
           width={40}
           height={40}
-      />
-    </a>
-  </>
-  )
+        />
+      </a>
+    </>
+  );
 }
