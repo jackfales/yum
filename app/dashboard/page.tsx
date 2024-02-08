@@ -22,10 +22,12 @@ export default async function Dashboard() {
 
   // Renders dashboard if logged in, else redirect to /login
   let username: String;
+  let userId: String;
   try {
-    const data = await Auth.currentAuthenticatedUser();
-    ({ username } = data);
-  } catch (err) {
+    const userData = await Auth.currentUserInfo();
+    username = userData['username'];
+    userId = userData['attributes']['sub'];
+  } catch(err) {
     console.log(err);
     redirect('/login');
   }
@@ -50,7 +52,7 @@ export default async function Dashboard() {
   }
 
   return (<>
-    <Navbar username={username}></Navbar>
+    <Navbar username={username} userId={userId}></Navbar>
     <main className='bg-cream-100 min-h-screen flex justify-center pt-14'>
       <div className='flex-[0_1_670px] flex flex-col items-center pb-7'>
         <CreatePostModal/>

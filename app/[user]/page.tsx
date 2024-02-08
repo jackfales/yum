@@ -61,13 +61,14 @@ export default async function Profile({
 
   const { Auth } = withSSRContext({ req });
 
-  // TODO(SWE-59): Need to redirect to `/login` similar to `./dashboard/page.tsx`
-  // Renders the profile page if logged in, else redirect to /login
-  let currUser;
+  // Renders dashboard if logged in, else redirect to /login
+  let username: String = '';
+  let userId: String = '';
   try {
-    const data = await Auth.currentAuthenticatedUser();
-    currUser = data.username;
-  } catch (err) {
+    const userData = await Auth.currentUserInfo();
+    username = userData['username'];
+    userId = userData['attributes']['sub'];
+  } catch(err) {
     console.log(err);
   }
 
@@ -76,14 +77,13 @@ export default async function Profile({
 
   // TODO(SWE-66): Update the profile page to display the user's posts in a
   // responsive grid
-  return (
-    <>
-      <Navbar username={currUser} />
-      <main className="bg-cream-100 h-screen flex items-start justify-center pt-14">
-        <div className="flex-[0_1_670px] flex flex-col items-center">
-          <div className="flex flex-row flex-nowrap justify-between items-center gap-2 w-full p-4 border-b">
-            <Image
-              className="w-[150px] h-[150px] rounded-full shadow-inner"
+  return (<>
+    <Navbar username={username} userId={userId}/>
+    <main className='bg-cream-100 h-screen flex items-start justify-center pt-14'>
+      <div className='flex-[0_1_670px] flex flex-col items-center'>
+        <div className='flex flex-row flex-nowrap justify-between items-center gap-2 w-full p-4 border-b'>
+          <Image
+              className='w-[150px] h-[150px] rounded-full shadow-inner'
               src={`/images/pp/${user}.jpg`}
               alt="Picture of the user"
               width={150}
@@ -102,10 +102,7 @@ export default async function Profile({
                   <span className="font-medium">{postCount}</span> Posts
                 </p>
               </div>
-              <EditProfileAndFollowButton
-                user={currUser}
-                isUser={currUser === user}
-              />
+              <EditProfileAndFollowButton user={user} isCurrentUser={username === user}/>
             </div>
           </div>
         </div>

@@ -51,7 +51,7 @@ export default function Post({imageUrl, title, createdBy}: {imageUrl: string, ti
       </div>
       <div className='flex justify-between items-center h-14 px-5'>
         <div className='flex gap-2.5 items-center text-lg'>
-          <ProfileIcon username={'dtran'}/>
+          <ProfileIcon username={`${username}`} userId={`${createdBy}`}/>
           <span>{username}</span>
         </div>
         <div className='flex gap-2.5 items-center'>
