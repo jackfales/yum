@@ -3,6 +3,7 @@ import { headers } from 'next/headers';
 import Image from 'next/image';
 import Navbar from '../components/Navbar';
 import { EditProfileAndFollowButton } from '../components/ClientUtilityFunctions';
+import ProfilePost from '../components/ProfilePost';
 /* TODO(SWE-65): Remove the imports below and static user data located at `./data` and
  * `./public/images` at once data is queried from the graphDB.
  */
@@ -75,8 +76,27 @@ export default async function Profile({
   const { user } = params;
   const { followers, following, postCount } = getProfileData(user);
 
-  // TODO(SWE-66): Update the profile page to display the user's posts in a
-  // responsive grid
+  // Sends a request to load the initial posts
+  const payload = { userIds: ['428a9b3e-8add-4f77-9375-2a220f612d24'] };
+  const res = await fetch(
+    'http://localhost:3000/api/posts/users?page=0&pageSize=5',
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    },
+  );
+
+  /*
+   * Convert from an array of Post arrays to an array of Post objects, also
+   * omitting unneccessary post information (recipe, ingredients, tags, etc.)
+   */
+  let posts: any = [];
+  for (const post of (await res.json())['posts']) {
+    const postObj = { imageUrl: post[0] };
+    posts.push(postObj);
+  }
+
   return (
     <>
       <Navbar username={username} userId={userId} />
@@ -109,13 +129,10 @@ export default async function Profile({
               />
             </div>
           </div>
-          <div className="w-full my-1 md:my-3 grid grid-cols-3 gap-1 md:gap-3">
-            <div className="aspect-square bg-neutral-300"></div>
-            <div className="aspect-square bg-neutral-300"></div>
-            <div className="aspect-square bg-neutral-300"></div>
-            <div className="aspect-square bg-neutral-300"></div>
-            <div className="aspect-square bg-neutral-300"></div>
-            <div className="aspect-square bg-neutral-300"></div>
+          <div className="w-full my-1 md:my-3 grid grid-cols-3 gap-1">
+            {posts.map((post, index) => (
+              <ProfilePost imageUrl={post.imageUrl} key={index} />
+            ))}
           </div>
         </div>
       </main>
