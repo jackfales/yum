@@ -1,6 +1,6 @@
 import { headers } from 'next/headers';
-import { NextResponse } from "next/server";
-import { withSSRContext } from "aws-amplify";
+import { NextResponse } from 'next/server';
+import { withSSRContext } from 'aws-amplify';
 import { Amplify } from 'aws-amplify';
 import awsExports from '../../../src/aws-exports';
 
