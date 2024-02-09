@@ -68,7 +68,7 @@ export default async function Dashboard() {
               key={index}
             ></Post>
           ))}
-          <LoadMore />
+          <LoadMore isDashboard={true} />
         </div>
       </main>
     </>

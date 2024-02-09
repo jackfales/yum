@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Navbar from '../components/Navbar';
 import { EditProfileAndFollowButton } from '../components/ClientUtilityFunctions';
 import ProfilePost from '../components/ProfilePost';
+import LoadMore from '../components/LoadMore';
 /* TODO(SWE-65): Remove the imports below and static user data located at `./data` and
  * `./public/images` at once data is queried from the graphDB.
  */
@@ -76,6 +77,7 @@ export default async function Profile({
   const { user } = params;
   const { followers, following, postCount } = getProfileData(user);
 
+  // TODO(SWE-65): Grab the user id belonging to the current profile page
   // Sends a request to load the initial posts
   const payload = { userIds: ['428a9b3e-8add-4f77-9375-2a220f612d24'] };
   const res = await fetch(
@@ -133,6 +135,7 @@ export default async function Profile({
             {posts.map((post, index) => (
               <ProfilePost imageUrl={post.imageUrl} key={index} />
             ))}
+            <LoadMore isDashboard={false} />
           </div>
         </div>
       </main>
