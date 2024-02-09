@@ -80,7 +80,7 @@ export default async function Profile({
   return (
     <>
       <Navbar username={username} userId={userId} />
-      <main className="bg-cream-100 h-screen flex items-start justify-center pt-14">
+      <main className="bg-cream-100 min-h-screen h-full flex items-start justify-center pt-14">
         <div className="flex-[0_1_670px] flex flex-col items-center">
           <div className="flex flex-row flex-nowrap justify-between items-center gap-2 w-full p-4 border-b">
             <Image
@@ -108,6 +108,14 @@ export default async function Profile({
                 isCurrentUser={username === user}
               />
             </div>
+          </div>
+          <div className="w-full my-1 md:my-3 grid grid-cols-3 gap-1 md:gap-3">
+            <div className="aspect-square bg-neutral-300"></div>
+            <div className="aspect-square bg-neutral-300"></div>
+            <div className="aspect-square bg-neutral-300"></div>
+            <div className="aspect-square bg-neutral-300"></div>
+            <div className="aspect-square bg-neutral-300"></div>
+            <div className="aspect-square bg-neutral-300"></div>
           </div>
         </div>
       </main>
