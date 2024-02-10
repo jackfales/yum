@@ -41,7 +41,7 @@ export async function generateStaticParams() {
  * @returns The JSON object containing the number of followers, following,
  *          and posts associated with the user.
  */
-export function getProfileData(id: string): any {
+function getProfileData(id: string): any {
   const profilePath: string = path.join(profileDirectory,`${id}.json`);
   return JSON.parse(fs.readFileSync(profilePath, 'utf8'));
 }

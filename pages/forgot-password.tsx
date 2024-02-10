@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
+import isEmpty from 'validator/lib/isEmpty';
 import React, { useState } from 'react';
 import { Auth } from 'aws-amplify';
 
@@ -13,25 +14,17 @@ function ForgotPassword() {
 
     const formData = new FormData(event.target)
 
-    const username = formData.get("username").toString()
-
-    // TODO(SWE-59): Change input.length to validator.isEmpty() for consistency
-    // Validates user inputted data and generates error messages
-    if (username.length === 0) {
-        setErrorMessage("Please enter a valid username.")
-        return
-    } else {
-        setErrorMessage("")
-    }
-
-    // Sends an reset password to the email associated with the username
-    /* TODO(SWE-59): Separate backend from frontend. The following code should be 
-     * refactored to an Route Handler. 
-     * Similar to what is done in `./app/components/CreatePostModal.tsx`
-     */        
+    const username = formData.get("username")!.toString()
+    
+    // Sends a reset password to the email associated with the username
     try {
-      await Auth.forgotPassword(username);
-      router.push('/reset-password');
+      if (isEmpty(username)) {
+        setErrorMessage("Please enter a valid username.")
+      } else {
+        setErrorMessage("")
+        await Auth.forgotPassword(username);
+        router.push('/reset-password');
+      }
     } catch(err) {
       setErrorMessage("Please enter a valid username.");
     }

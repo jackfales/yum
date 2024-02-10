@@ -2,6 +2,8 @@ import Head from 'next/head';
 import React, { useState } from 'react';
 import isEmail from 'validator/lib/isEmail';
 import isStrongPassword from 'validator/lib/isStrongPassword';
+import isEmpty from 'validator/lib/isEmpty';
+import isLength from 'validator/lib/isLength';
 import { useRouter } from 'next/router';
 import { Auth } from 'aws-amplify'
 
@@ -38,11 +40,11 @@ export default function CreateAccount() {
       switch (field) {
         // TODO(SWE-59): Change input.length to validator.isEmpty() or .isLength() for consistency
         case 'firstName':
-          errorMessage = input.length === 0 ?
+          errorMessage = isEmpty(input)?
             'Please provide a first name!' : '';
           break;
         case 'lastName':
-          errorMessage = input.length === 0 ?
+          errorMessage = isEmpty(input) ?
             'Please provide a last name!' : '';
           break;
         case 'email':
@@ -50,7 +52,7 @@ export default function CreateAccount() {
             'Please provide a valid email!' : '';
           break;
         case 'username':
-          errorMessage = input.length < 5 ? 
+          errorMessage = !isLength(input, {min:5, max: 30}) ? 
             'Username must be at least 5 characters long!' : '';
           break;
         case 'password':
@@ -60,7 +62,7 @@ export default function CreateAccount() {
         case 'confirmPassword':
           errorMessage = formData.get('password') !== input ?
             'Passwords do not match!' : '';
-          errorMessage = input.length === 0 ?
+          errorMessage = isEmpty(input) ?
             'Please confirm your password!' : errorMessage;
           break;
         default:
@@ -81,16 +83,16 @@ export default function CreateAccount() {
     const hasNoErrors = Object.values(errors)
                                 .every((input) => input === '');
     /* TODO(SWE-59): Separate backend from frontend. The following code should be 
-     * refactored to an Route Handler. 
+     * refactored to a Route Handler. 
      * Similar to what is done in `./app/components/CreatePostModal.tsx`
      */        
-    const username = formData.get("username").toString()
-    const password = formData.get("password").toString()
-    const email = formData.get("email").toString()
-    const firstName = formData.get("firstName").toString()
-    const lastName = formData.get("lastName").toString()
 
     if (hasNoErrors) {
+      const username : any = formData.get("username")!.toString()
+      const password : any = formData.get("password")!.toString()
+      const email : any = formData.get("email")!.toString()
+      const firstName : any = formData.get("firstName")!.toString()
+      const lastName : any = formData.get("lastName")!.toString()
       try {
         await Auth.signUp({
           username,

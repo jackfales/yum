@@ -5,7 +5,7 @@
     "dev": "next dev",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
-    "start": "serve -s build",
+    "start": "next start -p $PORT",
     "prepare": "husky install"
   },
   "dependencies": {

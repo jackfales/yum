@@ -52,6 +52,13 @@ Run ESLint with fixes
 ```
 npm run lint:fix
 ```
+## Prettier
+Prettier is run on pre-commit via Husky. To manually run prettier see below.
+
+Run Prettier
+```
+npm run style:all
+```
 
 ## Run Frontend
 

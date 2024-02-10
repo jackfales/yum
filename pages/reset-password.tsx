@@ -22,9 +22,9 @@ function ResetPassword() {
 
     const formData = new FormData(event.target)
     
-    const username = formData.get("username").toString()
-    const verificationCode = formData.get("verificationCode").toString()
-    const newPassword = formData.get("newPassword").toString()
+    const username = formData.get("username")!.toString()
+    const verificationCode = formData.get("verificationCode")!.toString()
+    const newPassword = formData.get("newPassword")!.toString()
 
     // Validates password and submits the reset password request
     if (!isStrongPassword(newPassword, passwordConstraints)) {
