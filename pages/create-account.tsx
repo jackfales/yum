@@ -38,7 +38,6 @@ export default function CreateAccount() {
     formData.forEach((input, field) => {
       let errorMessage;
       switch (field) {
-        // TODO(SWE-59): Change input.length to validator.isEmpty() or .isLength() for consistency
         case 'firstName':
           errorMessage = isEmpty(input)?
             'Please provide a first name!' : '';
@@ -81,11 +80,7 @@ export default function CreateAccount() {
                       });  
     // Submits user inputted post data if there are no errors
     const hasNoErrors = Object.values(errors)
-                                .every((input) => input === '');
-    /* TODO(SWE-59): Separate backend from frontend. The following code should be 
-     * refactored to a Route Handler. 
-     * Similar to what is done in `./app/components/CreatePostModal.tsx`
-     */        
+                                .every((input) => input === '');     
 
     if (hasNoErrors) {
       const username : any = formData.get("username")!.toString()

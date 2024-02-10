@@ -1,5 +1,5 @@
 import { Amplify } from "aws-amplify";
-import awsExports from "../src/aws-exports";
+import awsExports from "../src/aws-exports.js";
 import '../styles/globals.css'
 
 Amplify.configure({ ...awsExports, ssr: true});
