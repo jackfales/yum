@@ -1,7 +1,8 @@
-import { NextResponse } from 'next/server';
+import { type NextRequest, NextResponse } from 'next/server';
 
 const neptune_url =
   'https://dzcmprdreb.execute-api.us-west-2.amazonaws.com/api/users';
+
 /**
  * Creates a user given specific user attributes
  */
@@ -21,4 +22,31 @@ export async function POST(request: Request) {
     { body: response.body },
     { status: response.statusCode },
   );
+}
+
+export async function GET(request: NextRequest) {
+  const searchParams = request.nextUrl.searchParams;
+  let url;
+
+  // Forwards the request to the correct API Gateway endpoint
+  if (searchParams.has('username')) {
+    url = `${neptune_url}?username=${searchParams.get('username')}`;
+    console.log('I received a username parameter!');
+  } else if (searchParams.has('userId')) {
+    url = `${neptune_url}?userId=${searchParams.get('userId')}`;
+    console.log('I received a user id parameter!');
+  } else {
+    return NextResponse.json(
+      { error: 'Please provide a username or user id.' },
+      { status: 500 },
+    );
+  }
+
+  const res = await fetch(url, {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' },
+  });
+  const response = await res.json();
+
+  return NextResponse.json({ body: response }, { status: res.status });
 }
