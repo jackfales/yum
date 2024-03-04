@@ -31,10 +31,8 @@ export async function GET(request: NextRequest) {
   // Forwards the request to the correct API Gateway endpoint
   if (searchParams.has('username')) {
     url = `${neptune_url}?username=${searchParams.get('username')}`;
-    console.log('I received a username parameter!');
   } else if (searchParams.has('userId')) {
     url = `${neptune_url}?userId=${searchParams.get('userId')}`;
-    console.log('I received a user id parameter!');
   } else {
     return NextResponse.json(
       { error: 'Please provide a username or user id.' },

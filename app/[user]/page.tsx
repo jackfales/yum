@@ -77,17 +77,20 @@ export default async function Profile({
   const { user } = params;
   const { followers, following, postCount } = getProfileData(user);
 
-  // TODO(SWE-65): Grab the user id belonging to the current profile page
+  // Grab the user id belonging to the current profile page
+  let res = await fetch(`http://localhost:3000/api/users?username=${user}`, {
+    method: 'GET',
+    headers: { 'Content-Type': 'application/json' },
+  });
+  const profileId = (await res.json())['body']['id'][0];
+
   // Sends a request to load the initial posts
-  const payload = { userIds: ['428a9b3e-8add-4f77-9375-2a220f612d24'] };
-  const res = await fetch(
-    'http://localhost:3000/api/posts/users?page=0&pageSize=5',
-    {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    },
-  );
+  const payload = { userIds: [profileId] };
+  res = await fetch('http://localhost:3000/api/posts/users?page=0&pageSize=5', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  });
 
   /*
    * Convert from an array of Post arrays to an array of Post objects, also
