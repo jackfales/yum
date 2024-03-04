@@ -30,7 +30,7 @@ export default async function EditProfile() {
     redirect('/login');
   }
 
-  const res = await fetch(`http://localhost:3000/api/users/${userId}`, {
+  const res = await fetch(`http://localhost:3000/api/users?userId=${userId}`, {
     method: 'GET',
     headers: { 'Content-Type': 'application/json' },
   });
