@@ -10,27 +10,33 @@ port = os.environ['NEPTUNE_PORT']
 db = client.Client(f"wss://{endpoint}:{port}/gremlin", "g")
 
 def lambda_handler(event, context):
-    userID = event["pathParameters"]["userId"]
-    query = f"g.V().hasLabel('user').has('id', '{userID}').valueMap();"
-    
-    try:
-        result = list(db.submit(query))
-        if len(result) == 0:
-            result = f"Server failed to find user : {userID}"
-            statusCode = 404
-        else:
-            result = result[0][0]
-            statusCode = 200
-    except:
-        result = "Unknown server error"
-        statusCode = 500
+  uuid = ""
+  query = ""
+  if ("userId" in event["queryStringParameters"]):
+    uuid = event["queryStringParameters"]["userId"]
+    query = f"g.V().hasLabel('user').has('id', '{uuid}').valueMap();"
+  elif ("username" in event["queryStringParameters"]):
+    uuid = event["queryStringParameters"]["username"]
+    query = f"g.V().hasLabel('user').has('username', '{uuid}').valueMap();"
 
-    response = {
-        "isBase64Encoded": False,
-        "statusCode": statusCode,
-        "headers": {},
-        "multiValueHeaders": {},
-        "body": json.dumps(result)
-    }
+  try:
+    result = list(db.submit(query))
+    if len(result) == 0:
+      result = f"Server failed to find user : {uuid}"
+      statusCode = 404
+    else:
+      result = result[0][0]
+      statusCode = 200
+  except:
+    result = "Unknown server error"
+    statusCode = 500
 
-    return response
+  response = {
+    "isBase64Encoded": False,
+    "statusCode": statusCode,
+    "headers": {},
+    "multiValueHeaders": {},
+    "body": json.dumps(result)
+  }
+
+  return response

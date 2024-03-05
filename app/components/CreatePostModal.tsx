@@ -7,14 +7,14 @@ import awsExports from '../../src/aws-exports';
 Amplify.configure({ ...awsExports, ssr: true });
 
 type ErrorMessages = {
-  serverResponse?: string,
-  file?: string,
-  name?: string,
-  caption?: string,
-  recipe?: string,
-  ingredients?: string,
-  tags?: string
-}
+  serverResponse?: string;
+  file?: string;
+  name?: string;
+  caption?: string;
+  recipe?: string;
+  ingredients?: string;
+  tags?: string;
+};
 
 export default function PostFormModal() {
   const [showModal, setShowModal] = useState<Boolean>(false);
@@ -57,7 +57,7 @@ export default function PostFormModal() {
     formData.forEach((input, field) => {
       switch (field) {
         case 'file':
-          const file: any = formData.get('file')
+          const file: any = formData.get('file');
           errors[field] = isEmpty(file.name) ? 'Please upload an image' : '';
           break;
         case 'name':
@@ -88,11 +88,11 @@ export default function PostFormModal() {
 
       try {
         await Storage.put(filePath, file, {
-          contentType: file.type
-        })
-        console.log(`Successfully uploaded file: ${filePath}`)
+          contentType: file.type,
+        });
+        console.log(`Successfully uploaded file: ${filePath}`);
       } catch (err) {
-        console.log(`Error uploading file: ${filePath}`)
+        console.log(`Error uploading file: ${filePath}`);
       }
 
       // Updates formData then sends a request to create the post
@@ -125,26 +125,68 @@ export default function PostFormModal() {
               x
             </button>
           </div>
-          <form id='form' className='p-4' onSubmit={onSubmitHandler}>
-            <p className='whitespace-normal text-red-400'>{errorMessages?.serverResponse}</p>
-            <p className='whitespace-normal text-red-400'>{errorMessages?.file}</p>
-            <label className='block' htmlFor='file'>Choose an image for your dish:</label>
-            <input type='file' name='file' accept='image/*'/>
-            <p className='whitespace-normal text-red-400'>{errorMessages?.name}</p>
-            <label className='block' htmlFor='name'>Name:</label>
-            <input className='block w-full border rounded-md px-1 focus:outline-none' type='text' name='name'/>
-            <p className='whitespace-normal text-red-400'>{errorMessages?.caption}</p>
-            <label htmlFor='caption'>Caption:</label>
-            <textarea className='block w-full border rounded-md px-1 focus:outline-none resize-none' name='caption' rows={3}/>
-            <p className='whitespace-normal text-red-400'>{errorMessages?.recipe}</p>
-            <label className='block' htmlFor='recipe'>Recipe:</label>
-            <textarea className='block w-full border rounded-md px-1 focus:outline-none resize-none' name='recipe' rows={12}/>
-            <p className='whitespace-normal text-red-400'>{errorMessages?.ingredients}</p>  
-            <label htmlFor='ingredients'>Ingredients: Enter as JSON format for now</label>
-            <input className='block w-full border rounded-md px-1 focus:outline-none' type='text' name='ingredients'/>
-            <p className='whitespace-normal text-red-400'>{errorMessages?.tags}</p>
-            <label htmlFor='tags'>Tags: Enter as JSON format for now</label>
-            <input className='block w-full border rounded-md px-1 focus:outline-none' type='text' name='tags'/>
+          <form id="form" className="p-4" onSubmit={onSubmitHandler}>
+            <p className="whitespace-normal text-red-400">
+              {errorMessages?.serverResponse}
+            </p>
+            <p className="whitespace-normal text-red-400">
+              {errorMessages?.file}
+            </p>
+            <label className="block" htmlFor="file">
+              Choose an image for your dish:
+            </label>
+            <input type="file" name="file" accept="image/*" />
+            <p className="whitespace-normal text-red-400">
+              {errorMessages?.name}
+            </p>
+            <label className="block" htmlFor="name">
+              Name:
+            </label>
+            <input
+              className="block w-full border rounded-md px-1 focus:outline-none"
+              type="text"
+              name="name"
+            />
+            <p className="whitespace-normal text-red-400">
+              {errorMessages?.caption}
+            </p>
+            <label htmlFor="caption">Caption:</label>
+            <textarea
+              className="block w-full border rounded-md px-1 focus:outline-none resize-none"
+              name="caption"
+              rows={3}
+            />
+            <p className="whitespace-normal text-red-400">
+              {errorMessages?.recipe}
+            </p>
+            <label className="block" htmlFor="recipe">
+              Recipe:
+            </label>
+            <textarea
+              className="block w-full border rounded-md px-1 focus:outline-none resize-none"
+              name="recipe"
+              rows={12}
+            />
+            <p className="whitespace-normal text-red-400">
+              {errorMessages?.ingredients}
+            </p>
+            <label htmlFor="ingredients">
+              Ingredients: Enter as JSON format for now
+            </label>
+            <input
+              className="block w-full border rounded-md px-1 focus:outline-none"
+              type="text"
+              name="ingredients"
+            />
+            <p className="whitespace-normal text-red-400">
+              {errorMessages?.tags}
+            </p>
+            <label htmlFor="tags">Tags: Enter as JSON format for now</label>
+            <input
+              className="block w-full border rounded-md px-1 focus:outline-none"
+              type="text"
+              name="tags"
+            />
           </form>
           <div className="flex items-center justify-between h-8 border-t border-t-gray-200">
             <button

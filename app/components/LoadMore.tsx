@@ -4,8 +4,15 @@ import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import Spinner from './Spinner';
 import Post from './Post';
+import ProfilePost from './ProfilePost';
 
-export default function LoadMore() {
+export default function LoadMore({
+  ids,
+  isDashboard,
+}: {
+  ids: string[];
+  isDashboard: boolean;
+}) {
   const [posts, setPosts] = useState<any>([]);
   const [pagesLoaded, setPagesLoaded] = useState(0);
   const [hasMorePosts, setHasMorePosts] = useState(true);
@@ -18,7 +25,7 @@ export default function LoadMore() {
     const nextPage = pagesLoaded + 1;
     // TODO(SWE-67): Grab posts from following users
     // Sends a request to load the next set of posts
-    const payload = { userIds: ['dtran', 'jfales', 'sfales'] };
+    const payload = { userIds: ids };
     const res = await fetch(
       `http://localhost:3000/api/posts/users?page=${nextPage}&pageSize=5`,
       {
@@ -57,15 +64,35 @@ export default function LoadMore() {
     }
   }, [inView]);
 
-  return (<>
-    {
-      posts.map((post, index) => (
-          <Post imageUrl={post.imageUrl} title={post.title} createdBy={posts.createdBy} key={index}></Post>
-      ))
-    }
-    <div ref={ref}>
-      {hasMorePosts ? <Spinner /> : <p className='mt-6 text-lg text-stone-950 text-opacity-40'>No additional posts to show</p>}
-    </div>
+  return (
+    <>
+      {isDashboard
+        ? posts.map((post, index) => (
+            <Post
+              imageUrl={post.imageUrl}
+              title={post.title}
+              createdBy={posts.createdBy}
+              key={index}
+            />
+          ))
+        : posts.map((post, index) => (
+            <ProfilePost imageUrl={post.imageUrl} key={index} />
+          ))}
+
+      <div
+        ref={ref}
+        className={
+          isDashboard ? '' : 'col-span-3 align-self-center justify-self-center'
+        }
+      >
+        {hasMorePosts ? (
+          <Spinner />
+        ) : (
+          <p className="mt-6 text-lg text-stone-950 text-opacity-40">
+            No additional posts to show
+          </p>
+        )}
+      </div>
     </>
   );
 }
