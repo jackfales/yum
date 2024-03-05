@@ -138,7 +138,7 @@ export default async function Profile({
             {posts.map((post, index) => (
               <ProfilePost imageUrl={post.imageUrl} key={index} />
             ))}
-            <LoadMore isDashboard={false} />
+            <LoadMore ids={[profileId]} isDashboard={false} />
           </div>
         </div>
       </main>

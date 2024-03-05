@@ -5,9 +5,14 @@ import { useInView } from 'react-intersection-observer';
 import Spinner from './Spinner';
 import Post from './Post';
 import ProfilePost from './ProfilePost';
-import next from 'next';
 
-export default function LoadMore({ isDashboard }: { isDashboard: boolean }) {
+export default function LoadMore({
+  ids,
+  isDashboard,
+}: {
+  ids: string[];
+  isDashboard: boolean;
+}) {
   const [posts, setPosts] = useState<any>([]);
   const [pagesLoaded, setPagesLoaded] = useState(0);
   const [hasMorePosts, setHasMorePosts] = useState(true);
@@ -20,7 +25,7 @@ export default function LoadMore({ isDashboard }: { isDashboard: boolean }) {
     const nextPage = pagesLoaded + 1;
     // TODO(SWE-67): Grab posts from following users
     // Sends a request to load the next set of posts
-    const payload = { userIds: ['428a9b3e-8add-4f77-9375-2a220f612d24'] };
+    const payload = { userIds: ids };
     const res = await fetch(
       `http://localhost:3000/api/posts/users?page=${nextPage}&pageSize=5`,
       {

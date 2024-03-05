@@ -34,7 +34,8 @@ export default async function Dashboard() {
 
   // TODO(SWE-67): Grab posts from following users
   // Sends a request to load the initial posts
-  const payload = { userIds: ['428a9b3e-8add-4f77-9375-2a220f612d24'] };
+  const ids = ['e9303322-6084-4c8a-a264-a072dca649fb'];
+  const payload = { userIds: ids };
   const res = await fetch(
     'http://localhost:3000/api/posts/users?page=0&pageSize=5',
     {
@@ -68,7 +69,7 @@ export default async function Dashboard() {
               key={index}
             ></Post>
           ))}
-          <LoadMore isDashboard={true} />
+          <LoadMore ids={ids} isDashboard={true} />
         </div>
       </main>
     </>
